@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Layout_Match_Wrap"
+    android:background="@color/bg_device_detail_main_color"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/fake_status_bar"
+        style="@style/Layout_Match_Wrap"
+        android:layout_height="0dp" />
+
+    <RelativeLayout
+        android:id="@+id/ll_root"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp39">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/dp12"
+            android:paddingRight="@dimen/dp12"
+            android:src="@mipmap/ic_arrow_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Layout_Match_Match"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLength="10"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp16"
+            tools:text="讲述了在一片虚构的中世纪大陆上所发生的一系列相互联系的宫廷斗争、疆场厮杀、游历冒险和魔法抗衡的故事，全书七卷（包括未出的各卷）浑然一体，共同组成了一幅壮丽而完整的画卷。" />
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:paddingLeft="@dimen/dp12"
+            android:paddingRight="@dimen/dp12"
+            android:src="@mipmap/ic_more" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp12"
+            android:paddingRight="@dimen/dp12"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp14"
+            tools:text="设置" />
+
+        <View
+            style="@style/divider_02"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+</LinearLayout>

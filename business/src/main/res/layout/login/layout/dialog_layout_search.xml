@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:orientation="vertical">
+
+    <com.ypcxpt.fish.app.util.RippleLayout xmlns:ripple="http://schemas.android.com/apk/org.simple.ripplelayout"
+        android:id="@+id/ripple_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        ripple:colors="#00000000"
+        ripple:duration="1500"
+        ripple:radius="30dp"
+        ripple:rippleNums="3"
+        ripple:scale="2">
+
+        <ImageView
+            android:layout_width="@dimen/dp28"
+            android:layout_height="@dimen/dp28"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_bottom_device_u" />
+    </com.ypcxpt.fish.app.util.RippleLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp150"
+        android:gravity="center"
+        android:text="请确认设备电源是否打开，\n保持蓝牙在连接范围内"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp14"
+        android:visibility="gone" />
+</RelativeLayout>

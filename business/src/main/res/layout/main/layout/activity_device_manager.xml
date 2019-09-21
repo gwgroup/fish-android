@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_FAFAFA"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_common_title" />
+
+    <TextView
+        android:id="@+id/tv_current_device"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp5"
+        android:text="当前设备"
+        android:textColor="@color/common_555555"
+        android:textSize="@dimen/sp11" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_current_device"
+        android:layout_marginTop="@dimen/dp6"
+        android:layout_marginBottom="@dimen/dp6" />
+
+    <include
+        layout="@layout/include_d_m_nodata"
+        android:visibility="gone" />
+</RelativeLayout>

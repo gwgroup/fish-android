@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_FAFAFA"
+    android:descendantFocusability="beforeDescendants"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_common_title" />
+
+    <TextView
+        android:id="@+id/tv_device_rename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp5"
+        android:text="设备重命名"
+        android:textColor="@color/common_555555"
+        android:textSize="@dimen/sp11" />
+
+    <ScrollView style="@style/Layout_Match_Match">
+
+        <LinearLayout
+            style="@style/Layout_Match_Match"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp12">
+
+            <View
+                style="@style/divider_05"
+                android:layout_marginTop="@dimen/dp12" />
+
+            <LinearLayout
+                android:id="@+id/ll_nick_name"
+                style="@style/user_profile_item_ll">
+
+                <TextView
+                    style="@style/user_profile_item_hint"
+                    android:text="设备备注名" />
+
+                <com.xw.repo.XEditText
+                    android:id="@+id/et_device_name"
+                    style="@style/user_profile_et_item_content"
+                    android:maxLength="6"
+                    app:x_clearDrawable="@mipmap/ic_clear_text"
+                    tools:text="HOME8" />
+            </LinearLayout>
+
+            <View style="@style/divider_05" />
+
+            <View style="@style/divider_05" />
+
+            <View
+                style="@style/divider_05"
+                android:layout_marginTop="@dimen/dp12" />
+
+            <RelativeLayout
+                android:id="@+id/rl_save"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp43"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/dp20"
+                android:paddingRight="@dimen/dp20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/dp20"
+                    android:text="完成"
+                    android:textColor="@color/main_color_new"
+                    android:textSize="@dimen/sp14" />
+            </RelativeLayout>
+
+            <View style="@style/divider_05" />
+
+            <View
+                style="@style/divider_05"
+                android:layout_marginTop="@dimen/dp12" />
+
+            <RelativeLayout
+                android:id="@+id/rl_remove"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp43"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/dp20"
+                android:paddingRight="@dimen/dp20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/dp20"
+                    android:text="解除绑定"
+                    android:textColor="@color/device_detail_red"
+                    android:textSize="@dimen/sp14" />
+            </RelativeLayout>
+
+            <View style="@style/divider_05" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

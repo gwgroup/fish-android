@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Layout_Match_Match"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/sv_more_function"
+        style="@style/Layout_Match_Match"
+        android:background="@color/bg_device_detail_main_color_translucence"
+        android:scrollbars="none">
+
+        <include layout="@layout/include_device_manual_more_function" />
+
+    </ScrollView>
+
+</LinearLayout>

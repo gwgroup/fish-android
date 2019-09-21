@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Layout_Match_Match"
+    android:orientation="vertical">
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="@dimen/dp50"-->
+    <!--android:layout_height="@dimen/dp33"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/dp10"-->
+    <!--android:background="@mipmap/bg_button"-->
+    <!--android:elevation="@dimen/dp5">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_bottom_power"-->
+    <!--android:layout_width="@dimen/dp46"-->
+    <!--android:layout_height="@dimen/dp36"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:src="@mipmap/ic_device_detail_power_u" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="@dimen/dp150"-->
+    <!--android:layout_height="@dimen/dp33"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:background="@mipmap/bg_tab">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_zidong"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center"-->
+    <!--android:text="自动"-->
+    <!--android:background="@mipmap/bg_tab_ed"-->
+    <!--android:textColor="@color/yellow"-->
+    <!--android:textSize="@dimen/sp12" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_shoudong"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center"-->
+    <!--android:text="手动"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="@dimen/sp12" />-->
+    <!--</LinearLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="@dimen/dp50"-->
+    <!--android:layout_height="@dimen/dp33"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginRight="@dimen/dp10"-->
+    <!--android:background="@mipmap/bg_button"-->
+    <!--android:elevation="@dimen/dp5">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_bottom_pause"-->
+    <!--android:layout_width="@dimen/dp46"-->
+    <!--android:layout_height="@dimen/dp36"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:src="@mipmap/ic_device_detail_pause_u" />-->
+    <!--</RelativeLayout>-->
+    <!--</RelativeLayout>-->
+
+    <!--自动模块布局-->
+    <LinearLayout
+        android:id="@+id/ll_zidong"
+        style="@style/Layout_Match_Match"
+        android:layout_marginTop="@dimen/dp5"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ScrollView
+            style="@style/Layout_Match_Match"
+            android:background="@color/common_FAFAFA"
+            android:scrollbars="none">
+
+            <include layout="@layout/include_device_home6_auto" />
+        </ScrollView>
+    </LinearLayout>
+
+    <!--手动模块布局-->
+    <LinearLayout
+        android:id="@+id/ll_shoudong"
+        style="@style/Layout_Match_Match"
+        android:layout_marginTop="@dimen/dp5"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ScrollView
+            android:id="@+id/scrollview_shoudong"
+            style="@style/Layout_Match_Match"
+            android:background="@color/common_FAFAFA"
+            android:scrollbars="none">
+
+            <include layout="@layout/include_device_home6_manual" />
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

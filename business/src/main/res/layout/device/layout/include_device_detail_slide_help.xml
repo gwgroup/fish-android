@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_slide"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="false"
+    android:orientation="vertical">
+
+    <!--<include layout="@layout/include_device_detail_bottom_new" />-->
+
+    <ScrollView
+        android:id="@+id/sv_more_function"
+        style="@style/Layout_Match_Match"
+        android:background="@color/bg_device_detail_top"
+        android:scrollbars="none">
+
+        <LinearLayout
+            style="@style/Layout_Match_Match"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingTop="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            android:paddingBottom="@dimen/dp10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="用户服务声明"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp12"
+                android:text="为避免发生意外，使用前请仔细阅读本“用户服务声明”，并正确使用。"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="▼    不适宜使用本产品的人士"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="1.使用心脏起搏器等埋入体内的医用电子仪器者"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="2.正在接受医生治疗者，特别是身体感到异常者"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="3.患有恶性肿瘤、急性疾病、心脏病、严重高血压等患者"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="4.孕妇或正处于经期者"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="5.骨质疏松症、颈椎骨折患者"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="6.皮肤有创伤的人"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="7.体温38度以上（发热期）的人士"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="8.残障人士或未成年人使用时必须在正常人监护下使用"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="●    禁止事项"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="1.如果发现按摩椅损坏、破裂、漏电以及相关部件暴露出来时，禁止使用"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="2.禁止站立、倒立于按摩椅上或者将其他重物放置、挤压在按摩椅上"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="3.请勿让儿童使用或者在按摩椅上玩耍，请勿让不满12周岁的儿童使用按摩椅"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="4.请勿在按摩椅工作时，在按摩椅上入睡"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="5.请勿在酒醉或身体有其他不适时，使用按摩椅"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="6.请勿将手指或者其他东西插入按摩椅缝隙中，以免受伤或发生故障"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

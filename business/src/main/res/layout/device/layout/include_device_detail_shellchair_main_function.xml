@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Layout_Match_Match"
+    android:orientation="vertical">
+
+    <!--自动模块布局-->
+    <LinearLayout
+        android:id="@+id/ll_zidong"
+        style="@style/Layout_Match_Match"
+        android:layout_marginTop="@dimen/dp5"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ScrollView
+            style="@style/Layout_Match_Match"
+            android:background="@color/common_FAFAFA"
+            android:scrollbars="none">
+
+            <include layout="@layout/include_device_shellchair_auto" />
+        </ScrollView>
+    </LinearLayout>
+
+    <!--手动模块布局-->
+    <LinearLayout
+        android:id="@+id/ll_shoudong"
+        style="@style/Layout_Match_Match"
+        android:layout_marginTop="@dimen/dp5"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ScrollView
+            android:id="@+id/scrollview_shoudong"
+            style="@style/Layout_Match_Match"
+            android:background="@color/common_FAFAFA"
+            android:scrollbars="none">
+
+            <include layout="@layout/include_device_shellchair_manual" />
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

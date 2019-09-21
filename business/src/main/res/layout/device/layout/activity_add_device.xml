@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Layout_Match_Match"
+    android:orientation="vertical">
+
+    <com.ypcxpt.fish.library.ui.widget.TitleBar
+        android:id="@+id/titleBar"
+        style="@style/Layout_Match_Wrap"
+        app:title="发现的设备" />
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/ptrf"
+        style="@style/Layout_Match_Match">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            style="@style/Layout_Match_Match" />
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+</LinearLayout>

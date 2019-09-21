@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp20"
+        android:text="通过以下方式分享"
+        android:textColor="@color/common_2f2f2f"
+        android:textSize="@dimen/sp15" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp26"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/dlg_shared_wx_friend"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sp10"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
+                android:src="@mipmap/icon_wechat" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="微信好友"
+                android:textColor="@color/common_666666" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dlg_shared_wx_friend_circle"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
+                android:src="@mipmap/icon_wechatc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="朋友圈"
+                android:textColor="@color/common_666666" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dlg_shared_wx_collect"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_wechatc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sp15"
+                android:text="微信收藏"
+                android:textColor="@color/main_color_new" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:layout_marginTop="@dimen/dp5"
+        android:background="@color/common_EEEEEE" />
+
+    <TextView
+        android:id="@+id/dlg_shared_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/dp10"
+        android:text="取消"
+        android:textColor="@color/common_2f2f2f"
+        android:textSize="@dimen/sp16" />
+</LinearLayout>

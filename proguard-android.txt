@@ -1,0 +1,194 @@
+# This is a configuration file for ProGuard.
+# http://proguard.sourceforge.net/index.html#manual/usage.html
+-ignorewarnings
+#-keep class * {
+#    public private *;
+#}
+
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-verbose
+# Optimization is turned off by default. Dex does not like code run
+# through the ProGuard optimize and preverify steps (and performs some
+# of these optimizations on its own).
+-dontoptimize
+-dontpreverify
+# If you want to enable optimization, you should include the
+# following:
+ -optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
+ -optimizationpasses 5
+# -allowaccessmodification
+#
+# Note that you cannot just include these flags in your own
+# configuration file; if you are including this file, optimization
+# will be turned off. You'll need to either edit this file, or
+# duplicate the contents of this file and remove the include of this
+# file from your project's proguard.config path property.
+
+# The support library contains references to newer platform versions.
+# Don't warn about those in case this app is linking against an older
+# platform version.  We know about them, and they are safe.
+-dontwarn android.support.**
+
+# Ignore JSR 305 annotations for embedding nullability information.
+-dontwarn javax.annotation.**
+
+-keepattributes *Annotation*
+-keepattributes Signature
+-keepattributes SourceFile,LineNumberTable
+-keepattributes Exceptions,InnerClasses,Signature
+-keepattributes javax.xml.bind.annotation.*
+-keepattributes javax.annotation.processing.*
+
+# { ======= 官方类 ======= }
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgent
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.support.v4.app.Fragment
+-keep public class * extends android.app.Fragment
+-keep public class com.android.vending.licensing.ILicensingService
+
+# { ======= Support包 ======= }
+-keep class android.support.** { *; }
+-keep interface android.support.** { *; }
+-keep enum android.support.** { *; }
+
+# { ======= DataBinding ======= }
+-dontwarn android.databinding.**
+-keep class android.databinding.** { *; }
+-keep class android.databinding.annotationprocessor.** { *; }
+
+# { ======= Native方法 ======= }
+# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# { ======= 自定义View ======= }
+-keep public class * extends android.view.View {
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+    public void set*(...);
+}
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+-keepclassmembers class * extends android.app.Activity {
+   public void *(android.view.View);
+}
+
+# { ======= 枚举 ======= }
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# { ======= 序列化 ======= }
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+-keep class * implements android.os.Serializable
+
+# { ======= R文件 ======= }
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+# { ======= 对外IPC ======= }
+-keep class com.topjet.wallet.core.ipc.** { *; }
+-keep interface com.topjet.wallet.core.ipc.** { *; }
+-keep enum com.topjet.wallet.core.ipc.** { *; }
+
+## { ======= 第三方库 ======= }
+# [ ------- ARouter ------- ]
+-keep class com.alibaba.android.arouter.** { *; }
+
+#-keep public class com.alibaba.android.arouter.routes.**{ *; }
+-keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{ *; }
+
+# [ ------- EventBus ------- ]
+-keep class org.greenrobot.eventbus.** { *; }
+
+#-keepclassmembers class * {
+#    @org.greenrobot.eventbus.Subscribe <methods>;
+#}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
+# [ ------- Retrofit ------- ]
+-keep class retrofit2.** { *; }
+
+# Retain service method parameters when optimizing.
+#-keepclassmembers,allowshrinking,allowobfuscation interface * {
+#    @retrofit2.http.* <methods>;
+#}
+# Ignore annotation used for build tooling.
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+# [ ------- Okhttp ------- ]
+-keep class okhttp3.** { *; }
+
+## A resource is loaded with a relative path so the package of this class must be preserved.
+#-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+# [ ------- Gson ------- ]
+ -keep class com.google.gson.** { *; }
+# Prevent proguard from stripping interface information from TypeAdapterFactory,
+# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+# Gson specific classes
+-dontwarn sun.misc.**
+
+# [ ------- Glide ------- ]
+ -keep public class com.bumptech.glide.** { *; }
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+## for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+# [ ------- PTR ------- ]
+-keep class in.srain.** { *; }
+
+# [ ------- BaseQuickAdapter ------- ]
+-keep class com.chad.library.adapter.** { *; }
+-keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
+-keep public class * extends com.chad.library.adapter.base.BaseViewHolder
+-keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
+     <init>(...);
+}
+
+# [ ------- ImmersiveBar ------- ]
+-keep class com.gyf.barlibrary.** { *; }
+
+ # [ ------- XEditText ------- ]
+-keep class com.xw.repo.** { *; }
+
+ # [ ------- Zxing ------- ]
+ -keep class com.google.zxing.** { *; }
+
+
+
+

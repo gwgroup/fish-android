@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_FAFAFA"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp46"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="@dimen/dp46"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp10">
+
+            <ImageView
+                android:layout_width="@dimen/dp36"
+                android:layout_height="@dimen/dp36"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_back" />
+        </RelativeLayout>
+
+        <com.ogaclejapan.smarttablayout.SmartTabLayout
+            android:id="@+id/tab"
+            android:layout_width="@dimen/dp200"
+            android:layout_height="@dimen/dp40"
+            android:layout_centerInParent="true"
+            android:background="@color/white"
+            app:stl_defaultTabTextColor="@color/common_2f2f2f"
+            app:stl_defaultTabTextSize="@dimen/sp13"
+            app:stl_distributeEvenly="true"
+            app:stl_dividerColor="@color/white"
+            app:stl_dividerThickness="@dimen/dp0"
+            app:stl_indicatorColor="@color/common_2f2f2f"
+            app:stl_indicatorCornerRadius="@dimen/dp2"
+            app:stl_indicatorInterpolation="smart"
+            app:stl_indicatorThickness="@dimen/dp1"
+            app:stl_indicatorWidth="@dimen/dp50"
+            app:stl_indicatorWithoutPadding="true"
+            app:stl_overlineThickness="0dp"
+            app:stl_underlineThickness="0dp" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        style="@style/Layout_Match_Match" />
+</LinearLayout>

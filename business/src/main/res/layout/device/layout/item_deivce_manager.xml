@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp22"
+    android:layout_marginTop="@dimen/dp15"
+    android:layout_marginRight="@dimen/dp22"
+    android:background="@drawable/bg_detected_device_item"
+    android:paddingLeft="@dimen/dp13"
+    android:paddingTop="@dimen/dp9"
+    android:paddingRight="@dimen/dp13"
+    android:paddingBottom="@dimen/dp9">
+
+    <ImageView
+        android:id="@+id/iv_device"
+        android:layout_width="@dimen/dp43"
+        android:layout_height="@dimen/dp43"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp11"
+        android:src="@mipmap/ic_detected_device_new" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        style="@style/Layout_Wrap_Wrap"
+        android:layout_toRightOf="@+id/iv_device"
+        android:text="HOME8"
+        android:textColor="@color/common_222222"
+        android:textSize="@dimen/sp17" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/Layout_Wrap_Wrap"
+        android:layout_toRightOf="@+id/tv_type"
+        android:text="备注名"
+        android:textColor="@color/common_222222"
+        android:textSize="@dimen/sp16" />
+
+    <TextView
+        android:id="@+id/tv_macAddress"
+        style="@style/Layout_Wrap_Wrap"
+        android:layout_below="@+id/tv_type"
+        android:layout_marginTop="@dimen/dp5"
+        android:layout_toRightOf="@+id/iv_device"
+        android:text="按摩椅编号:F0D834A1E0G3"
+        android:textColor="@color/common_969696"
+        android:textSize="@dimen/sp13"
+        android:visibility="visible" />
+
+    <ImageView
+        android:layout_width="@dimen/dp9"
+        android:layout_height="@dimen/dp18"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_arrow" />
+</RelativeLayout>

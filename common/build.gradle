@@ -1,0 +1,96 @@
+apply plugin: 'com.android.library'
+apply from: "../deploy.gradle"
+apply from: "../dependencies.gradle"
+
+android {
+    compileSdkVersion compiler.compileSdkVersion
+    buildToolsVersion compiler.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion app.minSdkVersion
+        targetSdkVersion app.targetSdkVersion
+
+        versionCode app.versionCode
+        versionName app.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility java_version
+        targetCompatibility java_version
+    }
+
+    buildTypes {
+        debug {}
+
+        /* BuildType names cannot start with 'test' */
+        QA {}
+
+        staging {}
+
+        release {
+        }
+    }
+
+}
+
+dependencies {
+    api project(':resource')
+    /* Test */
+    testImplementation java_test
+    androidTestImplementation android_test.values()
+    /* Support */
+    api support.values()
+    /* Router */
+    api arouter_api
+    annotationProcessor arouter_compiler
+    /* Net */
+    api retrofit.values()
+    /* DB */
+    api room.values()
+    annotationProcessor room_compiler
+    /* BLE */
+    api ble
+    /* P/S Event */
+    api eventbus
+    /* ReactiveX */
+    api rx.values()
+    /* Json */
+    api gson
+    /* WebView */
+    api agentweb
+    /* ButterKnife */
+    api butterknife
+    annotationProcessor butterknife
+    /* Picture */
+    api glide
+    /* Circle Image */
+    api circle_image
+    /* Pull to refresh */
+    api pull_refresh
+    /* RecyclerView adapter */
+    api recycler_adapter
+    /* Immersive */
+    api immersion_bar
+    /* ViewPager tab  */
+    api smarttablayout.values()
+    /* Popup */
+    api popup
+    /* EditText with clear tag */
+    api xedittext
+    /* Photo Picker*/
+    api photo_picker
+    /* Wheel picker */
+    api wheel_picker
+    /* Sliding Up */
+    api sliding_up_panel
+    /* Utils */
+    api utils
+}

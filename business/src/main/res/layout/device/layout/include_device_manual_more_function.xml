@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Layout_Match_Match"
+    android:orientation="vertical">
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/dp05"-->
+    <!--android:background="@color/bg_device_item_main_color" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp65"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_rounie"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_manual_rounie"
+                android:layout_width="@dimen/dp32"
+                android:layout_height="@dimen/dp32"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_manual_rounie_u" />
+
+            <TextView
+                android:id="@+id/tv_manual_rounie"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="揉捏"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qiaoji"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_manual_qiaoji"
+                android:layout_width="@dimen/dp32"
+                android:layout_height="@dimen/dp32"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_manual_qiaoji_u" />
+
+            <TextView
+                android:id="@+id/tv_manual_qiaoji"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="敲打"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_zhiya"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_manual_zhiya"
+                android:layout_width="@dimen/dp32"
+                android:layout_height="@dimen/dp32"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_manual_zhiya_u" />
+
+            <TextView
+                android:id="@+id/tv_manual_zhiya"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="指压"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_tuina"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_manual_tuina"
+                android:layout_width="@dimen/dp32"
+                android:layout_height="@dimen/dp32"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_manual_tuina_u" />
+
+            <TextView
+                android:id="@+id/tv_manual_tuina"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="推拿"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@color/device_detail_manual" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_quyuquanshen"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_quyuquanshen"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="全身"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qujianbeibu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_qujianbeibu"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="背部"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qujianyaobu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_qujianyaobu"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="腰部"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qujianzuobu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_qujianzuobu"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="座部"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qujianbeiyao"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_qujianbeiyao"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="背腰"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qujianyaozuo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_qujianyaozuo"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="腰座"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout style="@style/device_detail_more_function1_rl_new">
+
+        <ImageView
+            android:id="@+id/iv_more_func_3d_strength_add"
+            style="@style/device_detail_more_function1_iv_add" />
+
+        <LinearLayout style="@style/device_detail_more_function1_ll1">
+
+            <TextView
+                style="@style/device_detail_more_function1_tv"
+                android:text="3D力度" />
+
+            <TextView
+                android:id="@+id/tv_more_func_3d_strength"
+                style="@style/device_detail_more_function1_tv2"
+                tools:text="5档" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_more_func_3d_strength_minus"
+            style="@style/device_detail_more_function1_iv_minus" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@color/device_detail_manual" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp35"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_qiyayaojian"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_qiyayaojian"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="气压肩部"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qiyatunbu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_qiyatunbu"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="气压腰座"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qiyashoubu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_qiyashoubu"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="气压手部"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qiyatuibu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sl_bg_common_btn2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manual_qiyatuibu"
+                style="@style/Layout_Wrap_Wrap"
+                android:layout_gravity="center_horizontal"
+                android:text="气压腿部"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout style="@style/device_detail_more_function1_rl_new">
+
+        <ImageView
+            android:id="@+id/iv_more_func_air_intensity_add"
+            style="@style/device_detail_more_function1_iv_add" />
+
+        <LinearLayout style="@style/device_detail_more_function1_ll1">
+
+            <TextView
+                style="@style/device_detail_more_function1_tv"
+                android:text="气囊强度" />
+
+            <TextView
+                android:id="@+id/tv_more_func_air_intensity"
+                style="@style/device_detail_more_function1_tv2"
+                tools:text="3档" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_more_func_air_intensity_minus"
+            style="@style/device_detail_more_function1_iv_minus" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@color/device_detail_manual" />
+
+    <LinearLayout style="@style/device_detail_more_function2_ll_new">
+
+        <com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView
+            android:id="@+id/rl_more_func_back_up"
+            style="@style/device_detail_more_function2_rl_left_new">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_back_up"
+                style="@style/device_detail_more_function1_iv_add" />
+
+            <TextView
+                style="@style/device_detail_more_function2_rl_tv_left"
+                android:layout_toRightOf="@+id/iv_device_detail_more_func_back_up"
+                android:text="靠背升" />
+
+        </com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView>
+
+        <com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView
+            android:id="@+id/rl_more_func_back_down"
+            style="@style/device_detail_more_function2_rl_right_new">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_back_down"
+                style="@style/device_detail_more_function1_iv_minus" />
+
+            <TextView
+                style="@style/device_detail_more_function2_rl_tv_right"
+                android:layout_toLeftOf="@+id/iv_device_detail_more_func_back_down"
+                android:text="靠背降" />
+        </com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView>
+    </LinearLayout>
+
+    <LinearLayout style="@style/device_detail_more_function2_ll_new">
+
+        <com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView
+            android:id="@+id/rl_more_func_leg_up"
+            style="@style/device_detail_more_function2_rl_left_new">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_leg_up"
+                style="@style/device_detail_more_function1_iv_add" />
+
+            <TextView
+                style="@style/device_detail_more_function2_rl_tv_left"
+                android:layout_toRightOf="@+id/iv_device_detail_more_func_leg_up"
+                android:text="腿部升" />
+
+        </com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView>
+
+        <com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView
+            android:id="@+id/rl_more_func_leg_down"
+            style="@style/device_detail_more_function2_rl_right_new">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_leg_down"
+                style="@style/device_detail_more_function1_iv_minus" />
+
+            <TextView
+                style="@style/device_detail_more_function2_rl_tv_right"
+                android:layout_toLeftOf="@+id/iv_device_detail_more_func_leg_down"
+                android:text="腿部降" />
+        </com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/device_detail_more_function2_ll_new"
+        android:visibility="gone">
+
+        <com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView
+            android:id="@+id/rl_more_func_leg_stretch"
+            style="@style/device_detail_more_function2_rl_left_new">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_leg_stretch"
+                style="@style/device_detail_more_function1_iv_add" />
+
+            <TextView
+                style="@style/device_detail_more_function2_rl_tv_left"
+                android:layout_toRightOf="@+id/iv_device_detail_more_func_leg_stretch"
+                android:text="脚部伸" />
+
+        </com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView>
+
+        <com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView
+            android:id="@+id/rl_more_func_leg_tuck"
+            style="@style/device_detail_more_function2_rl_right_new">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_leg_tuck"
+                style="@style/device_detail_more_function1_iv_minus" />
+
+            <TextView
+                style="@style/device_detail_more_function2_rl_tv_right"
+                android:layout_toLeftOf="@+id/iv_device_detail_more_func_leg_tuck"
+                android:text="脚部缩" />
+
+        </com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView>
+    </LinearLayout>
+
+    <LinearLayout style="@style/device_detail_more_function3_ll_new">
+
+        <RelativeLayout
+            android:id="@+id/rl_more_func_jiao_gun"
+            style="@style/device_detail_more_function2_rl_left_new">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_jiao_gun"
+                style="@style/device_detail_more_function1_iv_add"
+                android:src="@mipmap/ic_device_detail_more_func_jiao_gun" />
+
+            <TextView
+                style="@style/device_detail_more_function2_rl_tv_left"
+                android:layout_toRightOf="@+id/iv_device_detail_more_func_jiao_gun"
+                android:text="脚滚" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_more_func_tui_gun"
+            style="@style/device_detail_more_function2_rl_right_new"
+            android:paddingLeft="@dimen/dp20">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_tui_gun"
+                android:layout_width="@dimen/dp28"
+                android:layout_height="@dimen/dp28"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_device_detail_more_func_tui_gun" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_toRightOf="@+id/iv_device_detail_more_func_tui_gun"
+                android:text="腿滚"
+                android:textColor="@color/bg_device_item_main_color"
+                android:textSize="@dimen/sp15" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/device_detail_more_function3_ll_new"
+        android:layout_marginBottom="@dimen/dp10">
+
+        <RelativeLayout
+            android:id="@+id/ll_main_function_zero_gravity"
+            style="@style/device_detail_more_function2_rl_left_new">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_zero_gravity"
+                android:layout_width="@dimen/dp28"
+                android:layout_height="@dimen/dp28"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_device_detail_zero_gravity_entrance" />
+
+            <TextView
+                style="@style/device_detail_more_function2_rl_tv_left"
+                android:layout_toRightOf="@+id/iv_device_detail_more_func_zero_gravity"
+                android:text="零重力" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_more_func_jia_re"
+            style="@style/device_detail_more_function2_rl_right_new"
+            android:paddingLeft="@dimen/dp20">
+
+            <ImageView
+                android:id="@+id/iv_device_detail_more_func_jia_re"
+                style="@style/device_detail_more_function1_iv_add"
+                android:src="@mipmap/ic_device_detail_more_func_heat" />
+
+            <TextView
+                style="@style/device_detail_more_function2_rl_tv_left"
+                android:layout_toRightOf="@+id/iv_device_detail_more_func_jia_re"
+                android:text="加热" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

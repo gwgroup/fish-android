@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        style="@style/Layout_Match_Match"
+        android:layout_above="@+id/ll_bottom"
+        android:background="@color/common_FAFAFA" />
+
+    <RelativeLayout style="@style/main_page_header"></RelativeLayout>
+
+    <View
+        android:id="@+id/view_line"
+        style="@style/divider_05"
+        android:layout_above="@+id/ll_bottom" />
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        style="@style/Layout_Match_Wrap"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_fish_pond"
+            style="@style/Weight_Horizontal_Match"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_bottom_fish"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp2"
+                android:src="@mipmap/icon_bottom_device_ed" />
+
+            <TextView
+                android:id="@+id/tv_bottom_fish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="鱼塘"
+                android:textColor="@color/main_color_new"
+                android:textSize="@dimen/sp12" />
+
+            <View
+                android:id="@+id/header_line1"
+                style="@style/main_page_line"
+                android:layout_marginTop="@dimen/dp3"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_plan"
+            style="@style/Weight_Horizontal_Match"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_bottom_plan"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp2"
+                android:src="@mipmap/icon_bottom_personal_u" />
+
+            <TextView
+                android:id="@+id/tv_bottom_plan"
+                style="@style/main_page_header_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="定时"
+                android:textColor="@color/common_2f2f2f"
+                android:textSize="@dimen/sp12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_early_warning"
+            style="@style/Weight_Horizontal_Match"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_bottom_warning"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp2"
+                android:src="@mipmap/icon_bottom_personal_u" />
+
+            <TextView
+                android:id="@+id/tv_bottom_warning"
+                style="@style/main_page_header_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="预警"
+                android:textColor="@color/common_2f2f2f"
+                android:textSize="@dimen/sp12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_user_profile"
+            style="@style/Weight_Horizontal_Match"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_bottom_personal"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_marginTop="@dimen/dp2"
+                android:src="@mipmap/icon_bottom_personal_u" />
+
+            <TextView
+                android:id="@+id/tv_bottom_personal"
+                style="@style/main_page_header_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="我的"
+                android:textColor="@color/common_2f2f2f"
+                android:textSize="@dimen/sp12" />
+
+            <View
+                android:id="@+id/header_line2"
+                style="@style/main_page_line"
+                android:layout_marginTop="@dimen/dp3"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

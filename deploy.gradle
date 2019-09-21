@@ -1,0 +1,91 @@
+/**
+ * Deploy related versions.
+ */
+ext {
+    gradlew = [
+            pluginVersion: '3.3.2',
+    ]
+
+    compiler = [
+            compileSdkVersion: 27,
+            buildToolsVersion: '28.0.3'
+    ]
+
+    app = [
+            minSdkVersion   : 21,
+            targetSdkVersion: 27,
+            versionCode     : 100,
+            versionName     : '1.1.0'
+    ]
+
+    java_version = JavaVersion.VERSION_1_8
+
+    // === Outer Links START ===
+    schemeName = "Reead"
+
+    baseUrl = [
+            debug  : "\"https://fish.ypcxpt.com/\"",
+            testing: "\"https://fish.ypcxpt.com/\"",
+            staging: "\"https://fish.ypcxpt.com/\"",
+            release: "\"https://fish.ypcxpt.com/\""
+    ]
+
+    hostName = [
+            debug  : "\"\"",
+            testing: "\"\"",
+            staging: "\"\"",
+            release: "\"\"",
+    ]
+
+    portName = [
+            debug  : "80",
+            testing: "80",
+            staging: "80",
+            release: "80",
+    ]
+    // === Outer Links END ===
+
+    appName = [
+            debug  : "小鱼开发版",
+            testing: "小鱼测试版",
+            staging: "小鱼稳定版",
+            release: "小鱼"
+    ]
+
+    ext.renameOutputs = {
+
+        android.applicationVariants.all { variant ->
+
+            def versionName = variant.versionName
+            def buildTypeName = variant.buildType.name
+            def flavorName = variant.flavorName
+
+            if ("release" == buildTypeName) {
+                buildTypeName = ''
+            } else {
+                if ("QA" == buildTypeName) {
+                    buildTypeName = "testing"
+                }
+                buildTypeName = '_' + firstLetterUpperCase(buildTypeName)
+                // replaceAll('\\\$', '')
+            }
+
+            if (flavorName == "Authority" || flavorName == '') {
+                flavorName = ''
+            } else {
+                flavorName = '_' + flavorName
+            }
+
+            variant.outputs.all {
+                outputFileName = "ReeadHome_v${versionName}${flavorName}${buildTypeName}.apk"
+                // println outputFileName
+            }
+        }
+
+    }
+
+
+    ext.firstLetterUpperCase = { param ->
+        param[0].toUpperCase() + param.substring(1)
+    }
+}

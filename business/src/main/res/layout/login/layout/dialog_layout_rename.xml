@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/et_rename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp12"
+        android:layout_marginRight="@dimen/dp20"
+        android:background="@android:color/transparent"
+        android:maxLength="8"
+        android:hint="备注名"
+        android:textColor="@color/common_2f2f2f"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/sp14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@+id/et_rename"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp5"
+        android:layout_marginRight="@dimen/dp20"
+        android:background="@color/main_color_new" />
+</RelativeLayout>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Layout_Match_Match">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp46"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="@dimen/dp46"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp10">
+
+            <ImageView
+                android:layout_width="@dimen/dp36"
+                android:layout_height="@dimen/dp36"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Layout_Wrap_Wrap"
+            android:layout_centerInParent="true"
+            android:text="绑定手机号码"
+            android:textColor="@color/user_profile_item_content"
+            android:textSize="@dimen/sp16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/common_FAFAFA" />
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/Layout_Match_Match"
+        android:layout_below="@+id/rl_title"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20">
+
+        <ImageView
+            android:layout_width="@dimen/dp124"
+            android:layout_height="@dimen/dp30"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp51"
+            android:background="@mipmap/ic_company_logo"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp10"
+            android:text="@string/app_name"
+            android:textColor="@color/main_color_new"
+            android:textSize="@dimen/sp14"
+            android:visibility="gone" />
+
+        <LinearLayout
+            style="@style/Layout_Match_Wrap"
+            android:layout_marginTop="@dimen/dp50"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_login_01" />
+
+            <com.xw.repo.XEditText
+                android:id="@+id/et_phone"
+                style="@style/Layout_Match_Wrap"
+                android:background="@android:color/transparent"
+                android:hint="请输入手机号"
+                android:inputType="number"
+                android:maxLength="11"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingTop="@dimen/dp12"
+                android:paddingBottom="@dimen/dp12"
+                android:textColor="@color/common_222222"
+                android:textSize="@dimen/sp15"
+                app:x_clearDrawable="@mipmap/ic_clear_text"
+                tools:text="15962265939" />
+        </LinearLayout>
+
+        <View style="@style/divider_05" />
+
+        <LinearLayout
+            style="@style/Layout_Match_Wrap"
+            android:layout_marginTop="@dimen/dp10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_login_02" />
+
+            <com.xw.repo.XEditText
+                android:id="@+id/et_verify_code"
+                style="@style/Layout_Match_Wrap"
+                android:layout_width="0dp"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:maxLength="6"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingTop="@dimen/dp12"
+                android:paddingBottom="@dimen/dp12"
+                android:textColor="@color/common_222222"
+                android:textSize="@dimen/sp15"
+                app:x_clearDrawable="@mipmap/ic_clear_text"
+                tools:text="333333" />
+
+            <com.ypcxpt.fish.library.ui.widget.CountDownButton
+                android:id="@+id/count_down_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp15"
+                android:paddingTop="@dimen/dp7"
+                android:paddingRight="@dimen/dp15"
+                android:paddingBottom="@dimen/dp7"
+                android:text="获取验证码"
+                android:textColor="@color/main_color_new"
+                android:textSize="@dimen/sp15" />
+        </LinearLayout>
+
+        <View style="@style/divider_05" />
+
+        <TextView
+            android:id="@+id/tv_bind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:background="@drawable/sl_bg_login_btn"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp8"
+            android:paddingBottom="@dimen/dp8"
+            android:text="立即绑定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+    </LinearLayout>
+</RelativeLayout>

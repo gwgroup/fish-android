@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_slide"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="false"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_device_detail_bottom" />
+
+    <ScrollView
+        android:id="@+id/sv_more_function"
+        style="@style/Layout_Match_Match"
+        android:background="@color/bg_device_detail_main_color_translucence"
+        android:scrollbars="none">
+
+        <include layout="@layout/include_device_detail_more_function" />
+
+    </ScrollView>
+
+</LinearLayout>

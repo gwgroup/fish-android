@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Layout_Match_Wrap"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_manually_scan"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:layout_below="@+id/rv"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp16"
+        android:layout_marginBottom="@dimen/dp16"
+        android:background="@drawable/bg_detected_devicescan_item"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dp15"
+        android:paddingTop="@dimen/dp9"
+        android:paddingRight="@dimen/dp15"
+        android:paddingBottom="@dimen/dp9">
+
+        <ImageView
+            android:id="@+id/iv_device_scan"
+            android:layout_width="@dimen/dp23"
+            android:layout_height="@dimen/dp23"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp10"
+            android:src="@mipmap/icon_manually_scan" />
+
+        <TextView
+            style="@style/Layout_Wrap_Wrap"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_device_scan"
+            android:text="单击搜索设备"
+            android:textColor="#000000"
+            android:textSize="@dimen/sp14" />
+    </RelativeLayout>
+</LinearLayout>

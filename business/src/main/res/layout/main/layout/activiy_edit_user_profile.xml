@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_FAFAFA"
+    android:descendantFocusability="beforeDescendants"
+    android:orientation="vertical">
+
+    <com.ypcxpt.fish.library.ui.widget.TitleBar
+        android:id="@+id/titleBar"
+        style="@style/Layout_Match_Wrap"
+        android:visibility="gone"
+        app:title="修改资料" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp46"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="@dimen/dp46"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp10">
+
+            <ImageView
+                android:layout_width="@dimen/dp36"
+                android:layout_height="@dimen/dp36"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Layout_Wrap_Wrap"
+            android:layout_centerInParent="true"
+            android:text="个人资料"
+            android:textColor="@color/user_profile_item_content"
+            android:textSize="@dimen/sp16" />
+
+        <View
+            style="@style/divider_05"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <ScrollView style="@style/Layout_Match_Match">
+
+        <LinearLayout
+            style="@style/Layout_Match_Match"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp12">
+
+            <View
+                style="@style/divider_05"
+                android:layout_marginTop="@dimen/dp12" />
+
+            <RelativeLayout
+                android:id="@+id/rl_avatar"
+                style="@style/user_profile_item_rl">
+
+                <TextView
+                    style="@style/user_profile_item_hint"
+                    android:text="头像" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_avatarDisplay"
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_toLeftOf="@+id/iv_arrowAvatar"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_default_avatar_male"
+                    app:civ_border_color="#9bffffff"
+                    app:civ_border_width="@dimen/dp1" />
+
+                <ImageView
+                    android:id="@+id/iv_arrowAvatar"
+                    style="@style/user_profile_item_iv_right" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_05" />
+
+            <View
+                style="@style/divider_05"
+                android:layout_marginTop="@dimen/dp12" />
+
+            <LinearLayout
+                android:id="@+id/ll_nick_name"
+                style="@style/user_profile_item_ll">
+
+                <TextView
+                    style="@style/user_profile_item_hint"
+                    android:text="昵称" />
+
+                <com.xw.repo.XEditText
+                    android:id="@+id/et_nick_name"
+                    style="@style/user_profile_et_item_content"
+                    android:maxLength="10"
+                    app:x_clearDrawable="@mipmap/ic_clear_text"
+                    tools:text="我是昵称" />
+            </LinearLayout>
+
+            <View style="@style/divider_05" />
+
+            <RelativeLayout
+                android:id="@+id/rl_gender"
+                style="@style/user_profile_item_rl">
+
+                <TextView
+                    android:id="@+id/tv_gender_hint"
+                    style="@style/user_profile_item_hint"
+                    android:text="性别" />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    style="@style/user_profile_tv_item_content"
+                    android:layout_toRightOf="@+id/tv_gender_hint"
+                    tools:text="男" />
+
+                <ImageView style="@style/user_profile_item_iv_right" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_05" />
+
+            <RelativeLayout
+                android:id="@+id/rl_birthday"
+                style="@style/user_profile_item_rl">
+
+                <TextView
+                    android:id="@+id/tv_birthday_hint"
+                    style="@style/user_profile_item_hint"
+                    android:text="生日" />
+
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    style="@style/user_profile_tv_item_content"
+                    android:layout_toRightOf="@+id/tv_birthday_hint"
+                    tools:text="2000-01-10" />
+
+                <ImageView style="@style/user_profile_item_iv_right" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_05" />
+
+            <View
+                style="@style/divider_05"
+                android:layout_marginTop="@dimen/dp12" />
+
+            <LinearLayout
+                android:id="@+id/ll_height"
+                style="@style/user_profile_item_ll">
+
+                <TextView
+                    style="@style/user_profile_item_hint"
+                    android:text="身高" />
+
+                <com.xw.repo.XEditText
+                    android:id="@+id/et_height"
+                    style="@style/user_profile_et_item_content"
+                    android:layout_width="0dp"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    app:x_clearDrawable="@mipmap/ic_clear_text"
+                    tools:text="175" />
+
+                <TextView
+                    style="@style/user_profile_item_hint"
+                    android:layout_width="wrap_content"
+                    android:text="cm" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_05" />
+
+            <LinearLayout
+                android:id="@+id/ll_weight"
+                style="@style/user_profile_item_ll">
+
+                <TextView
+                    style="@style/user_profile_item_hint"
+                    android:text="体重" />
+
+                <com.xw.repo.XEditText
+                    android:id="@+id/et_weight"
+                    style="@style/user_profile_et_item_content"
+                    android:layout_width="0dp"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    app:x_clearDrawable="@mipmap/ic_clear_text"
+                    tools:text="65" />
+
+                <TextView
+                    style="@style/user_profile_item_hint"
+                    android:layout_width="wrap_content"
+                    android:text="kg" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_05" />
+
+            <View
+                style="@style/divider_05"
+                android:layout_marginTop="@dimen/dp12" />
+
+            <LinearLayout
+                android:id="@+id/ll_region"
+                style="@style/user_profile_item_ll">
+
+                <TextView
+                    style="@style/user_profile_item_hint"
+                    android:text="区域" />
+
+                <TextView
+                    android:id="@+id/tv_region"
+                    style="@style/user_profile_tv_item_content"
+                    android:layout_width="wrap_content"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_05" />
+
+            <LinearLayout
+                android:id="@+id/ll_address"
+                style="@style/user_profile_item_ll">
+
+                <TextView
+                    style="@style/user_profile_item_hint"
+                    android:text="地址" />
+
+                <com.xw.repo.XEditText
+                    android:id="@+id/et_address"
+                    style="@style/user_profile_et_item_content"
+                    app:x_clearDrawable="@mipmap/ic_clear_text"
+                    tools:text="一长串常常尝尝唱唱畅畅场场的地址" />
+            </LinearLayout>
+
+            <View style="@style/divider_05" />
+
+            <View
+                style="@style/divider_05"
+                android:layout_marginTop="@dimen/dp12" />
+
+            <RelativeLayout
+                android:id="@+id/rl_save"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp45"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/dp20"
+                android:paddingRight="@dimen/dp20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/dp20"
+                    android:text="完成"
+                    android:textColor="@color/main_color_new"
+                    android:textSize="@dimen/sp14" />
+            </RelativeLayout>
+
+            <View style="@style/divider_05" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

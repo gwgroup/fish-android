@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_header"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp235"
+    android:background="@mipmap/bg_device_detail_header"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_man_pure"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/bg_man_pure" />
+
+        <ImageView
+            android:id="@+id/iv_3d"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_3d_0" />
+
+        <ImageView
+            android:id="@+id/iv_bei_gun"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_bei_gun_9" />
+
+        <ImageView
+            android:id="@+id/iv_jiao_gun"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_jiao_gun" />
+
+        <ImageView
+            android:id="@+id/iv_tui_gun"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_tui_gun" />
+
+        <ImageView
+            android:id="@+id/iv_rou_nie"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@drawable/sl_device_tech_mode_rou_nie" />
+
+        <ImageView
+            android:id="@+id/iv_qiao_ji"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@drawable/sl_device_tech_mode_qiao_ji" />
+
+        <ImageView
+            android:id="@+id/iv_zhi_ya"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@drawable/sl_device_tech_mode_zhi_ya" />
+
+        <ImageView
+            android:id="@+id/iv_tui_na"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@drawable/sl_device_tech_mode_tui_na" />
+
+        <ImageView
+            android:id="@+id/iv_jia_re"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@drawable/sl_device_tech_mode_jia_re" />
+
+        <ImageView
+            android:id="@+id/iv_zero_gravity"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_device_detail_technique_7_off" />
+
+        <ImageView
+            android:id="@+id/iv_qi_nang_foot"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_qi_nang_foot" />
+
+        <ImageView
+            android:id="@+id/iv_qi_nang_leg"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_qi_nang_leg" />
+
+        <ImageView
+            android:id="@+id/iv_qi_nang_back"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_qi_nang_back" />
+
+        <ImageView
+            android:id="@+id/iv_qi_nang_ass"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_qi_nang_ass" />
+
+        <ImageView
+            android:id="@+id/iv_qi_nang_hand"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_qi_nang_hand" />
+
+        <ImageView
+            android:id="@+id/iv_qi_nang_arm"
+            style="@style/Layout_Wrap_Wrap"
+            android:src="@mipmap/ic_qi_nang_arm" />
+    </FrameLayout>
+
+    <LinearLayout
+        style="@style/Layout_Wrap_Wrap"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp30"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/Layout_Wrap_Wrap"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/device_detail_text1"
+                android:text="按摩力度" />
+
+            <ProgressBar
+                android:id="@+id/pb1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="@dimen/dp10"
+                android:layout_gravity="center_vertical"
+                android:progressDrawable="@drawable/pb_horizontal_device_detail" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Layout_Wrap_Wrap"
+            android:layout_marginTop="@dimen/dp2"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/device_detail_text1"
+                android:text="气囊强度" />
+
+            <ProgressBar
+                android:id="@+id/pb2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="@dimen/dp10"
+                android:layout_gravity="center_vertical"
+                android:progressDrawable="@drawable/pb_horizontal_device_detail" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Layout_Wrap_Wrap"
+            android:layout_marginTop="@dimen/dp2"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/device_detail_text1"
+                android:text="机芯幅度" />
+
+            <ProgressBar
+                android:id="@+id/pb3"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="@dimen/dp10"
+                android:layout_gravity="center_vertical"
+                android:progressDrawable="@drawable/pb_horizontal_device_detail" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Layout_Wrap_Wrap"
+            android:layout_marginTop="@dimen/dp2"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/device_detail_text1"
+                android:text="滚轮速度" />
+
+            <ProgressBar
+                android:id="@+id/pb4"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="@dimen/dp10"
+                android:layout_gravity="center_vertical"
+                android:progressDrawable="@drawable/pb_horizontal_device_detail" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:drawableLeft="@mipmap/ic_device_detail_header_timer"
+        android:drawablePadding="@dimen/dp5"
+        android:gravity="center_vertical"
+        android:text="00:00"
+        android:textColor="#FDFD35"
+        android:textSize="@dimen/sp20" />
+</RelativeLayout>

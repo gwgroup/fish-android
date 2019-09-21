@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp16"
+    android:layout_marginRight="@dimen/dp16"
+    android:background="@color/white"
+    android:padding="@dimen/dp10">
+
+    <TextView
+        android:id="@+id/tv_address"
+        style="@style/Layout_Match_Wrap"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="上海市"
+        android:textColor="@color/common_2f2f2f"
+        android:textSize="@dimen/sp14" />
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sl_bg_manual_more_item_others"
+    android:gravity="center"
+    android:paddingBottom="@dimen/dp12"
+    android:paddingTop="@dimen/dp12"
+    android:textColor="#319bf9"
+    android:textSize="@dimen/sp14"
+    tools:text="气压强度一" />
+
+<!-- 319bf9 -->

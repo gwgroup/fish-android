@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp16"
+    android:layout_marginRight="@dimen/dp16"
+    android:layout_marginTop="@dimen/dp10"
+    android:background="@color/white"
+    android:paddingTop="@dimen/dp6"
+    android:paddingLeft="@dimen/dp6"
+    android:paddingBottom="@dimen/dp6"
+    android:paddingRight="@dimen/dp12">
+
+    <ImageView
+        android:id="@+id/iv_article"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="@dimen/dp70"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:layout_marginRight="@dimen/dp12" />
+
+    <TextView
+        android:id="@+id/tv_titleName"
+        style="@style/Layout_Wrap_Wrap"
+        android:layout_toRightOf="@+id/iv_article"
+        android:text="如何缓解劳累后的腰酸背痛"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/common_2f2f2f"
+        android:textSize="@dimen/sp14" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/Layout_Wrap_Wrap"
+        android:text="发布于3小时前"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/iv_article"
+        android:textColor="@color/common_7f7f7f"
+        android:textSize="@dimen/sp10" />
+</RelativeLayout>

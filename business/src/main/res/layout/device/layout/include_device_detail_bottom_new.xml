@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp67"
+    android:background="@color/bg_device_detail_main_color_translucence"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_bottom_pause"-->
+    <!--style="@style/device_detail_bottom_iv"-->
+    <!--android:layout_marginLeft="@dimen/dp40"-->
+    <!--android:layout_marginTop="@dimen/dp12"-->
+    <!--android:src="@mipmap/ic_device_detail_pause" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_bottom_power"-->
+    <!--style="@style/device_detail_bottom_iv"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:src="@mipmap/ic_device_detail_power" />-->
+
+    <ImageView
+        android:id="@+id/iv_bottom_arrow"
+        style="@style/device_detail_bottom_iv"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp12"
+        android:layout_marginRight="@dimen/dp20"
+        android:src="@mipmap/ic_device_detail_arrow_up" />
+</RelativeLayout>

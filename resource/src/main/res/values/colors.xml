@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 全局背景色 -->
+    <color name="common_background">@android:color/white</color>
+    <color name="common_background2">#f9f9fb</color>
+    <color name="main_color">#43b29e</color>
+    <color name="btn_color_pressed">#676767</color>
+    <color name="transparent_main_color">#b01E90FF</color>
+    <color name="translucence">#b2000000</color>
+    <!-- 标题文字／重要文字 -->
+    <color name="common_2f2f2f">#2f2f2f</color>
+    <color name="common_222222">#222222</color>
+    <color name="common_333333">#333333</color>
+    <!-- 首页副标题文字／正文文字 -->
+    <color name="common_555555">#555555</color>
+    <color name="common_666666">#666666</color>
+    <!-- 次要文字 -->
+    <color name="common_969696">#969696</color>
+    <color name="common_999999">#999999</color>
+    <color name="common_7f7f7f">#7f7f7f</color>
+    <!-- 输入框提示性文字/图标 -->
+    <color name="common_CCCCCC">#CCCCCC</color>
+    <color name="common_DDDDDD">#DDDDDD</color>
+    <!-- 不可点击的按钮 -->
+    <color name="common_EEEEEE">#EEEEEE</color>
+    <color name="common_EAEAEA">#EAEAEA</color>
+    <color name="common_FAFAFA">#FAFAFA</color>
+    <color name="common_D8D8D8">#D8D8D8</color>
+
+    <!-- 我的设备 -->
+    <color name="bg_device_detail_main_color">#2c313f</color>
+    <color name="bg_device_detail_main_color_translucence">#d90a111a</color>
+    <color name="bg_device_detail_out_translucence">#b3999999</color>
+    <color name="device_detail_blue">#00aeff</color>
+    <color name="device_detail_red">#EB5960</color>
+    <color name="bg_header_color">#100d13</color>
+    <color name="bg_device_pb_item_gray">#676767</color>
+    <color name="bg_device_pb_item_gray_new">#A7ABAF</color>
+    <color name="bg_device_item_main_color">#b6b7ba</color>
+
+    <!-- 个人中心 -->
+    <color name="user_profile_item_hint">@color/common_969696</color>
+    <color name="user_profile_item_content">@color/common_333333</color>
+
+    <!--选中状态颜色-->
+    <color name="yellow">#FDFD35</color>
+    <color name="yellow_shoufa">#FFD900</color>
+    <color name="blue_status">#006EFF</color>
+    <color name="gray_status">#839098</color>
+    <!--手动区域按钮颜色-->
+    <color name="device_detail_manual">#35384d</color>
+
+    <color name="main_color_new">#5C768D</color>
+    <color name="bg_device_detail_top">#A3C2CF</color>
+    <color name="bg_device_detail_top2">#869AB2</color>
+    <color name="bg_device_detail_red">#CF121B</color>
+    <color name="bg_device_detail_yellow">#F5A623</color>
+    <color name="bg_device_detail_gray">#66788E</color>
+
+    <color name="t100_blue">#4EB2FF</color>
+    <color name="t100_blue_line">#2F849C</color>
+    <color name="bg_device_detail_open01_t100">#253B61</color>
+    <color name="bg_device_detail_open02_t100">#405E8E</color>
+    <color name="bg_device_detail_t100">#2F6D8B</color>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="@dimen/dp1" />
+            <solid android:color="@color/bg_device_pb_item_gray" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="@dimen/dp1" />
+                <solid android:color="@color/device_detail_blue" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

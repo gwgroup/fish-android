@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+apply from: "../dependencies.gradle"
+apply from: "../deploy.gradle"
+
+android {
+    compileSdkVersion compiler.compileSdkVersion
+    buildToolsVersion compiler.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion app.minSdkVersion
+        targetSdkVersion app.targetSdkVersion
+
+        versionCode app.versionCode
+        versionName app.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility java_version
+        targetCompatibility java_version
+    }
+
+    buildTypes {
+        debug {}
+
+        /* BuildType names cannot start with 'test' */
+        QA {}
+
+        staging {}
+
+        release {
+        }
+    }
+
+}
+
+dependencies {
+    api project(':common')
+    /* Test */
+    testImplementation java_test
+    androidTestImplementation android_test.values()
+    /* Router*/
+    annotationProcessor arouter_compiler
+    /* DB */
+    annotationProcessor room_compiler
+    /* ButterKnife */
+    annotationProcessor butterknife_compiler
+
+}

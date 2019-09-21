@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_FAFAFA"
+    android:descendantFocusability="beforeDescendants"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_common_title" />
+
+    <ScrollView style="@style/Layout_Match_Match">
+
+        <LinearLayout
+            style="@style/Layout_Match_Match"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp12">
+
+            <EditText
+                android:id="@+id/et_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp300"
+                android:layout_marginLeft="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginRight="@dimen/dp20"
+                android:background="@drawable/bg_edit_feedback"
+                android:gravity="left"
+                android:hint="请输入您要反馈的问题"
+                android:padding="@dimen/dp8"
+                android:textColor="@color/user_profile_item_content"
+                android:textSize="@dimen/sp13" />
+
+            <TextView
+                android:id="@+id/tv_commit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp30"
+                android:layout_marginRight="@dimen/dp20"
+                android:background="@drawable/sl_bg_login_btn"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp8"
+                android:paddingBottom="@dimen/dp8"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp25"
+                android:text="客服电话 4008-755-765"
+                android:textColor="@color/common_D8D8D8"
+                android:textSize="@dimen/sp15" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

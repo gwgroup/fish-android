@@ -1,0 +1,22 @@
+apply plugin: 'com.android.library'
+apply from: "../dependencies.gradle"
+
+android {
+    compileSdkVersion rootProject.compiler.compileSdkVersion
+
+    buildTypes {
+        debug {}
+
+        /* BuildType names cannot start with 'test' */
+        QA {}
+
+        staging {}
+
+        release {
+        }
+    }
+}
+
+dependencies {
+//    api 'com.topjet.wallet:autodimension:1.0.0'
+}

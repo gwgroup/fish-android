@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp46"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/rl_back"
+        android:layout_width="@dimen/dp46"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/dp10">
+
+        <ImageView
+            android:layout_width="@dimen/dp36"
+            android:layout_height="@dimen/dp36"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_back" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/Layout_Wrap_Wrap"
+        android:layout_centerInParent="true"
+        android:text=""
+        android:textColor="@color/user_profile_item_content"
+        android:textSize="@dimen/sp16" />
+
+    <RelativeLayout
+        android:id="@+id/rl_add"
+        android:layout_width="@dimen/dp25"
+        android:layout_height="@dimen/dp25"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp10"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_change" />
+
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="自动"
+            android:textColor="@color/user_profile_item_content"
+            android:textSize="@dimen/sp8"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <View
+        style="@style/divider_05"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

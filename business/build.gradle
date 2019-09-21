@@ -1,0 +1,162 @@
+apply plugin: 'com.android.application'
+apply from: "../deploy.gradle"
+apply from: "../dependencies.gradle"
+
+android {
+    compileSdkVersion compiler.compileSdkVersion
+    buildToolsVersion compiler.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion app.minSdkVersion
+        targetSdkVersion app.targetSdkVersion
+
+        versionCode app.versionCode
+        versionName app.versionName
+
+        multiDexEnabled true
+        manifestPlaceholders = [SCHEME: schemeName]
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.ypcxpt.fish",
+                JPUSH_APPKEY : "62cc040f209485f9fe7fbf7a", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+    }
+
+    compileOptions {
+        sourceCompatibility java_version
+        targetCompatibility java_version
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layout/login',
+                            'src/main/res/layout/main',
+                            'src/main/res/layout/device',
+                            'src/main/res/layout',
+                            'src/main/res'
+                    ]
+        }
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'fish'
+            keyPassword 'fish666666'
+            storeFile file('../jks/fish.jks')
+            storePassword 'fish666666'
+        }
+
+        unreleased {
+            keyAlias 'fish'
+            keyPassword 'fish666666'
+            storeFile file('../jks/fish.jks')
+            storePassword 'fish666666'
+        }
+    }
+
+    buildTypes {
+        debug {
+//            applicationIdSuffix ".debug"
+            resValue "string", "app_name", appName.debug
+            buildConfigField "String", "BASE_URL", baseUrl.debug
+
+            manifestPlaceholders = [
+                    HOST: hostName.debug,
+                    PORT: portName.debug
+            ]
+
+            signingConfig signingConfigs.unreleased
+        }
+
+        /* BuildType names cannot start with 'test' */
+        QA {
+            applicationIdSuffix ".testing"
+            resValue "string", "app_name", appName.testing
+            buildConfigField "String", "BASE_URL", baseUrl.testing
+
+            manifestPlaceholders = [
+                    HOST: hostName.testing,
+                    PORT: portName.testing
+            ]
+
+            signingConfig signingConfigs.unreleased
+        }
+
+        staging {
+            applicationIdSuffix ".staging"
+            resValue "string", "app_name", appName.staging
+            buildConfigField "String", "BASE_URL", baseUrl.staging
+
+            manifestPlaceholders = [
+                    HOST: hostName.staging,
+                    PORT: portName.staging
+            ]
+
+            signingConfig signingConfigs.unreleased
+        }
+
+        release {
+            resValue "string", "app_name", appName.release
+            buildConfigField "String", "BASE_URL", baseUrl.release
+
+            manifestPlaceholders = [
+                    HOST: hostName.release,
+                    PORT: portName.release
+            ]
+
+            signingConfig signingConfigs.release
+
+            shrinkResources false
+            minifyEnabled false
+            proguardFile '../proguard-android.txt'
+        }
+
+        renameOutputs()
+    }
+
+}
+
+dependencies {
+    api project(':core')
+    /* Test */
+    testImplementation java_test
+    /* Router*/
+    annotationProcessor arouter_compiler
+    /* DB */
+    annotationProcessor room_compiler
+    /* ButterKnife */
+    annotationProcessor butterknife_compiler
+    implementation 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
+    implementation 'com.github.huburt-Hu:NewbieGuide:v2.4.2' //指引蒙版
+    implementation 'com.yanzhenjie:permission:2.0.0-rc4' //android权限
+    implementation 'com.github.yuzhiqiang1993:zxing:2.2.1' //扫码库
+    implementation 'com.daimajia.androidanimations:library:2.3@aar' //动画库集合
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation 'com.github.wenchaosong:Banner:2.3.2' //自定义布局的banner
+    implementation 'com.tencent.sonic:sdk:3.1.0' //速度很快的webview
+    implementation 'com.rabbitmq:amqp-client:5.5.0'
+
+    implementation 'cn.jiguang.sdk:jpush:3.1.8'  // 此处以JPush 3.1.6 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:1.2.6'  // 此处以JCore 1.2.5 版本为例。
+
+    implementation 'com.github.JuHonggang:ShadowDrawable:0.1' //阴影效果
+    implementation 'com.github.ybq:Android-SpinKit:1.2.0' //加载动画库
+    implementation 'com.noober.floatmenu:common:1.0.4' //仿微信的长按菜单
+}

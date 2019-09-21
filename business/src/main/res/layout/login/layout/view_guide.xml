@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp46"
+        android:layout_marginRight="@dimen/dp30"
+        android:src="@mipmap/icon_guide" />
+
+    <TextView
+        android:id="@+id/tv_guideTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_guide"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_toLeftOf="@+id/iv_guide"
+        android:text="单击可切换到控制"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp14" />
+
+    <ImageView
+        android:layout_width="@dimen/dp140"
+        android:layout_height="@dimen/dp35"
+        android:layout_below="@+id/tv_guideTxt"
+        android:layout_alignLeft="@+id/tv_guideTxt"
+        android:layout_marginTop="@dimen/dp10"
+        android:src="@mipmap/icon_know" />
+</RelativeLayout>

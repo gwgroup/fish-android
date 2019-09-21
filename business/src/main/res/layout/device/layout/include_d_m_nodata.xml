@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_d_m_nodata"
+    style="@style/Layout_Match_Match"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/dp135"
+        android:layout_height="@dimen/dp135"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp50"
+        android:src="@mipmap/icon_nodata" />
+
+    <TextView
+        style="@style/Layout_Wrap_Wrap"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp35"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5"
+        android:text="未添加设备"
+        android:textColor="@color/common_D8D8D8"
+        android:textSize="@dimen/dp18" />
+</LinearLayout>

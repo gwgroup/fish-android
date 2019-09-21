@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Layout_Match_Match"
+    android:background="@color/common_FAFAFA">
+
+    <include
+        layout="@layout/include_d_d_error"
+        android:visibility="gone" />
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/supl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoDragView="@+id/ll_slide"
+        sothree:umanoFadeColor="@android:color/transparent"
+        sothree:umanoOverlay="true"
+        sothree:umanoPanelHeight="@dimen/dp0"
+        sothree:umanoParallaxOffset="0dp"
+        sothree:umanoScrollableView="@+id/sv_more_function"
+        sothree:umanoShadowHeight="0dp"
+        tools:context=".device.view.activity.Home6DeviceDetailActivity">
+
+        <LinearLayout
+            style="@style/Layout_Match_Match"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_device_detail_title" />
+
+            <include layout="@layout/include_device_detail_home6_header" />
+
+            <include layout="@layout/include_device_detail_home6_main_function" />
+
+        </LinearLayout>
+
+        <include layout="@layout/include_device_detail_slide_help" />
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+    <ImageView
+        android:id="@+id/iv_bottom_arrow"
+        android:layout_width="@dimen/dp36"
+        android:layout_height="@dimen/dp36"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginTop="@dimen/dp12"
+        android:layout_marginRight="@dimen/dp40"
+        android:layout_marginBottom="@dimen/dp12"
+        android:elevation="@dimen/dp4"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_device_detail_arrow_u"
+        android:visibility="gone" />
+</FrameLayout>
+
+

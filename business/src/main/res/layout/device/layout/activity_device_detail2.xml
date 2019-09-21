@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Layout_Match_Match"
+    android:background="@color/bg_device_detail_main_color">
+
+    <include layout="@layout/include_d_d_error" />
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/supl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoDragView="@+id/ll_slide"
+        sothree:umanoFadeColor="@android:color/transparent"
+        sothree:umanoOverlay="true"
+        sothree:umanoPanelHeight="@dimen/dp67"
+        sothree:umanoParallaxOffset="0dp"
+        sothree:umanoScrollableView="@+id/sv_more_function"
+        sothree:umanoShadowHeight="0dp"
+        tools:context=".device.view.activity.DeviceDetailActivity">
+
+        <LinearLayout
+            style="@style/Layout_Match_Match"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_device_detail_header" />
+
+            <include layout="@layout/include_device_detail_main_function" />
+
+        </LinearLayout>
+
+
+        <include layout="@layout/include_device_detail_slide" />
+
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+</FrameLayout>
+
+
