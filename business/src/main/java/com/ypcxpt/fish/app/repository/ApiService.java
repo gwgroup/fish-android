@@ -20,11 +20,11 @@ import retrofit2.http.POST;
 
 public interface ApiService {
     /* 发送验证码. */
-    @POST("vali_code")
+    @POST("api/user/send_vali_sms")
     Flowable<Object> getVerifyCode(@Body HashMap<String, Object> param);
 
     /* 登录 */
-    @POST("login")
+    @POST("api/user/login")
     Flowable<LoginResult> login(@Body HashMap<String, Object> param);
 
     /* 绑定手机号 */

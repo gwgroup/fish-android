@@ -19,7 +19,7 @@ public class ResponseProcessor<T> {
             throw new ApiException(ApiException.RESPONSE_NULL);
         }
 
-        if (response.success) {
+        if (response.code == 1000) {
             T data = response.data;
             if (data == null) {
                 throw new ApiException(ApiException.DATA_NULL);

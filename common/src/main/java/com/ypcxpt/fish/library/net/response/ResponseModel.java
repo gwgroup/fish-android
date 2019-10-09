@@ -6,8 +6,8 @@ public class ResponseModel<T> {
     /* 必返回字段 */
     public boolean success;
 
-    /* 只有错误时才返回 */
-    @SerializedName("error_code")
+    /* code=1000时为正确数据 */
+    @SerializedName("code")
     public int code = DEFAULT_CODE;
 
     /* 只有错误时才返回 */
