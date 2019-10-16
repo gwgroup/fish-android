@@ -427,8 +427,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             List<NetDevice> deviceList = ((OnGetDeviceListEvent) event).netDeviceList;
             mAdapter.setNewData(deviceList);
         } else if (event instanceof OnProfileUpdatedEvent) {
-            if (!StringUtils.isTrimEmpty(((OnProfileUpdatedEvent) event).userProfile.name)) {
-                tvLocation.setText(((OnProfileUpdatedEvent) event).userProfile.name + "的家");
+            if (!StringUtils.isTrimEmpty(((OnProfileUpdatedEvent) event).userProfile.user.display_name)) {
+                tvLocation.setText(((OnProfileUpdatedEvent) event).userProfile.user.display_name + "的家");
             } else {
                 tvLocation.setText("我的家");
             }

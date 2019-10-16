@@ -66,16 +66,16 @@ public class NetDataSource implements DataSource {
     @Override
     public Flowable<UserProfile> updateUserProfile(UserProfile userProfile) {
         HashMap<String, Object> param = ParamBuilder.newBuilder()
-                .put("mobile", userProfile.phoneNo)
-                .put("sex", userProfile.gender + "")
-                .put("card_id", userProfile.idNumber)
-                .put("icon", userProfile.avatar)
-                .put("name", userProfile.name)
-                .put("height", userProfile.height + "")
-                .put("weight", userProfile.weight + "")
-                .put("birthday", userProfile.birthday)
-                .put("address", userProfile.address)
-                .put("region_code", userProfile.region_code)
+//                .put("mobile", userProfile.phoneNo)
+//                .put("sex", userProfile.gender + "")
+//                .put("card_id", userProfile.idNumber)
+//                .put("icon", userProfile.avatar)
+//                .put("name", userProfile.name)
+//                .put("height", userProfile.height + "")
+//                .put("weight", userProfile.weight + "")
+//                .put("birthday", userProfile.birthday)
+//                .put("address", userProfile.address)
+//                .put("region_code", userProfile.region_code)
                 .build();
         return mApiService.updateUserProfile(AppData.token(), param);
     }

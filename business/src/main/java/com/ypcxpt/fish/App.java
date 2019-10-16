@@ -4,13 +4,14 @@ import android.app.Activity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.Utils;
-
 import com.ypcxpt.fish.core.ble.BLEClient;
 import com.ypcxpt.fish.library.BaseApp;
 import com.ypcxpt.fish.library.net.NetManager;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.SPHelper;
 import com.ypcxpt.fish.library.util.Toaster;
+
+import org.xutils.x;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -49,8 +50,10 @@ public class App extends BaseApp {
         Utils.init(this);
         Toaster.init(this);
 
-        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);  // 初始化 JPush
+
+        x.Ext.init(this);
     }
 
     private void routerInit() {
@@ -104,14 +107,15 @@ public class App extends BaseApp {
     }
 
     private List<Activity> activityList = new LinkedList<Activity>();
+
     //添加Activity到容器中
-    public void addActivity(Activity activity)  {
+    public void addActivity(Activity activity) {
         activityList.add(activity);
     }
 
     //遍历所有Activity并finish
     public void exit() {
-        for(Activity activity:activityList) {
+        for (Activity activity : activityList) {
             activity.finish();
         }
         activityList.clear();

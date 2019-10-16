@@ -282,11 +282,11 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
             final Channel channel = connection.createChannel();
             //声明了一个交换和一个服务器命名的队列，然后将它们绑定在一起。
 //            channel.exchangeDeclare("amq.topic" , "topic" , true);
-            String queueName = "rh_" + mUserProfile.phoneNo;
+            String queueName = "rh_" + mUserProfile.user.phoneNo;
             Logger.e("TAG", queueName + " :queueName");
             channel.queueDeclare(queueName, false, false, true, null);
             channel.queueBind(queueName, "amq.topic", "/rh/all");
-            channel.queueBind(queueName, "amq.topic", "/rh/" + mUserProfile.phoneNo);
+            channel.queueBind(queueName, "amq.topic", "/rh/" + mUserProfile.user.phoneNo);
             //实现Consumer的最简单方法是将便捷类DefaultConsumer子类化。可以在basicConsume 调用上传递此子类的对象以设置订阅：
             channel.basicConsume(queueName, false, "android", new DefaultConsumer(channel) {
                 @Override
@@ -332,17 +332,16 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
     }
 
     private void displayGender(UserProfile userProfile) {
-        String gender = userProfile.getGender();
-        displayProfileInfo(tvGender, gender);
+//        String gender = userProfile.getGender();
+        displayProfileInfo(tvGender, "");
         /* 如果没有设置头像，则默认头像随性别改变 */
-        if (StringUtils.isTrimEmpty(userProfile.avatar)) {
-            int resID = userProfile.gender == 1 ? R.mipmap.ic_default_avatar_male : R.mipmap.ic_default_avatar_female;
-            ivAvatar.setImageResource(resID);
+        if (StringUtils.isTrimEmpty(userProfile.user.avatar)) {
+            ivAvatar.setImageResource(R.mipmap.ic_default_avatar_male);
         }
     }
 
     private void displayAvatar(UserProfile userProfile) {
-        String avatar = userProfile.avatar;
+        String avatar = userProfile.user.avatar;
         /* 如果没有设置头像，则不处理，上面已经处理过 */
         if (StringUtils.isTrimEmpty(avatar)) {
             return;
@@ -356,21 +355,21 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
         }
 
         mUserProfile = userProfile;
-        displayProfileInfo(tvNickName, userProfile.name);
-        displayProfileInfo(tvBirthday, getFormatDate(userProfile.birthday));
-        displayProfileInfo(tvPhoneNo, getFormatPhone(userProfile.phoneNo));
-        displayProfileInfo(tvAddress, userProfile.address);
-        String strWeight = userProfile.weight > 0 ? String.format("%dkg", userProfile.weight) : null;
-        displayProfileInfo(tvWeight, strWeight);
-        String strHeight = userProfile.height > 0 ? String.format("%dcm", userProfile.height) : null;
-        displayProfileInfo(tvHeight, strHeight);
+        displayProfileInfo(tvNickName, userProfile.user.display_name);
+//        displayProfileInfo(tvBirthday, getFormatDate(userProfile.birthday));
+//        displayProfileInfo(tvPhoneNo, getFormatPhone(userProfile.phoneNo));
+//        displayProfileInfo(tvAddress, userProfile.address);
+//        String strWeight = userProfile.weight > 0 ? String.format("%dkg", userProfile.weight) : null;
+//        displayProfileInfo(tvWeight, strWeight);
+//        String strHeight = userProfile.height > 0 ? String.format("%dcm", userProfile.height) : null;
+//        displayProfileInfo(tvHeight, strHeight);
         displayGender(userProfile);
         displayAvatar(userProfile);
 
-        displayIntInfo(tv_coin, userProfile.integral);
-        displayXP(userProfile.xp);
-        displayCollectionInfo(tv_collectionNum, userProfile.star_count);
-        displayNotificationInfo(tv_notificationNum, userProfile.unread_notice_count);
+//        displayIntInfo(tv_coin, userProfile.integral);
+//        displayXP(userProfile.xp);
+//        displayCollectionInfo(tv_collectionNum, userProfile.star_count);
+//        displayNotificationInfo(tv_notificationNum, userProfile.unread_notice_count);
     }
 
     private void displayNotificationInfo(TextView tv, String info) {
@@ -452,7 +451,7 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
 
     @Subscribe
     public void onEventReceived(OnProfileUpdatedEvent event) {
-        SPHelper.putString("USER_ID", event.userProfile.id);
+        SPHelper.putString("USER_ID", event.userProfile.user.id);
         mPresenter.refreshDevice(event.userProfile);
         onProfileRefresh(event.userProfile);
 

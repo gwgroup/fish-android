@@ -27,6 +27,10 @@ public interface ApiService {
     @POST("api/user/login")
     Flowable<LoginResult> login(@Body HashMap<String, Object> param);
 
+    /* 获取用户信息 */
+    @POST("api/user/load")
+    Flowable<UserProfile> getUserProfile(@Header("authorization") String token);
+
     /* 绑定手机号 */
     @POST("weixin_bind")
     Flowable<LoginResult> bindPhone(@Body HashMap<String, Object> param);
@@ -34,10 +38,6 @@ public interface ApiService {
     /* 获取设备 */
     @POST("get_devices")
     Flowable<List<NetDevice>> getDevices(@Header("authorization") String token);
-
-    /* 获取用户信息 */
-    @POST("user")
-    Flowable<UserProfile> getUserProfile(@Header("authorization") String token);
 
     /* 修改用户信息 */
     @POST("edit_user")

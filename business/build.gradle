@@ -159,4 +159,7 @@ dependencies {
     implementation 'com.github.JuHonggang:ShadowDrawable:0.1' //阴影效果
     implementation 'com.github.ybq:Android-SpinKit:1.2.0' //加载动画库
     implementation 'com.noober.floatmenu:common:1.0.4' //仿微信的长按菜单
+
+    //网络层框架
+    implementation 'org.xutils:xutils:3.5.1'
 }

@@ -97,8 +97,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        if (userProfile != null && userProfile.id != null) {
-            JPushAliasUtil.setAliasJPush(userProfile.id.replace("-", ""));
+        if (userProfile != null && userProfile.user.id != null) {
+            JPushAliasUtil.setAliasJPush(userProfile.user.id.replace("-", ""));
         }
         registerMessageReceiver();  // used for receive msg
 

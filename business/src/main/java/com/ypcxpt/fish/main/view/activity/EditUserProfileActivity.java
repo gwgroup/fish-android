@@ -115,18 +115,16 @@ public class EditUserProfileActivity extends BaseActivity implements EditUserPro
     }
 
     private void refreshUI() {
-        setText(etNickName, mUserProfile.name);
-        setText(tvGender, mUserProfile.getGender());
-        setText(tvBirthday, getFormatDate(mUserProfile.birthday));
-        String strHeight = mUserProfile.height > 0 ? String.valueOf(mUserProfile.height) : "";
-        setText(etHeight, strHeight);
-        String strWeight = mUserProfile.weight > 0 ? String.valueOf(mUserProfile.weight) : "";
-        setText(etWeight, strWeight);
-        setText(etAddress, mUserProfile.address);
+        setText(etNickName, mUserProfile.user.display_name);
+        setText(tvGender, "");
+        setText(tvBirthday, "");
+        setText(etHeight, "");
+        setText(etWeight, "");
+        setText(etAddress, "");
         ViewHelper.moveToLastCursor(etNickName);
 
         displayAvatar(mUserProfile);
-        setText(tv_region, mUserProfile.region_name);
+        setText(tv_region, "");
     }
 
     private void initInteract() {
@@ -137,11 +135,10 @@ public class EditUserProfileActivity extends BaseActivity implements EditUserPro
     }
 
     private void displayAvatar(UserProfile userProfile) {
-        String avatar = userProfile.avatar;
+        String avatar = userProfile.user.avatar;
         /* 如果没有设置头像，则不处理，上面已经处理过 */
         if (StringUtils.isTrimEmpty(avatar)) {
-            int resID = userProfile.gender == 1 ? R.mipmap.ic_default_avatar_male : R.mipmap.ic_default_avatar_female;
-            iv_avatarDisplay.setImageResource(resID);
+            iv_avatarDisplay.setImageResource(R.mipmap.ic_default_avatar_male);
             return;
         }
         B64PhotoHelper.load(this, avatar, iv_avatarDisplay);
@@ -161,16 +158,11 @@ public class EditUserProfileActivity extends BaseActivity implements EditUserPro
     }
 
     private void saveET() {
-        mUserProfile.name = ViewHelper.getText(etNickName);
-        mUserProfile.address = ViewHelper.getText(etAddress);
-        mUserProfile.region_name = ViewHelper.getText(tv_region);
-        mUserProfile.height = FormatUtils.getInt(ViewHelper.getText(etHeight));
-        mUserProfile.weight = FormatUtils.getInt(ViewHelper.getText(etWeight));
+        mUserProfile.user.display_name = ViewHelper.getText(etNickName);
     }
 
     private void saveBirthday(String birthday) {
         saveET();
-        mUserProfile.birthday = birthday;
         refreshUI();
     }
 
@@ -179,7 +171,7 @@ public class EditUserProfileActivity extends BaseActivity implements EditUserPro
         ThreadHelper.run(() -> {
             String b64Str = B64PhotoHelper.photoToB64Str(this, path);
             if (!StringUtils.isTrimEmpty(b64Str)) {
-                mUserProfile.avatar = "data:image/png;base64," + b64Str;
+                mUserProfile.user.avatar = "data:image/png;base64," + b64Str;
                 Logger.e("b64Str-->", b64Str);
 
                 runOnUiThread(new Runnable() {
@@ -194,18 +186,7 @@ public class EditUserProfileActivity extends BaseActivity implements EditUserPro
 
     private void saveGender(PopupItem itemData) {
         saveET();
-        if ("男".equals(itemData.name)) {
-            mUserProfile.gender = 1;
-        } else {
-            mUserProfile.gender = 2;
-        }
-
         refreshUI();
-    }
-
-    @OnClick(R.id.rl_birthday)
-    public void onBirthdayClick() {
-        showDatePickerWithData(mDataPicker, mUserProfile.birthday);
     }
 
     @OnClick(R.id.rl_gender)
@@ -282,8 +263,8 @@ public class EditUserProfileActivity extends BaseActivity implements EditUserPro
             @Override
             public void searchComplete(String code, String addressPin) {
                 saveET();
-                mUserProfile.region_code = code;
-                mUserProfile.region_name = addressPin;
+//                mUserProfile.region_code = code;
+//                mUserProfile.region_name = addressPin;
 
                 refreshUI();
                 Logger.i("区域", "code--" + code + ",address--" + addressPin);
