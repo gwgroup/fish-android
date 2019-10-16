@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg_main"
-    android:orientation="vertical"
-    android:visibility="gone">
+    android:orientation="vertical">
 
     <com.ypcxpt.fish.app.util.VpSwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -159,16 +158,4 @@
         android:layout_marginBottom="@dimen/dp35"
         android:src="@mipmap/ic_manually_scan_new"
         android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tv_version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="@dimen/dp10"
-        android:layout_marginBottom="@dimen/dp5"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp10" />
 </RelativeLayout>

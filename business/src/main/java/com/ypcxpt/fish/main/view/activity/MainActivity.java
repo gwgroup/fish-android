@@ -93,8 +93,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected boolean requestPermissions(String... permissions) {
         return super.requestPermissions(
-                Manifest.permission.BLUETOOTH,
-                Manifest.permission.BLUETOOTH_ADMIN,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);

@@ -53,7 +53,7 @@ public class UserProfilePresenter extends BasePresenter<UserProfileContract.View
     @Override
     public void refreshDevice(UserProfile userProfile) {
 //        EventBus.getDefault().post(new OnGetDeviceListEvent(userProfile.devices));
-        EventBus.getDefault().post(new OnGetDevicesEvent());
+//        EventBus.getDefault().post(new OnGetDevicesEvent());
     }
 
     /**

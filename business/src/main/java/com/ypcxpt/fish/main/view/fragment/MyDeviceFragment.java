@@ -105,10 +105,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @BindView(R.id.iv_code_scan)
     ImageView iv_code_scan;
 
-    //版本号
-    @BindView(R.id.tv_version)
-    TextView tv_version;
-
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
 
@@ -133,11 +129,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @Override
     protected void initData() {
         mPresenter = new MyDevicePresenter();
-//        mWeatherPresenter = new WeatherPresenter();
+        mWeatherPresenter = new WeatherPresenter();
         addPresenter(mPresenter);
-//        addPresenter(mWeatherPresenter);
-
-        tv_version.setText("v" + getAPKVersion(getActivity()));
+        addPresenter(mWeatherPresenter);
     }
 
 //    @OnClick(R.id.tv_version)
@@ -167,7 +161,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     public void run() {
                         swipe_refresh_layout.setRefreshing(false);//取消刷新
                         ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnMainPagePermissionResultEvent()), 750);
-                        getBanner();
+//                        getBanner();
                     }
                 }, 2000);
             }
@@ -175,17 +169,17 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         //设置刷新时旋转图标的颜色，这是一个可变参数，当设置多个颜色时，旋转一周改变一次颜色。
         swipe_refresh_layout.setColorSchemeResources(R.color.main_color_new, R.color.bg_device_detail_yellow, R.color.bg_device_detail_top);
 
-        getBanner();
+//        getBanner();
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.include_footview_scan, null);
-        RelativeLayout rl_manually_scan = view.findViewById(R.id.rl_manually_scan);
-        rl_manually_scan.setOnClickListener(v -> {
-            /* 并不是直接开始扫描，而是先检查蓝牙是否开启 */
-            checkBluetoothState();
-        });
-        mAdapter.addFooterView(view);
+//        View view = LayoutInflater.from(getActivity()).inflate(R.layout.include_footview_scan, null);
+//        RelativeLayout rl_manually_scan = view.findViewById(R.id.rl_manually_scan);
+//        rl_manually_scan.setOnClickListener(v -> {
+//            /* 并不是直接开始扫描，而是先检查蓝牙是否开启 */
+//            checkBluetoothState();
+//        });
+//        mAdapter.addFooterView(view);
 
-        setTopData();
+//        setTopData();
     }
 
     private void setTopData() {

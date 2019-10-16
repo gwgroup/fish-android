@@ -123,32 +123,6 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
         return Observable.create(new ObservableOnSubscribe<VersionDetailInfo>() {
             @Override
             public void subscribe(final ObservableEmitter<VersionDetailInfo> e) throws Exception {
-//                String url = "https://smart.reead.net/version.json";
-//                RequestQueue mQueue = Volley.newRequestQueue(mcontext);
-//                StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Logger.i("VersionCheck", "版本更新Json-->" + response);
-//
-//                        Gson gson = new Gson();
-//                        VersionDetailInfo versionDetailInfo = gson.fromJson(response, VersionDetailInfo.class);
-////                        if (versionDetailInfo.getCode() == 0) {
-//                        e.onNext(versionDetailInfo);
-////                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                    }
-//                }) {
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                        Map<String, String> map = new HashMap<>();
-//                        map.put("", "");
-//                        return map;
-//                    }
-//                };
-//                mQueue.add(stringRequest);
 
                 RequestParams params = new RequestParams(BASE_URL + "/update/check");
                 params.setHeader("User-Agent", SPHelper.getString("User-Agent"));
