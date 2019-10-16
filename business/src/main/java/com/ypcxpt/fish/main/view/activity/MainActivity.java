@@ -49,17 +49,27 @@ import butterknife.OnClick;
 @Route(path = Path.Main.MAIN)
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.header_line1) View line1;
-    @BindView(R.id.header_line2) View line2;
+    @BindView(R.id.header_line1)
+    View line1;
+    @BindView(R.id.header_line2)
+    View line2;
 
-    @BindView(R.id.iv_bottom_fish) ImageView iv_bottom_fish;
-    @BindView(R.id.tv_bottom_fish) TextView tv_bottom_fish;
-    @BindView(R.id.iv_bottom_plan) ImageView iv_bottom_plan;
-    @BindView(R.id.tv_bottom_plan) TextView tv_bottom_plan;
-    @BindView(R.id.iv_bottom_warning) ImageView iv_bottom_warning;
-    @BindView(R.id.tv_bottom_warning) TextView tv_bottom_warning;
-    @BindView(R.id.iv_bottom_personal) ImageView iv_bottom_personal;
-    @BindView(R.id.tv_bottom_personal) TextView tv_bottom_personal;
+    @BindView(R.id.iv_bottom_fish)
+    ImageView iv_bottom_fish;
+    @BindView(R.id.tv_bottom_fish)
+    TextView tv_bottom_fish;
+    @BindView(R.id.iv_bottom_plan)
+    ImageView iv_bottom_plan;
+    @BindView(R.id.tv_bottom_plan)
+    TextView tv_bottom_plan;
+    @BindView(R.id.iv_bottom_warning)
+    ImageView iv_bottom_warning;
+    @BindView(R.id.tv_bottom_warning)
+    TextView tv_bottom_warning;
+    @BindView(R.id.iv_bottom_personal)
+    ImageView iv_bottom_personal;
+    @BindView(R.id.tv_bottom_personal)
+    TextView tv_bottom_personal;
 
     @Autowired
     public UserProfile userProfile;
@@ -106,8 +116,8 @@ public class MainActivity extends BaseActivity {
         ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnProfileUpdatedEvent(userProfile)), 500);
 
         //检测新版本
-        VersionCheckUtil.getInstance(this).StartCheckVersion(this, false);
-        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetDevicesEvent()), 500);
+//        VersionCheckUtil.getInstance(this).StartCheckVersion(this, false, false);
+//        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetDevicesEvent()), 500);
     }
 
     private void initFragments() {
@@ -274,6 +284,7 @@ public class MainActivity extends BaseActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
         super.onDestroy();
     }
+
     //for receive customer msg from jpush server
     private MessageReceiver mMessageReceiver;
     public static final String MESSAGE_RECEIVED_ACTION = "com.ypcxpt.fish.MESSAGE_RECEIVED_ACTION";
@@ -288,6 +299,7 @@ public class MainActivity extends BaseActivity {
         filter.addAction(MESSAGE_RECEIVED_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
     }
+
     public class MessageReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -302,18 +314,20 @@ public class MainActivity extends BaseActivity {
                     }
                     setCostomMsg(showMsg.toString());
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
             }
         }
     }
-    private void setCostomMsg(String msg){
+
+    private void setCostomMsg(String msg) {
         Logger.e("收到自定义通知", msg);
     }
 
     public static Point point = new Point();
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if(ev.getAction() == MotionEvent.ACTION_DOWN){
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             point.x = (int) ev.getRawX();
             point.y = (int) ev.getRawY();
         }

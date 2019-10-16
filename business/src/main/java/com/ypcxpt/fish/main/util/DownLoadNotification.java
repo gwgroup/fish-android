@@ -249,6 +249,10 @@ public class DownLoadNotification {
         notificationManager.notify(101, notification);
     }
 
+    public void hideNotification() {
+        notificationManager.cancel(101);
+    }
+
     /**
      * 安装APK文件
      */

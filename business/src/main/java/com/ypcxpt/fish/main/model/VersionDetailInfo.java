@@ -9,67 +9,113 @@ import java.io.Serializable;
 
 public class VersionDetailInfo implements Serializable {
 
-    private String version;
-    private String download_url;//下载链接
-    private String describe;//有新的版本可使用
-    private String version_id;//版本号
-    private String introdution;//更新的内容列表
-    private String must_update = "1";//0：有更新可忽略1：有更新不可忽略2：无更新
-    private String has_version;//是否有更新
+    /**
+     * code : 0
+     * data : {"content":"1、sdfsf","file_hash":"b05178bc3b3702c6beddf48f01c3bc16dddb3ef4ef8cdb13939e4917bf061eb7","file_size":9361909,"file_url":"http://192.168.0.207:8888/files/admin/upload/2019/06/18/e259621486789899125ffb1a40621f06.apk","type":1,"update":false,"version":"2.2.7"}
+     * message : 成功
+     */
 
-    public String getVersion() {
-        return version;
+    private int code;
+    private DataBean data;
+    private String message;
+
+    public int getCode() {
+        return code;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getHas_version() {
-        return has_version;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setHas_version(String has_version) {
-        this.has_version = has_version;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public String getDownload_url() {
-        return download_url;
+    public String getMessage() {
+        return message;
     }
 
-    public void setDownload_url(String download_url) {
-        this.download_url = download_url;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getDescribe() {
-        return describe;
-    }
+    public static class DataBean implements Serializable {
+        /**
+         * content : 1、sdfsf
+         * file_hash : b05178bc3b3702c6beddf48f01c3bc16dddb3ef4ef8cdb13939e4917bf061eb7
+         * file_size : 9361909
+         * file_url : http://192.168.0.207:8888/files/admin/upload/2019/06/18/e259621486789899125ffb1a40621f06.apk
+         * type : 1
+         * update : false
+         * version : 2.2.7
+         */
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
+        private String content;//更新内容
+        private String file_hash;
+        private int file_size;
+        private String file_url;//下载链接
+        private int type;//1：有更新可忽略2：有更新不可忽略
+        private boolean update;//是否有更新
+        private String version;
 
-    public String getVersion_id() {
-        return version_id;
-    }
+        public String getContent() {
+            return content;
+        }
 
-    public void setVersion_id(String version_id) {
-        this.version_id = version_id;
-    }
+        public void setContent(String content) {
+            this.content = content;
+        }
 
-    public String getIntrodution() {
-        return introdution;
-    }
+        public String getFile_hash() {
+            return file_hash;
+        }
 
-    public void setIntrodution(String introdution) {
-        this.introdution = introdution;
-    }
+        public void setFile_hash(String file_hash) {
+            this.file_hash = file_hash;
+        }
 
-    public String getMust_update() {
-        return must_update;
-    }
+        public int getFile_size() {
+            return file_size;
+        }
 
-    public void setMust_update(String must_update) {
-        this.must_update = must_update;
+        public void setFile_size(int file_size) {
+            this.file_size = file_size;
+        }
+
+        public String getFile_url() {
+            return file_url;
+        }
+
+        public void setFile_url(String file_url) {
+            this.file_url = file_url;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public boolean isUpdate() {
+            return update;
+        }
+
+        public void setUpdate(boolean update) {
+            this.update = update;
+        }
+
+        public String getVersion() {
+            return version;
+        }
+
+        public void setVersion(String version) {
+            this.version = version;
+        }
     }
 }

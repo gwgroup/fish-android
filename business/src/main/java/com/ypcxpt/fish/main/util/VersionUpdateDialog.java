@@ -87,6 +87,14 @@ public class VersionUpdateDialog extends Dialog implements View.OnClickListener 
         setButtonOk("下载中(" + Percent + "%)..");
     }
 
+    public void setProgressBarShow(boolean isShow) {
+        if (isShow) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
     /**
      * 初始化数据
      */
