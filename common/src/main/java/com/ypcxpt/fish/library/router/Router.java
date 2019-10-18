@@ -122,6 +122,20 @@ public class Router {
         }
 
         /**
+         * 跳转activity
+         * @param activity From activity
+         * @param enterAnim
+         * @param exitAnim
+         */
+        public void navigation(Activity activity, int enterAnim, int exitAnim) {
+            mPostcard.withTransition(enterAnim, exitAnim).navigation(activity);
+            if (withFinish) {
+                ThreadHelper.postDelayed(() -> activity.finish(),500);
+            }
+            clear();
+        }
+
+        /**
          * @param activity From activity
          */
         public void navigation(Activity activity) {

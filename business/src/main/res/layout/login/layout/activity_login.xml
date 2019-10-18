@@ -6,33 +6,33 @@
 
     <LinearLayout
         style="@style/Layout_Match_Match"
-        android:background="@android:color/white"
+        android:background="@color/common_F1F3F4"
         android:orientation="vertical"
         android:paddingLeft="@dimen/dp20"
         android:paddingRight="@dimen/dp20">
 
         <ImageView
-            android:layout_width="@dimen/dp50"
-            android:layout_height="@dimen/dp50"
+            android:layout_width="@dimen/dp110"
+            android:layout_height="@dimen/dp110"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp51"
-            android:background="@mipmap/bg_t100_btn2_d"
-            android:scaleType="fitXY"
-            android:visibility="invisible"/>
+            android:layout_marginTop="@dimen/dp70"
+            android:background="@mipmap/icon_login_logo"
+            android:scaleType="fitXY"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp10"
-            android:text="@string/app_name"
-            android:textColor="@color/main_color_new"
-            android:textSize="@dimen/sp14"
-            android:visibility="invisible"/>
+            android:layout_marginTop="@dimen/dp30"
+            android:text="用户登录"
+            android:textStyle="bold"
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp20"/>
 
         <LinearLayout
             style="@style/Layout_Match_Wrap"
-            android:layout_marginTop="@dimen/dp50"
+            android:layout_marginTop="@dimen/dp45"
+            android:background="@drawable/bg_login_input"
             android:orientation="horizontal">
 
             <ImageView
@@ -46,23 +46,22 @@
                 android:id="@+id/et_phone"
                 style="@style/Layout_Match_Wrap"
                 android:background="@android:color/transparent"
-                android:hint="请输入手机号"
+                android:hint="请输入您的手机号码"
                 android:inputType="number"
                 android:maxLength="11"
                 android:paddingLeft="@dimen/dp5"
                 android:paddingTop="@dimen/dp12"
                 android:paddingBottom="@dimen/dp12"
                 android:textColor="@color/common_222222"
-                android:textSize="@dimen/sp15"
+                android:textSize="@dimen/sp16"
                 app:x_clearDrawable="@mipmap/ic_clear_text"
-                tools:text="15962265939" />
+                tools:text="16602197788" />
         </LinearLayout>
-
-        <View style="@style/divider_05" />
 
         <LinearLayout
             style="@style/Layout_Match_Wrap"
-            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp16"
+            android:background="@drawable/bg_login_input"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -87,7 +86,7 @@
                 android:paddingTop="@dimen/dp12"
                 android:paddingBottom="@dimen/dp12"
                 android:textColor="@color/common_222222"
-                android:textSize="@dimen/sp15"
+                android:textSize="@dimen/sp16"
                 app:x_clearDrawable="@mipmap/ic_clear_text"
                 tools:text="333333" />
 
@@ -114,22 +113,28 @@
             android:layout_marginTop="@dimen/dp30"
             android:background="@drawable/sl_bg_login_btn"
             android:gravity="center"
-            android:paddingTop="@dimen/dp8"
-            android:paddingBottom="@dimen/dp8"
+            android:paddingTop="@dimen/dp12"
+            android:paddingBottom="@dimen/dp12"
             android:text="登录"
             android:textColor="@color/white"
             android:textSize="@dimen/sp15" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp120"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/icon_login_bottom"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp10"
         android:orientation="vertical"
         android:paddingLeft="@dimen/dp20"
         android:paddingRight="@dimen/dp20"
-        android:visibility="invisible">
+        android:paddingBottom="@dimen/dp20"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"

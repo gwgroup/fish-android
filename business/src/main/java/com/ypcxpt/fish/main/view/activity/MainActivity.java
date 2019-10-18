@@ -35,7 +35,9 @@ import com.ypcxpt.fish.main.event.OnGetDevicesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 import com.ypcxpt.fish.main.util.VersionCheckUtil;
+import com.ypcxpt.fish.main.view.fragment.EarlyWarningFragment;
 import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
+import com.ypcxpt.fish.main.view.fragment.TimingPlanFragment;
 import com.ypcxpt.fish.main.view.fragment.UserProfileFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -121,8 +123,8 @@ public class MainActivity extends BaseActivity {
     private void initFragments() {
         mFragments = new ArrayList<>();
         mFragments.add(new MyDeviceFragment());
-        mFragments.add(new MyDeviceFragment());
-        mFragments.add(new UserProfileFragment());
+        mFragments.add(new TimingPlanFragment());
+        mFragments.add(new EarlyWarningFragment());
         mFragments.add(new UserProfileFragment());
 
         FragmentTransaction transaction = getFragmentTransaction();
@@ -156,40 +158,40 @@ public class MainActivity extends BaseActivity {
 //            line1.setVisibility(View.VISIBLE);
 //            line2.setVisibility(View.GONE);
             iv_bottom_fish.setImageResource(R.mipmap.icon_bottom_device_ed);
-            tv_bottom_fish.setTextColor(getResources().getColor(R.color.main_color_new));
-            iv_bottom_plan.setImageResource(R.mipmap.icon_bottom_device_u);
-            tv_bottom_plan.setTextColor(getResources().getColor(R.color.common_2f2f2f));
-            iv_bottom_warning.setImageResource(R.mipmap.icon_bottom_personal_u);
-            tv_bottom_warning.setTextColor(getResources().getColor(R.color.common_2f2f2f));
+            tv_bottom_fish.setTextColor(getResources().getColor(R.color.common_141515));
+            iv_bottom_plan.setImageResource(R.mipmap.icon_bottom_plan_u);
+            tv_bottom_plan.setTextColor(getResources().getColor(R.color.common_a1a1a1));
+            iv_bottom_warning.setImageResource(R.mipmap.icon_bottom_warning_u);
+            tv_bottom_warning.setTextColor(getResources().getColor(R.color.common_a1a1a1));
             iv_bottom_personal.setImageResource(R.mipmap.icon_bottom_personal_u);
-            tv_bottom_personal.setTextColor(getResources().getColor(R.color.common_2f2f2f));
+            tv_bottom_personal.setTextColor(getResources().getColor(R.color.common_a1a1a1));
         } else if (index == 1) {
             iv_bottom_fish.setImageResource(R.mipmap.icon_bottom_device_u);
-            tv_bottom_fish.setTextColor(getResources().getColor(R.color.common_2f2f2f));
-            iv_bottom_plan.setImageResource(R.mipmap.icon_bottom_device_ed);
-            tv_bottom_plan.setTextColor(getResources().getColor(R.color.main_color_new));
-            iv_bottom_warning.setImageResource(R.mipmap.icon_bottom_personal_u);
-            tv_bottom_warning.setTextColor(getResources().getColor(R.color.common_2f2f2f));
+            tv_bottom_fish.setTextColor(getResources().getColor(R.color.common_a1a1a1));
+            iv_bottom_plan.setImageResource(R.mipmap.icon_bottom_plan_ed);
+            tv_bottom_plan.setTextColor(getResources().getColor(R.color.common_141515));
+            iv_bottom_warning.setImageResource(R.mipmap.icon_bottom_warning_u);
+            tv_bottom_warning.setTextColor(getResources().getColor(R.color.common_a1a1a1));
             iv_bottom_personal.setImageResource(R.mipmap.icon_bottom_personal_u);
-            tv_bottom_personal.setTextColor(getResources().getColor(R.color.common_2f2f2f));
+            tv_bottom_personal.setTextColor(getResources().getColor(R.color.common_a1a1a1));
         } else if (index == 2) {
             iv_bottom_fish.setImageResource(R.mipmap.icon_bottom_device_u);
-            tv_bottom_fish.setTextColor(getResources().getColor(R.color.common_2f2f2f));
-            iv_bottom_plan.setImageResource(R.mipmap.icon_bottom_device_u);
-            tv_bottom_plan.setTextColor(getResources().getColor(R.color.common_2f2f2f));
-            iv_bottom_warning.setImageResource(R.mipmap.icon_bottom_personal_ed);
-            tv_bottom_warning.setTextColor(getResources().getColor(R.color.main_color_new));
+            tv_bottom_fish.setTextColor(getResources().getColor(R.color.common_a1a1a1));
+            iv_bottom_plan.setImageResource(R.mipmap.icon_bottom_plan_u);
+            tv_bottom_plan.setTextColor(getResources().getColor(R.color.common_a1a1a1));
+            iv_bottom_warning.setImageResource(R.mipmap.icon_bottom_warning_ed);
+            tv_bottom_warning.setTextColor(getResources().getColor(R.color.common_141515));
             iv_bottom_personal.setImageResource(R.mipmap.icon_bottom_personal_u);
-            tv_bottom_personal.setTextColor(getResources().getColor(R.color.common_2f2f2f));
+            tv_bottom_personal.setTextColor(getResources().getColor(R.color.common_a1a1a1));
         } else {
             iv_bottom_fish.setImageResource(R.mipmap.icon_bottom_device_u);
-            tv_bottom_fish.setTextColor(getResources().getColor(R.color.common_2f2f2f));
-            iv_bottom_plan.setImageResource(R.mipmap.icon_bottom_device_u);
-            tv_bottom_plan.setTextColor(getResources().getColor(R.color.common_2f2f2f));
-            iv_bottom_warning.setImageResource(R.mipmap.icon_bottom_personal_u);
-            tv_bottom_warning.setTextColor(getResources().getColor(R.color.common_2f2f2f));
+            tv_bottom_fish.setTextColor(getResources().getColor(R.color.common_a1a1a1));
+            iv_bottom_plan.setImageResource(R.mipmap.icon_bottom_plan_u);
+            tv_bottom_plan.setTextColor(getResources().getColor(R.color.common_a1a1a1));
+            iv_bottom_warning.setImageResource(R.mipmap.icon_bottom_warning_u);
+            tv_bottom_warning.setTextColor(getResources().getColor(R.color.common_a1a1a1));
             iv_bottom_personal.setImageResource(R.mipmap.icon_bottom_personal_ed);
-            tv_bottom_personal.setTextColor(getResources().getColor(R.color.main_color_new));
+            tv_bottom_personal.setTextColor(getResources().getColor(R.color.common_141515));
         }
 
         mCurrFragment = targetFragment;

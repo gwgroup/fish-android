@@ -46,10 +46,10 @@ ext {
     // === Outer Links END ===
 
     appName = [
-            debug  : "小鱼开发版",
-            testing: "小鱼测试版",
-            staging: "小鱼稳定版",
-            release: "小鱼"
+            debug  : "小鱼物联开发版",
+            testing: "小鱼物联测试版",
+            staging: "小鱼物联稳定版",
+            release: "小鱼物联"
     ]
 
     ext.renameOutputs = {

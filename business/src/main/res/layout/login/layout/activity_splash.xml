@@ -12,7 +12,7 @@
         android:layout_height="@dimen/dp48"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp51"
-        android:background="@mipmap/ic_company_logo"
+        android:background="@mipmap/icon_login_logo"
         android:scaleType="centerCrop" />
 
     <TextView

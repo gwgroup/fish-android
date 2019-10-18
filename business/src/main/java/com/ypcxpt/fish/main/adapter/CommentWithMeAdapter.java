@@ -77,7 +77,7 @@ public class CommentWithMeAdapter extends BaseQuickAdapter<CommentInfo.RowsBean,
             shareImageUrl = imageBean.getUrl();
         } else {
             Glide.with(mContext)
-                    .load(R.mipmap.ic_company_logo)
+                    .load(R.mipmap.icon_login_logo)
                     .into(imageView);
         }
         helper.setText(R.id.tv_titleName, articleTitle);

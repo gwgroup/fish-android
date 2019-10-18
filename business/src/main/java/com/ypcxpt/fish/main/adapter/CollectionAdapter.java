@@ -45,7 +45,7 @@ public class CollectionAdapter extends BaseQuickAdapter<CollectionInfo.RowsBean,
             shareImageUrl = imageBean.getUrl();
         } else {
             Glide.with(mContext)
-                    .load(R.mipmap.ic_company_logo)
+                    .load(R.mipmap.icon_login_logo)
                     .into(imageView);
         }
 

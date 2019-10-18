@@ -196,7 +196,7 @@ public class BrowserActivity extends Activity {
                             }
                         });
                     } else {
-                        sendToWeiXin(articleTitle, content, "小鱼", BitmapFactory.decodeResource(getResources(), R.mipmap.ic_company_logo), 1);
+                        sendToWeiXin(articleTitle, content, "小鱼", BitmapFactory.decodeResource(getResources(), R.mipmap.icon_login_logo), 1);
                     }
 
                 }
@@ -216,7 +216,7 @@ public class BrowserActivity extends Activity {
                             }
                         });
                     } else {
-                        sendToWeiXin(articleTitle, content, "小鱼", BitmapFactory.decodeResource(getResources(), R.mipmap.ic_company_logo), 1);
+                        sendToWeiXin(articleTitle, content, "小鱼", BitmapFactory.decodeResource(getResources(), R.mipmap.icon_login_logo), 1);
                     }
                 }
 
@@ -235,7 +235,7 @@ public class BrowserActivity extends Activity {
                             }
                         });
                     } else {
-                        sendToWeiXin(articleTitle, content, "小鱼", BitmapFactory.decodeResource(getResources(), R.mipmap.ic_company_logo), 2);
+                        sendToWeiXin(articleTitle, content, "小鱼", BitmapFactory.decodeResource(getResources(), R.mipmap.icon_login_logo), 2);
                     }
                 }
             });

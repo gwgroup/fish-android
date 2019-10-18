@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +38,6 @@ import com.ms.banner.listener.OnBannerClickListener;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.common.Constant;
-
 import com.ypcxpt.fish.BuildConfig;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.FileUtil;
@@ -67,6 +63,8 @@ import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
 import com.ypcxpt.fish.main.presenter.WeatherPresenter;
 import com.ypcxpt.fish.sonic.BrowserActivity;
 import com.ypcxpt.fish.sonic.SonicJavaScriptInterface;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.common.Constant;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -86,7 +84,7 @@ import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherCollections;
 import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherIcon;
 import static com.ypcxpt.fish.sonic.BrowserActivity.MODE_SONIC;
 
-public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.View {
+public class TimingPlanFragment extends BaseFragment implements MyDeviceContract.View {
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.iv_weather)

@@ -8,6 +8,8 @@
     <color name="transparent_main_color">#b01E90FF</color>
     <color name="translucence">#b2000000</color>
     <!-- 标题文字／重要文字 -->
+    <color name="common_161717">#161717</color>
+    <color name="common_141515">#141515</color>
     <color name="common_2f2f2f">#2f2f2f</color>
     <color name="common_222222">#222222</color>
     <color name="common_333333">#333333</color>
@@ -15,6 +17,7 @@
     <color name="common_555555">#555555</color>
     <color name="common_666666">#666666</color>
     <!-- 次要文字 -->
+    <color name="common_a1a1a1">#A1A1A1</color>
     <color name="common_969696">#969696</color>
     <color name="common_999999">#999999</color>
     <color name="common_7f7f7f">#7f7f7f</color>
@@ -26,6 +29,7 @@
     <color name="common_EAEAEA">#EAEAEA</color>
     <color name="common_FAFAFA">#FAFAFA</color>
     <color name="common_D8D8D8">#D8D8D8</color>
+    <color name="common_F1F3F4">#F1F3F4</color>
 
     <!-- 我的设备 -->
     <color name="bg_device_detail_main_color">#2c313f</color>
@@ -50,7 +54,7 @@
     <!--手动区域按钮颜色-->
     <color name="device_detail_manual">#35384d</color>
 
-    <color name="main_color_new">#5C768D</color>
+    <color name="main_color_new">#78D0FF</color>
     <color name="bg_device_detail_top">#A3C2CF</color>
     <color name="bg_device_detail_top2">#869AB2</color>
     <color name="bg_device_detail_red">#CF121B</color>

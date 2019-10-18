@@ -46,7 +46,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     protected ImmersionBar initImmersionBar() {
-        return ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true);
+        return ImmersionBar.with(this).statusBarColor(R.color.common_F1F3F4).fitsSystemWindows(true);
     }
 
     @Override

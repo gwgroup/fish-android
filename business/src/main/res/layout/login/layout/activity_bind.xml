@@ -46,15 +46,6 @@
         android:paddingLeft="@dimen/dp20"
         android:paddingRight="@dimen/dp20">
 
-        <ImageView
-            android:layout_width="@dimen/dp124"
-            android:layout_height="@dimen/dp30"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp51"
-            android:background="@mipmap/ic_company_logo"
-            android:scaleType="fitXY"
-            android:visibility="gone" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

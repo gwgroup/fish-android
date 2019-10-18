@@ -33,18 +33,19 @@
 
             <ImageView
                 android:id="@+id/iv_bottom_fish"
-                android:layout_width="@dimen/dp25"
-                android:layout_height="@dimen/dp25"
-                android:layout_marginTop="@dimen/dp2"
+                android:layout_width="@dimen/dp26"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp3"
                 android:src="@mipmap/icon_bottom_device_ed" />
 
             <TextView
                 android:id="@+id/tv_bottom_fish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp2"
                 android:gravity="center"
                 android:text="鱼塘"
-                android:textColor="@color/main_color_new"
+                android:textColor="@color/common_141515"
                 android:textSize="@dimen/sp12" />
 
             <View
@@ -62,10 +63,10 @@
 
             <ImageView
                 android:id="@+id/iv_bottom_plan"
-                android:layout_width="@dimen/dp25"
-                android:layout_height="@dimen/dp25"
-                android:layout_marginTop="@dimen/dp2"
-                android:src="@mipmap/icon_bottom_personal_u" />
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp3"
+                android:src="@mipmap/icon_bottom_plan_u" />
 
             <TextView
                 android:id="@+id/tv_bottom_plan"
@@ -73,8 +74,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginTop="@dimen/dp2"
                 android:text="定时"
-                android:textColor="@color/common_2f2f2f"
+                android:textColor="@color/common_a1a1a1"
                 android:textSize="@dimen/sp12" />
         </LinearLayout>
 
@@ -86,19 +88,20 @@
 
             <ImageView
                 android:id="@+id/iv_bottom_warning"
-                android:layout_width="@dimen/dp25"
-                android:layout_height="@dimen/dp25"
-                android:layout_marginTop="@dimen/dp2"
-                android:src="@mipmap/icon_bottom_personal_u" />
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp3"
+                android:src="@mipmap/icon_bottom_warning_u" />
 
             <TextView
                 android:id="@+id/tv_bottom_warning"
                 style="@style/main_page_header_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp2"
                 android:gravity="center"
                 android:text="预警"
-                android:textColor="@color/common_2f2f2f"
+                android:textColor="@color/common_a1a1a1"
                 android:textSize="@dimen/sp12" />
         </LinearLayout>
 
@@ -110,9 +113,9 @@
 
             <ImageView
                 android:id="@+id/iv_bottom_personal"
-                android:layout_width="@dimen/dp25"
-                android:layout_height="@dimen/dp25"
-                android:layout_marginTop="@dimen/dp2"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp3"
                 android:src="@mipmap/icon_bottom_personal_u" />
 
             <TextView
@@ -120,9 +123,10 @@
                 style="@style/main_page_header_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp2"
                 android:gravity="center"
                 android:text="我的"
-                android:textColor="@color/common_2f2f2f"
+                android:textColor="@color/common_a1a1a1"
                 android:textSize="@dimen/sp12" />
 
             <View

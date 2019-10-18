@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.blankj.utilcode.util.StringUtils;
-
 import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.library.router.Router;
@@ -22,29 +21,14 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        //得到当前界面的装饰视图
-//        if(Build.VERSION.SDK_INT >= 21) {
-//            View decorView = getWindow().getDecorView();
-//            //设置让应用主题内容占据状态栏和导航栏
-//            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-//            decorView.setSystemUiVisibility(option);
-//            //设置状态栏和导航栏颜色为透明
-//            getWindow().setStatusBarColor(Color.TRANSPARENT);
-//            getWindow().setNavigationBarColor(Color.TRANSPARENT);
-//        }
-
         if (!isTaskRoot()){
             finish();
             return;
         }
 
-//        setContentView(R.layout.activity_splash);
         EventBus.getDefault().register(this);//EventBus注册
         mPresenter = new SplashPresenter();
 
-//        Handler handler = new Handler();
-//        //当计时结束时，跳转至主界面
-//        handler.postDelayed(() -> doOnCreate(), 1000);
         doOnCreate();
     }
 
@@ -71,11 +55,14 @@ public class SplashActivity extends Activity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventReceived(SplashEvent event) {
         if (event.isRequestSuccess) {
-            Router.build(Path.Login.ADVERTISING)
-                    .withParcelable("userProfile", event.userProfile)
-                    .withFinish().navigation(this);
+//            Router.build(Path.Login.ADVERTISING)
+//                    .withParcelable("userProfile", event.userProfile)
+//                    .withFinish().navigation(this);
 
-//            JPushAliasUtil.setAliasJPush(event.userProfile.id.replace("-", ""));
+            Router.build(Path.Main.MAIN)
+                    .withParcelable("userProfile", event.userProfile)
+                    .withFinish()
+                    .navigation(this, android.R.anim.fade_in, android.R.anim.fade_out);
         } else {
             jumpToLoginPage();
         }
