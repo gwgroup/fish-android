@@ -13,9 +13,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,6 +42,7 @@ import com.ms.banner.listener.OnBannerClickListener;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
+import com.ypcxpt.fish.main.util.MainOperationDialog;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
 
@@ -100,11 +104,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @BindView(R.id.tv_location)
     TextView tvLocation;
 
-    @BindView(R.id.iv_manually_scan)
-    ImageView iv;
-    @BindView(R.id.iv_code_scan)
-    ImageView iv_code_scan;
-
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
 
@@ -159,33 +158,43 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         });
         //设置刷新时旋转图标的颜色，这是一个可变参数，当设置多个颜色时，旋转一周改变一次颜色。
         swipe_refresh_layout.setColorSchemeResources(R.color.main_color_new, R.color.bg_device_detail_yellow, R.color.bg_device_detail_top);
-
-//        getBanner();
-
-//        View view = LayoutInflater.from(getActivity()).inflate(R.layout.include_footview_scan, null);
-//        RelativeLayout rl_manually_scan = view.findViewById(R.id.rl_manually_scan);
-//        rl_manually_scan.setOnClickListener(v -> {
-//            /* 并不是直接开始扫描，而是先检查蓝牙是否开启 */
-//            checkBluetoothState();
-//        });
-//        mAdapter.addFooterView(view);
-
-//        setTopData();
     }
 
-    private void setTopData() {
-        // Date d = new Date();
-        // d.getHours()方法过时，使用Calendar代替
-        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 11) {
-            tv_timeStatus.setText("早上好！");
-        } else if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 13) {
-            tv_timeStatus.setText("中午好！");
-        } else if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 18) {
-            tv_timeStatus.setText("下午好！");
-        } else if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 24) {
-            tv_timeStatus.setText("晚上好！");
-        }
-        tv_desc.setText("累了吧！使用按摩椅休息一下吧！");
+    /**
+     * 操作鱼塘弹窗
+     */
+    private void showOperationDialog() {
+        MainOperationDialog operationDialog = new MainOperationDialog(getActivity(), R.style.MyDialog);
+        operationDialog.setOnResultListener(new MainOperationDialog.OnResultListener() {
+
+            @Override
+            public void Add() {
+                operationDialog.dismiss();
+            }
+
+            @Override
+            public void Remove() {
+                operationDialog.dismiss();
+            }
+
+            @Override
+            public void Rename() {
+                operationDialog.dismiss();
+            }
+
+            @Override
+            public void Cancel() {
+                operationDialog.dismiss();
+            }
+        });
+        Window dialogWindow = operationDialog.getWindow();
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        dialogWindow.setGravity(Gravity.TOP);
+//        lp.x = 30; // 新位置X坐标
+//        lp.y = 85; // 新位置Y坐标
+//        lp.alpha = 0.7f; // 透明度
+//        dialogWindow.setAttributes(lp);
+        operationDialog.show();
     }
 
     private void getBanner() {
@@ -315,59 +324,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         banner.stopAutoPlay();
     }
 
-    @OnClick(R.id.iv_code_scan)
-    public void onClickCodeScan() {
-        AndPermission.with(this)
-                .permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
-                .onGranted(new Action() {
-                    @Override
-                    public void onAction(List<String> permissions) {
-                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
-                        /**
-                         * ZxingConfig是配置类
-                         * 可以设置是否显示底部布局，闪光灯，相册，
-                         * 是否播放提示音  震动
-                         * 设置扫描框颜色等
-                         * 也可以不传这个参数
-                         */
-//                                ZxingConfig config = new ZxingConfig();
-//                                config.setPlayBeep(false);//是否播放扫描声音 默认为true
-//                                config.setShake(false);//是否震动  默认为true
-//                                config.setDecodeBarCode(false);//是否扫描条形码 默认为true
-//                                config.setReactColor(R.color.colorAccent);//设置扫描框四个角的颜色 默认为白色
-//                                config.setFrameLineColor(R.color.colorAccent);//设置扫描框边框颜色 默认无色
-//                                config.setScanLineColor(R.color.colorAccent);//设置扫描线的颜色 默认白色
-//                                config.setFullScreenScan(false);//是否全屏扫描  默认为true  设为false则只会在扫描框中扫描
-//                                intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
-                        startActivityForResult(intent, REQUEST_CODE_SCAN);
-                    }
-                })
-                .onDenied(new Action() {
-                    @Override
-                    public void onAction(List<String> permissions) {
-                        Uri packageURI = Uri.parse("package:" + "com.ypcxpt.fish");
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                        startActivity(intent);
-
-                        Toast.makeText(getActivity(), "没有权限无法扫描呦", Toast.LENGTH_LONG).show();
-                    }
-                }).start();
-    }
-
-    @OnClick(R.id.iv_manually_scan)
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_manually_scan:
-                /* 并不是直接开始扫描，而是先检查蓝牙是否开启 */
-                checkBluetoothState();
-                break;
-        }
-    }
-
-    private void checkBluetoothState() {
-        mPresenter.checkBluetoothState();
+    @OnClick(R.id.iv_main_add)
+    public void onClickAdd() {
+        showOperationDialog();
     }
 
     @Override
@@ -438,20 +397,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @Subscribe
     public void onEventReceived(OnGetDevicesEvent event) {
         mPresenter.getDevices();
-    }
-
-    /**
-     * 取得应用的版本号
-     */
-    public static String getAPKVersion(Context ctx) {
-        PackageManager packageManager = ctx.getPackageManager();
-        try {
-            PackageInfo packageInfo = packageManager.getPackageInfo(ctx.getPackageName(), 0);
-            return packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 
     @Override

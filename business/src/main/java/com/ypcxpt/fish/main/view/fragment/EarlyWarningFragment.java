@@ -98,11 +98,6 @@ public class EarlyWarningFragment extends BaseFragment implements MyDeviceContra
     @BindView(R.id.tv_location)
     TextView tvLocation;
 
-    @BindView(R.id.iv_manually_scan)
-    ImageView iv;
-    @BindView(R.id.iv_code_scan)
-    ImageView iv_code_scan;
-
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
 
@@ -121,7 +116,7 @@ public class EarlyWarningFragment extends BaseFragment implements MyDeviceContra
 
     @Override
     protected int layoutResID() {
-        return R.layout.fragment_my_device;
+        return R.layout.fragment_early_warning;
     }
 
     @Override
@@ -311,57 +306,6 @@ public class EarlyWarningFragment extends BaseFragment implements MyDeviceContra
         super.onStop();
         //结束轮播
         banner.stopAutoPlay();
-    }
-
-    @OnClick(R.id.iv_code_scan)
-    public void onClickCodeScan() {
-        AndPermission.with(this)
-                .permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
-                .onGranted(new Action() {
-                    @Override
-                    public void onAction(List<String> permissions) {
-                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
-                        /**
-                         * ZxingConfig是配置类
-                         * 可以设置是否显示底部布局，闪光灯，相册，
-                         * 是否播放提示音  震动
-                         * 设置扫描框颜色等
-                         * 也可以不传这个参数
-                         */
-//                                ZxingConfig config = new ZxingConfig();
-//                                config.setPlayBeep(false);//是否播放扫描声音 默认为true
-//                                config.setShake(false);//是否震动  默认为true
-//                                config.setDecodeBarCode(false);//是否扫描条形码 默认为true
-//                                config.setReactColor(R.color.colorAccent);//设置扫描框四个角的颜色 默认为白色
-//                                config.setFrameLineColor(R.color.colorAccent);//设置扫描框边框颜色 默认无色
-//                                config.setScanLineColor(R.color.colorAccent);//设置扫描线的颜色 默认白色
-//                                config.setFullScreenScan(false);//是否全屏扫描  默认为true  设为false则只会在扫描框中扫描
-//                                intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
-                        startActivityForResult(intent, REQUEST_CODE_SCAN);
-                    }
-                })
-                .onDenied(new Action() {
-                    @Override
-                    public void onAction(List<String> permissions) {
-                        Uri packageURI = Uri.parse("package:" + "com.ypcxpt.fish");
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                        startActivity(intent);
-
-                        Toast.makeText(getActivity(), "没有权限无法扫描呦", Toast.LENGTH_LONG).show();
-                    }
-                }).start();
-    }
-
-    @OnClick(R.id.iv_manually_scan)
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_manually_scan:
-                /* 并不是直接开始扫描，而是先检查蓝牙是否开启 */
-                checkBluetoothState();
-                break;
-        }
     }
 
     private void checkBluetoothState() {
