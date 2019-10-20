@@ -15,7 +15,7 @@ import com.ypcxpt.fish.library.util.ViewHelper;
 import com.ypcxpt.fish.library.view.activity.BaseActivity;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.contract.DeviceManagerDetailContract;
-import com.ypcxpt.fish.main.event.OnGetDevicesEvent;
+import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.presenter.DeviceManagerDetailPresenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -89,8 +89,7 @@ public class DeviceManagerDetailActivity extends BaseActivity implements DeviceM
 
     @Override
     public void onUpdateSuccess(UserProfile newProfile) {
-//        EventBus.getDefault().post(new OnGetDeviceListEvent(newProfile.devices));
-        EventBus.getDefault().post(new OnGetDevicesEvent());
+        EventBus.getDefault().post(new OnGetScenesEvent());
         finish();
     }
 

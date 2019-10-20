@@ -585,40 +585,6 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
-                <LinearLayout
-                    style="@style/device_detail_more_function2_ll_new"
-                    android:visibility="gone">
-
-                    <com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView
-                        android:id="@+id/rl_more_func_back_up"
-                        style="@style/device_detail_more_function2_rl_left_new">
-
-                        <ImageView
-                            android:id="@+id/iv_device_detail_more_func_back_up"
-                            style="@style/device_detail_more_function1_iv_add" />
-
-                        <TextView
-                            style="@style/device_detail_more_function2_rl_tv_left"
-                            android:layout_toRightOf="@+id/iv_device_detail_more_func_back_up"
-                            android:text="靠背升" />
-
-                    </com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView>
-
-                    <com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView
-                        android:id="@+id/rl_more_func_back_down"
-                        style="@style/device_detail_more_function2_rl_right_new">
-
-                        <ImageView
-                            android:id="@+id/iv_device_detail_more_func_back_down"
-                            style="@style/device_detail_more_function1_iv_minus" />
-
-                        <TextView
-                            style="@style/device_detail_more_function2_rl_tv_right"
-                            android:layout_toLeftOf="@+id/iv_device_detail_more_func_back_down"
-                            android:text="靠背降" />
-                    </com.ypcxpt.fish.library.ui.fuction.LongClickDeviceItemView>
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

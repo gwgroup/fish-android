@@ -291,19 +291,6 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="device_detail_more_function1_iv_add" parent="Layout_Wrap_Wrap">
-        <item name="android:layout_width">@dimen/dp28</item>
-        <item name="android:layout_height">@dimen/dp28</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:scaleType">centerInside</item>
-        <item name="android:src">@mipmap/ic_device_detail_add</item>
-    </style>
-
-    <style name="device_detail_more_function1_iv_minus" parent="device_detail_more_function1_iv_add">
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:src">@mipmap/ic_device_detail_minus</item>
-    </style>
-
     <style name="device_detail_more_function1_tv" parent="Layout_Wrap_Wrap">
         <item name="android:textColor">@color/bg_device_item_main_color</item>
         <item name="android:textSize">@dimen/sp15</item>

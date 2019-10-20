@@ -1,6 +1,6 @@
 package com.ypcxpt.fish.app.repository;
 
-import com.ypcxpt.fish.device.model.NetDevice;
+import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
@@ -31,13 +31,13 @@ public interface ApiService {
     @POST("api/user/load")
     Flowable<UserProfile> getUserProfile(@Header("authorization") String token);
 
+    /* 获取所有场景 */
+    @POST("api/scene/get_all_scene")
+    Flowable<List<Scenes>> getScenes(@Header("authorization") String token);
+
     /* 绑定手机号 */
     @POST("weixin_bind")
     Flowable<LoginResult> bindPhone(@Body HashMap<String, Object> param);
-
-    /* 获取设备 */
-    @POST("get_devices")
-    Flowable<List<NetDevice>> getDevices(@Header("authorization") String token);
 
     /* 修改用户信息 */
     @POST("edit_user")

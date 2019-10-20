@@ -136,7 +136,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IView,
      * 默认沉浸式的样式，可以让子类覆写.
      */
     protected ImmersionBar initImmersionBar() {
-        return ImmersionBar.with(this).statusBarColor(R.color.main_color_new).fitsSystemWindows(true);
+        return ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true).fitsSystemWindows(true);
     }
 
     /**

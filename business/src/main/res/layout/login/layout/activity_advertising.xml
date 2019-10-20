@@ -14,13 +14,14 @@
 
         <ImageView
             android:id="@+id/iv_bottom"
-            style="@style/Layout_Wrap_Wrap"
-            android:src="@mipmap/ic_advertise_bottom" />
+            android:layout_width="@dimen/dp40"
+           android:layout_height="@dimen/dp40"
+            android:src="@mipmap/icon_login_logo" />
 
         <TextView
             style="@style/Layout_Wrap_Wrap"
             android:layout_marginTop="@dimen/dp5"
-            android:text="Copyright © 2018-2019 Reead.  All Rights Reserved."
+            android:text="Copyright © 2019 Fish.  All Rights Reserved."
             android:textColor="#c9cacc"
             android:textSize="@dimen/sp11" />
     </LinearLayout>
@@ -31,9 +32,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rl_bottom"
         android:scaleType="centerCrop"
-        android:src="@mipmap/bg_advertisement">
-
-    </ImageView>
+        android:src="@color/main_color_new"/>
 
     <TextView
         android:id="@+id/tv_count_down"

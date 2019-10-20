@@ -11,7 +11,7 @@ import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.contract.UserProfileContract;
-import com.ypcxpt.fish.main.event.OnGetDevicesEvent;
+import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,8 +52,7 @@ public class UserProfilePresenter extends BasePresenter<UserProfileContract.View
 
     @Override
     public void refreshDevice(UserProfile userProfile) {
-//        EventBus.getDefault().post(new OnGetDeviceListEvent(userProfile.devices));
-//        EventBus.getDefault().post(new OnGetDevicesEvent());
+//        EventBus.getDefault().post(new OnGetScenesEvent());
     }
 
     /**
@@ -69,15 +68,15 @@ public class UserProfilePresenter extends BasePresenter<UserProfileContract.View
 
     @Override
     public void getDevices() {
-        Flowable<List<NetDevice>> source = mDS.getDevices();
-        fetch(source).onSuccess(devices -> {
-            Logger.d("CCC", "devices-->" + devices.toString());
-            Router.build(Path.Main.DEVICE_MANAGER)
-//                    .withParcelable("mDevices", (Parcelable) devices)
-                    .navigation(getActivity());
-        }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
+//        Flowable<List<NetDevice>> source = mDS.getDevices();
+//        fetch(source).onSuccess(devices -> {
+//            Logger.d("CCC", "devices-->" + devices.toString());
+//            Router.build(Path.Main.DEVICE_MANAGER)
+////                    .withParcelable("mDevices", (Parcelable) devices)
+//                    .navigation(getActivity());
+//        }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+//                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+//                .start();
     }
 
     @Override
@@ -90,9 +89,9 @@ public class UserProfilePresenter extends BasePresenter<UserProfileContract.View
                 .onSuccess(userProfile -> {
                     Logger.d("CCC", userProfile == null ? "空用户信息" : userProfile.toString());
                     EventBus.getDefault().post(new OnProfileUpdatedEvent(userProfile));
-                    EventBus.getDefault().post(new OnGetDevicesEvent());
+                    EventBus.getDefault().post(new OnGetScenesEvent());
 //                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnProfileUpdatedEvent(userProfile)), 500);
-//                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetDevicesEvent()), 500);
+//                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))

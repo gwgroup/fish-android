@@ -40,7 +40,7 @@ import com.ypcxpt.fish.library.view.fragment.BaseFragment;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.contract.UserProfileContract;
 import com.ypcxpt.fish.main.event.OnGetCollectionsEvent;
-import com.ypcxpt.fish.main.event.OnGetDevicesEvent;
+import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnGetNotificationsEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 import com.ypcxpt.fish.main.event.OnRabbitMQUpdatedEvent;
@@ -62,8 +62,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.ypcxpt.fish.app.util.DisplayUtils.displayProfileInfo;
-import static com.ypcxpt.fish.app.util.DisplayUtils.getFormatDate;
-import static com.ypcxpt.fish.app.util.DisplayUtils.getFormatPhone;
 import static com.ypcxpt.fish.sonic.BrowserActivity.MODE_SONIC;
 
 public class UserProfileFragment extends BaseFragment implements UserProfileContract.View {
@@ -201,7 +199,7 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
 //        mPresenter.getDevices();
         Router.build(Path.Main.DEVICE_MANAGER).navigation(getActivity());
         //通知下一个界面调用设备列表接口
-        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetDevicesEvent()), 500);
+        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
     }
 
     @OnClick(R.id.ll_collection)

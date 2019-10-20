@@ -15,7 +15,7 @@ import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.view.activity.BaseActivity;
 import com.ypcxpt.fish.main.adapter.DeviceAdapter;
 import com.ypcxpt.fish.main.contract.DeviceManagerContract;
-import com.ypcxpt.fish.main.event.OnGetDevicesEvent;
+import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.presenter.DeviceManagerPresenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,7 +55,7 @@ public class DeviceManagerActivity extends BaseActivity implements DeviceManager
     @Override
     protected void onRestart() {
         super.onRestart();
-        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetDevicesEvent()), 500);
+        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -82,7 +82,7 @@ public class DeviceManagerActivity extends BaseActivity implements DeviceManager
     }
 
     @Subscribe
-    public void onEventReceived(OnGetDevicesEvent event) {
+    public void onEventReceived(OnGetScenesEvent event) {
         //收到通知调用接口获取设备列表
         mPresenter.getDevices();
     }

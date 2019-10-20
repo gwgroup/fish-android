@@ -2,6 +2,7 @@ package com.ypcxpt.fish.app.repository;
 
 import com.ypcxpt.fish.device.model.DataHistory;
 import com.ypcxpt.fish.device.model.NetDevice;
+import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
@@ -22,14 +23,16 @@ public interface DataSource {
     /* 登录 */
     Flowable<LoginResult> login(String phoneNo, String verifyCode);
 
-    /* 绑定手机号 */
-    Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid);
-
-    /* 获取设备 */
-    Flowable<List<NetDevice>> getDevices();
-
     /* 获取用户信息 */
     Flowable<UserProfile> getUserProfile();
+
+    /* 获取场景 */
+    Flowable<List<Scenes>> getScenes();
+
+
+
+    /* 绑定手机号 */
+    Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid);
 
     /* 修改用户信息 */
     Flowable<UserProfile> updateUserProfile(UserProfile userProfile);

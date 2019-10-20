@@ -37,12 +37,12 @@ public class DeviceManagerPresenter extends BasePresenter<DeviceManagerContract.
 
     @Override
     public void getDevices() {
-        Flowable<List<NetDevice>> source = mDS.getDevices();
-        fetch(source).onSuccess(devices -> {
-            Logger.d("CCC", "devices-->" + devices.toString());
-            mView.showDevices(devices);
-        }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
+//        Flowable<List<NetDevice>> source = mDS.getDevices();
+//        fetch(source).onSuccess(devices -> {
+//            Logger.d("CCC", "devices-->" + devices.toString());
+//            mView.showDevices(devices);
+//        }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+//                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+//                .start();
     }
 }

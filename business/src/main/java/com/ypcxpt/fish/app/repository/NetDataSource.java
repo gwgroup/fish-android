@@ -3,6 +3,7 @@ package com.ypcxpt.fish.app.repository;
 import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.device.model.DataHistory;
 import com.ypcxpt.fish.device.model.NetDevice;
+import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.net.NetManager;
 import com.ypcxpt.fish.library.net.request.ParamBuilder;
 import com.ypcxpt.fish.login.model.LoginResult;
@@ -44,6 +45,16 @@ public class NetDataSource implements DataSource {
     }
 
     @Override
+    public Flowable<UserProfile> getUserProfile() {
+        return mApiService.getUserProfile(AppData.token());
+    }
+
+    @Override
+    public Flowable<List<Scenes>> getScenes() {
+        return mApiService.getScenes(AppData.token());
+    }
+
+    @Override
     public Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid) {
         HashMap<String, Object> param = ParamBuilder.newBuilder()
                 .put("mobile", phoneNo)
@@ -51,16 +62,6 @@ public class NetDataSource implements DataSource {
                 .put("openid", openid)
                 .build();
         return mApiService.bindPhone(param);
-    }
-
-    @Override
-    public Flowable<List<NetDevice>> getDevices() {
-        return mApiService.getDevices(AppData.token());
-    }
-
-    @Override
-    public Flowable<UserProfile> getUserProfile() {
-        return mApiService.getUserProfile(AppData.token());
     }
 
     @Override

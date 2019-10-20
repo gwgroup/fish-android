@@ -19,6 +19,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.gyf.barlibrary.ImmersionBar;
 import com.ypcxpt.fish.App;
 import com.ypcxpt.fish.R;
+import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.core.ble.BLEHelper;
 import com.ypcxpt.fish.jpush.ExampleUtil;
@@ -31,6 +32,7 @@ import com.ypcxpt.fish.library.view.activity.BaseActivity;
 import com.ypcxpt.fish.library.view.fragment.BaseFragment;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.event.OnBluetoothPreparedEvent;
+import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 import com.ypcxpt.fish.main.view.fragment.EarlyWarningFragment;
@@ -100,7 +102,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected ImmersionBar initImmersionBar() {
-        return ImmersionBar.with(this).transparentStatusBar();
+        return ImmersionBar.with(this).transparentStatusBar().statusBarDarkFont(true);
     }
 
     @Override
@@ -115,7 +117,7 @@ public class MainActivity extends BaseActivity {
 
         //检测新版本
 //        VersionCheckUtil.getInstance(this).StartCheckVersion(this, false, false);
-//        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetDevicesEvent()), 500);
+        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
     }
 
     private void initFragments() {

@@ -39,6 +39,7 @@ public class SplashActivity extends Activity {
     }
 
     private void doOnCreate() {
+        AppData.setToken("b5fff1337ab14429b7880d5678c94651");
         if (StringUtils.isTrimEmpty(AppData.token())) {
             /* 第一次启动或者双清 */
             jumpToLoginPage();

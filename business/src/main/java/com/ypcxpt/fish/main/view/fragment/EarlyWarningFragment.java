@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,9 +32,6 @@ import com.ms.banner.Banner;
 import com.ms.banner.holder.BannerViewHolder;
 import com.ms.banner.holder.HolderCreator;
 import com.ms.banner.listener.OnBannerClickListener;
-import com.yanzhenjie.permission.Action;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
 import com.ypcxpt.fish.BuildConfig;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.FileUtil;
@@ -46,15 +40,15 @@ import com.ypcxpt.fish.app.util.TimeUtil;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
 import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.device.model.NetDevice;
+import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.library.view.fragment.BaseFragment;
-import com.ypcxpt.fish.main.adapter.DetectedDeviceAdapter;
+import com.ypcxpt.fish.main.adapter.SceneAdapter;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnBluetoothPreparedEvent;
-import com.ypcxpt.fish.main.event.OnGetDeviceListEvent;
-import com.ypcxpt.fish.main.event.OnGetDevicesEvent;
+import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 import com.ypcxpt.fish.main.model.BannerInfo;
@@ -63,7 +57,6 @@ import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
 import com.ypcxpt.fish.main.presenter.WeatherPresenter;
 import com.ypcxpt.fish.sonic.BrowserActivity;
 import com.ypcxpt.fish.sonic.SonicJavaScriptInterface;
-import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
 
 import org.greenrobot.eventbus.EventBus;
@@ -77,7 +70,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
 import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherCollections;
@@ -110,7 +102,7 @@ public class EarlyWarningFragment extends BaseFragment implements MyDeviceContra
 
     private WeatherPresenter mWeatherPresenter;
 
-    private DetectedDeviceAdapter mAdapter;
+    private SceneAdapter mAdapter;
 
     private int REQUEST_CODE_SCAN = 111;
 
@@ -129,7 +121,7 @@ public class EarlyWarningFragment extends BaseFragment implements MyDeviceContra
 
     @Override
     protected void initViews() {
-        mAdapter = new DetectedDeviceAdapter(R.layout.item_detected_deivce, mPresenter, getActivity());
+        mAdapter = new SceneAdapter(R.layout.item_scenes, mPresenter, getActivity());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(mAdapter);
         ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
@@ -308,21 +300,6 @@ public class EarlyWarningFragment extends BaseFragment implements MyDeviceContra
         banner.stopAutoPlay();
     }
 
-    private void checkBluetoothState() {
-        mPresenter.checkBluetoothState();
-    }
-
-    @Override
-    public void onStopScan() {
-//        dismissLoading();
-        dialog.dismiss();
-    }
-
-    @Override
-    public void onScanFailure() {
-        dismissLoading();
-    }
-
     @Override
     public void onGetWhetherResult(WeatherInfo weatherInfo) {
         if (weatherInfo == null) {
@@ -337,23 +314,13 @@ public class EarlyWarningFragment extends BaseFragment implements MyDeviceContra
     }
 
     @Override
-    public void showDevices(List<NetDevice> devices) {
-        Logger.e("CCC", "showDevices" + devices);
-        mAdapter.setNewData(devices);
+    public void showScenes(List<Scenes> scenes) {
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventReceived(Object event) {
-        if (event instanceof OnBluetoothPreparedEvent) {
-            /* 状态已准备好，可以开始扫描 */
-//            showLoading();
-            mPresenter.startScan(true);
-
-            showDialog();
-        } else if (event instanceof OnGetDeviceListEvent) {
-            List<NetDevice> deviceList = ((OnGetDeviceListEvent) event).netDeviceList;
-            mAdapter.setNewData(deviceList);
-        } else if (event instanceof OnProfileUpdatedEvent) {
+        if (event instanceof OnProfileUpdatedEvent) {
             if (!StringUtils.isTrimEmpty(((OnProfileUpdatedEvent) event).userProfile.user.display_name)) {
                 tvLocation.setText(((OnProfileUpdatedEvent) event).userProfile.user.display_name + "的家");
             } else {
@@ -378,8 +345,8 @@ public class EarlyWarningFragment extends BaseFragment implements MyDeviceContra
     }
 
     @Subscribe
-    public void onEventReceived(OnGetDevicesEvent event) {
-        mPresenter.getDevices();
+    public void onEventReceived(OnGetScenesEvent event) {
+        mPresenter.getScenes();
     }
 
     /**
@@ -396,21 +363,4 @@ public class EarlyWarningFragment extends BaseFragment implements MyDeviceContra
         return "";
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // 扫描二维码/条码回传
-        if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
-            if (data != null) {
-
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
-                String type = content.substring(content.indexOf("net/") + 4, content.indexOf("/#"));
-                String macAddress = content.substring(content.indexOf("#") + 1);
-                Toaster.showShort(type + "-" + macAddress);
-
-                mPresenter.startCodeScan(type, macAddress);
-            }
-        }
-    }
 }

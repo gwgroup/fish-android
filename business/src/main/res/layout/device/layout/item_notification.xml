@@ -52,5 +52,5 @@
         android:layout_width="@dimen/dp8"
         android:layout_height="@dimen/dp8"
         android:layout_alignParentRight="true"
-        android:background="@drawable/bg_cycle" />
+        android:background="@drawable/bg_cycle01" />
 </RelativeLayout>

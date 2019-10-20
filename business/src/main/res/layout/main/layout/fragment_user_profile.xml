@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:visibility="gone">
+    android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -214,7 +213,7 @@
                             android:layout_width="@dimen/dp8"
                             android:layout_height="@dimen/dp8"
                             android:layout_marginLeft="@dimen/dp5"
-                            android:background="@drawable/bg_cycle" />
+                            android:background="@drawable/bg_cycle01" />
 
                         <TextView
                             android:id="@+id/tv_notificationNum"

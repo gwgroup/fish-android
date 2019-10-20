@@ -129,17 +129,9 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.main.view.activity.EditUserProfileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.ypcxpt.fish.device.view.activity.DeviceDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.ypcxpt.fish.device.view.activity.DeviceDetailActivity2"
-            android:screenOrientation="portrait" />
 
         <!--新加的按摩椅界面-->
         <activity android:name="com.ypcxpt.fish.device.view.activity.T100DeviceDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.ypcxpt.fish.device.view.activity.Home8DeviceDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.ypcxpt.fish.device.view.activity.ShellChairActivity"
             android:screenOrientation="portrait" />
         <!--设备管理-->
         <activity android:name="com.ypcxpt.fish.main.view.activity.DeviceManagerActivity"

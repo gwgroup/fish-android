@@ -6,7 +6,7 @@
     android:layout_marginLeft="@dimen/dp22"
     android:layout_marginTop="@dimen/dp15"
     android:layout_marginRight="@dimen/dp22"
-    android:background="@drawable/bg_detected_device_item"
+    android:background="@drawable/bg_common_white"
     android:paddingLeft="@dimen/dp13"
     android:paddingTop="@dimen/dp9"
     android:paddingRight="@dimen/dp13"

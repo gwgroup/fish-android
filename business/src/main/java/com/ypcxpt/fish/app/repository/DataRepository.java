@@ -2,6 +2,7 @@ package com.ypcxpt.fish.app.repository;
 
 import com.ypcxpt.fish.device.model.DataHistory;
 import com.ypcxpt.fish.device.model.NetDevice;
+import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
@@ -33,19 +34,26 @@ public class DataRepository implements DataSource {
     }
 
     @Override
+    public Flowable<UserProfile> getUserProfile() {
+        return mNetDS.getUserProfile();
+    }
+
+    @Override
+    public Flowable<List<Scenes>> getScenes() {
+        return mNetDS.getScenes();
+    }
+
+
+
+
+    @Override
     public Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid) {
         return mNetDS.bindPhone(phoneNo, verifyCode, openid);
     }
 
-    @Override
-    public Flowable<List<NetDevice>> getDevices() {
-        return mNetDS.getDevices();
-    }
 
-    @Override
-    public Flowable<UserProfile> getUserProfile() {
-        return mNetDS.getUserProfile();
-    }
+
+
 
     @Override
     public Flowable<UserProfile> updateUserProfile(UserProfile userProfile) {
