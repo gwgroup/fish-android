@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -26,6 +27,7 @@ import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.library.view.fragment.BaseFragment;
+import com.ypcxpt.fish.main.adapter.IOAdapter;
 import com.ypcxpt.fish.main.adapter.SceneAdapter;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnBluetoothPreparedEvent;
@@ -63,6 +65,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @BindView(R.id.tv_secondary_weather_collection)
     TextView tvLeftWeatherInfo;
 
+    @BindView(R.id.rv_io)
+    RecyclerView rv_io;
+
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
 
@@ -71,6 +76,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     private WeatherPresenter mWeatherPresenter;
 
     private SceneAdapter mAdapter;
+    private IOAdapter ioAdapter;
 
     @Override
     protected int layoutResID() {
@@ -97,18 +103,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 //        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mPresenter.acceptData("mAdapter", mAdapter);
 
-        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Logger.e("ppp", position + "");
-            }
-        });
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Logger.e("p", position + "");
-            }
-        });
+        ioAdapter = new IOAdapter(R.layout.item_io, mPresenter, getActivity());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+        rv_io.setLayoutManager(gridLayoutManager);
+        rv_io.setAdapter(ioAdapter);
+        ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
+        rv_io.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
 
         swipe_refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {//设置刷新监听器
             @Override

@@ -162,4 +162,7 @@ dependencies {
 
     //网络层框架
     implementation 'org.xutils:xutils:3.5.1'
+
+    //开关按钮
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
 }

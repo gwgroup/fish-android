@@ -67,4 +67,6 @@
     <color name="bg_device_detail_open01_t100">#253B61</color>
     <color name="bg_device_detail_open02_t100">#405E8E</color>
     <color name="bg_device_detail_t100">#2F6D8B</color>
+
+    <color name="main_text">#70899D</color>
 </resources>

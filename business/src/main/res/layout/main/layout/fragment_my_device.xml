@@ -34,7 +34,7 @@
                     android:id="@+id/iv_main_add"
                     android:layout_width="@dimen/dp35"
                     android:layout_height="@dimen/dp35"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/dp5"
                     android:layout_alignParentRight="true"
                     android:padding="@dimen/dp7"
                     android:src="@mipmap/icon_main_add" />
@@ -88,12 +88,11 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/sp14"
                     tools:text="23°~29°  西南风 三级" />
-
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp180"
+                android:layout_height="@dimen/dp200"
                 android:background="@color/common_EAEAEA"
                 android:orientation="vertical">
 
@@ -213,6 +212,13 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_io"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp12"
+                android:layout_marginRight="@dimen/dp12" />
         </LinearLayout>
     </com.ypcxpt.fish.app.util.VpSwipeRefreshLayout>
 </RelativeLayout>
