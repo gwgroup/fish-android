@@ -34,6 +34,7 @@ import com.ypcxpt.fish.main.event.OnBluetoothPreparedEvent;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
+import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
 import com.ypcxpt.fish.main.presenter.WeatherPresenter;
@@ -180,6 +181,16 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     public void showScenes(List<Scenes> scenes) {
         Logger.e("CCC", "showScenes" + scenes);
         mAdapter.setNewData(scenes);
+
+        if (scenes.size() > 0) {
+            /* 获取设备IO，默认第一个 */
+            mPresenter.getIoinfos(scenes.get(0).macAddress);
+        }
+    }
+
+    @Override
+    public void showIoInfos(List<IoInfo> ioInfos) {
+        ioAdapter.setNewData(ioInfos);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

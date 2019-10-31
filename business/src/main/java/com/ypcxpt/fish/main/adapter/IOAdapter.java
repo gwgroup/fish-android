@@ -2,20 +2,22 @@ package com.ypcxpt.fish.main.adapter;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ypcxpt.fish.R;
-import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.util.StringHelper;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
+import com.ypcxpt.fish.main.model.IoInfo;
 
-public class IOAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
+public class IOAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
     private MyDeviceContract.Presenter mPresenter;
     private Activity activity;
 
-    private int index = 0;
+    private boolean enable;
 
     public IOAdapter(int layoutResId, MyDeviceContract.Presenter presenter) {
         super(layoutResId);
@@ -29,23 +31,39 @@ public class IOAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Scenes item) {
-        String name = StringHelper.nullToDefault(item.scene_name, "");
+    protected void convert(BaseViewHolder helper, IoInfo item) {
+        String name = StringHelper.nullToDefault(item.name, "");
+        String type = StringHelper.nullToDefault(item.type, "");
+        enable = item.enabled;
+        helper.setChecked(R.id.sb_check, enable);
 
-        if (index == helper.getLayoutPosition()) {
-            helper.getView(R.id.view_line).setVisibility(View.VISIBLE);
-            TextView textView = helper.getView(R.id.tv_name);
-            textView.setTextColor(mContext.getResources().getColor(R.color.main_color_new));
-        } else {
-            helper.getView(R.id.view_line).setVisibility(View.INVISIBLE);
-            TextView textView = helper.getView(R.id.tv_name);
-            textView.setTextColor(mContext.getResources().getColor(R.color.common_141515));
+        ImageView imageView = helper.getView(R.id.iv_icon);
+        if (type.contains("lamp")) {
+            Glide.with(activity)
+                    .load(R.mipmap.icon_main_led)
+                    .into(imageView);
+        } else if (type.contains("pump")) {
+            Glide.with(activity)
+                    .load(R.mipmap.icon_main_pump)
+                    .into(imageView);
+        } else if (type.contains("aerator")) {
+            Glide.with(activity)
+                    .load(R.mipmap.icon_main_aerator)
+                    .into(imageView);
+        } else if (type.contains("feeder")) {
+            Glide.with(activity)
+                    .load(R.mipmap.icon_main_feeder)
+                    .into(imageView);
         }
-
         helper.setText(R.id.tv_name, name);
         helper.getView(R.id.rl_item).setOnClickListener(v -> {
-            index = helper.getLayoutPosition();
-            notifyDataSetChanged();
+            if (enable) {
+                //这里执行关闭IO
+                enable = false;
+            } else {
+                //这里执行打开IO
+                enable = true;
+            }
         });
     }
 }

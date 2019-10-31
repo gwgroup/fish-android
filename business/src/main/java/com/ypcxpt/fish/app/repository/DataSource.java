@@ -7,6 +7,7 @@ import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
+import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.NotificationInfo;
 import com.ypcxpt.fish.main.model.RegionInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
@@ -29,6 +30,8 @@ public interface DataSource {
     /* 获取场景 */
     Flowable<List<Scenes>> getScenes();
 
+    /* 获取设备IO信息 */
+    Flowable<List<IoInfo>> getIoInfo(String mac);
 
 
     /* 绑定手机号 */
@@ -69,9 +72,6 @@ public interface DataSource {
 
     /* 使用设备记录一下 */
     Flowable<Object> getControlDevice(String mac);
-
-    /* 选择区域 */
-    Flowable<List<RegionInfo>> getRegion(String code);
 
     /* 记录数据日志 */
     Flowable<Object> deviceActionLog(List<DataHistory> historyList);

@@ -46,7 +46,7 @@ import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.library.view.fragment.BaseFragment;
 import com.ypcxpt.fish.main.adapter.SceneAdapter;
-import com.ypcxpt.fish.main.contract.MyDeviceContract;
+import com.ypcxpt.fish.main.contract.TimingPlanContract;
 import com.ypcxpt.fish.main.event.OnBluetoothPreparedEvent;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
@@ -54,6 +54,7 @@ import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 import com.ypcxpt.fish.main.model.BannerInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
+import com.ypcxpt.fish.main.presenter.TimingPlanPresenter;
 import com.ypcxpt.fish.main.presenter.WeatherPresenter;
 import com.ypcxpt.fish.sonic.BrowserActivity;
 import com.ypcxpt.fish.sonic.SonicJavaScriptInterface;
@@ -76,7 +77,7 @@ import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherCollections;
 import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherIcon;
 import static com.ypcxpt.fish.sonic.BrowserActivity.MODE_SONIC;
 
-public class TimingPlanFragment extends BaseFragment implements MyDeviceContract.View {
+public class TimingPlanFragment extends BaseFragment implements TimingPlanContract.View {
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.iv_weather)
@@ -98,7 +99,7 @@ public class TimingPlanFragment extends BaseFragment implements MyDeviceContract
     @BindView(R.id.tv_timeStatus) TextView tv_timeStatus;
     @BindView(R.id.tv_desc) TextView tv_desc;
 
-    private MyDeviceContract.Presenter mPresenter;
+    private TimingPlanContract.Presenter mPresenter;
 
     private WeatherPresenter mWeatherPresenter;
 
@@ -113,7 +114,7 @@ public class TimingPlanFragment extends BaseFragment implements MyDeviceContract
 
     @Override
     protected void initData() {
-        mPresenter = new MyDevicePresenter();
+        mPresenter = new TimingPlanPresenter();
 //        mWeatherPresenter = new WeatherPresenter();
         addPresenter(mPresenter);
 //        addPresenter(mWeatherPresenter);
@@ -121,13 +122,13 @@ public class TimingPlanFragment extends BaseFragment implements MyDeviceContract
 
     @Override
     protected void initViews() {
-        mAdapter = new SceneAdapter(R.layout.item_scenes, mPresenter, getActivity());
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.setAdapter(mAdapter);
-        ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
-        rv.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
-        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        mPresenter.acceptData("mAdapter", mAdapter);
+//        mAdapter = new SceneAdapter(R.layout.item_scenes, mPresenter, getActivity());
+//        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        rv.setAdapter(mAdapter);
+//        ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
+//        rv.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
+//        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+//        mPresenter.acceptData("mAdapter", mAdapter);
 
         swipe_refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {//设置刷新监听器
             @Override

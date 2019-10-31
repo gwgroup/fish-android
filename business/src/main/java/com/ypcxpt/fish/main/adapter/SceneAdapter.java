@@ -45,8 +45,14 @@ public class SceneAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
 
         helper.setText(R.id.tv_name, name);
         helper.getView(R.id.rl_item).setOnClickListener(v -> {
+            //获取下标更新UI
             index = helper.getLayoutPosition();
             notifyDataSetChanged();
+
+            /**
+             * 获取mac下的IO信息
+             */
+            mPresenter.getIoinfos(item.macAddress);
         });
     }
 }

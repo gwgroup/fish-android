@@ -61,14 +61,14 @@ public class EditUserProfilePresenter extends BasePresenter<EditUserProfileContr
 
     @Override
     public void selectAddress(String parentCode) {
-        Flowable<List<RegionInfo>> source = mDS.getRegion(parentCode);
-        fetch(source)
-                .onSuccess(regionInfos -> {
-                    Logger.d("CCC", "regionInfos-->" + regionInfos.toString());
-                    mView.showAddressRegion(regionInfos);
-                }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
+//        Flowable<List<RegionInfo>> source = mDS.getRegion(parentCode);
+//        fetch(source)
+//                .onSuccess(regionInfos -> {
+//                    Logger.d("CCC", "regionInfos-->" + regionInfos.toString());
+//                    mView.showAddressRegion(regionInfos);
+//                }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+//                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+//                .start();
     }
 
 }

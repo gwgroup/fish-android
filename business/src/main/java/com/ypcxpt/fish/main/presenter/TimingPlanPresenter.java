@@ -21,9 +21,8 @@ import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.main.adapter.SceneAdapter;
-import com.ypcxpt.fish.main.contract.MyDeviceContract;
+import com.ypcxpt.fish.main.contract.TimingPlanContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
-import com.ypcxpt.fish.main.model.IoInfo;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,14 +34,14 @@ import io.reactivex.disposables.Disposable;
 
 import static com.ypcxpt.fish.core.ble.output.data.DeviceConstant.TARGET_CHARACTERISTIC_ID;
 
-public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> implements MyDeviceContract.Presenter {
+public class TimingPlanPresenter extends BasePresenter<TimingPlanContract.View> implements TimingPlanContract.Presenter {
     private Disposable mScanDisposable;
 
     private SceneAdapter mAdapter;
 
     private DataSource mDS;
 
-    public MyDevicePresenter() {
+    public TimingPlanPresenter() {
         mDS = new DataRepository();
     }
 
@@ -205,21 +204,6 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
             Logger.d("CCC", "scenes-->" + scenes.toString());
             mView.showScenes(scenes);
         }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
-    }
-
-    @Override
-    public void getIoinfos(String mac) {
-        Flowable<List<IoInfo>> source = mDS.getIoInfo(mac);
-        new Fetcher<>(source)
-                .withView(mView)
-                .showLoading(false)
-                .showNoNetWarning(false)
-                .onSuccess(ioInfos -> {
-                    Logger.d("CCC", "ioInfos-->" + ioInfos.toString());
-                    mView.showIoInfos(ioInfos);
-                }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
     }

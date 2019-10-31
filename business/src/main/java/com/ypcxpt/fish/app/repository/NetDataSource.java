@@ -10,6 +10,7 @@ import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
+import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.NotificationInfo;
 import com.ypcxpt.fish.main.model.RegionInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
@@ -52,6 +53,14 @@ public class NetDataSource implements DataSource {
     @Override
     public Flowable<List<Scenes>> getScenes() {
         return mApiService.getScenes(AppData.token());
+    }
+
+    @Override
+    public Flowable<List<IoInfo>> getIoInfo(String mac) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .build();
+        return mApiService.getIoInfo(AppData.token(), param);
     }
 
     @Override
@@ -175,14 +184,6 @@ public class NetDataSource implements DataSource {
                 .put("mac", mac)
                 .build();
         return mApiService.getControlDevice(AppData.token(), param);
-    }
-
-    @Override
-    public Flowable<List<RegionInfo>> getRegion(String code) {
-        HashMap<String, Object> param = ParamBuilder.newBuilder()
-                .put("parent_code", code)
-                .build();
-        return mApiService.getRegion(AppData.token(), param);
     }
 
     @Override

@@ -7,8 +7,8 @@ import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
+import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.NotificationInfo;
-import com.ypcxpt.fish.main.model.RegionInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 
@@ -43,7 +43,10 @@ public class DataRepository implements DataSource {
         return mNetDS.getScenes();
     }
 
-
+    @Override
+    public Flowable<List<IoInfo>> getIoInfo(String mac) {
+        return mNetDS.getIoInfo(mac);
+    }
 
 
     @Override
@@ -113,11 +116,6 @@ public class DataRepository implements DataSource {
     @Override
     public Flowable<Object> getControlDevice(String mac) {
         return mNetDS.getControlDevice(mac);
-    }
-
-    @Override
-    public Flowable<List<RegionInfo>> getRegion(String code) {
-        return mNetDS.getRegion(code);
     }
 
     @Override

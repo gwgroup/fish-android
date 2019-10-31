@@ -4,18 +4,15 @@ import com.ypcxpt.fish.device.model.NetDevice;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.presenter.IPresenter;
 import com.ypcxpt.fish.library.view.IView;
-import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 
 import java.util.List;
 
-public interface MyDeviceContract {
+public interface EarlyWarningContract {
     interface View extends IView {
         void onGetWhetherResult(WeatherInfo weatherInfo);
 
         void showScenes(List<Scenes> scenes);
-
-        void showIoInfos(List<IoInfo> ioInfos);
     }
 
     interface Presenter extends IPresenter {
@@ -29,8 +26,6 @@ public interface MyDeviceContract {
         void renameDevice(NetDevice device);
 
         void getScenes();
-
-        void getIoinfos(String mac);
 
         //跳转设备详情进行操作
         void skipDetail(NetDevice device);
