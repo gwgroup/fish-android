@@ -11,6 +11,7 @@ import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.StringHelper;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
+import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 
 public class SceneAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
     private MyDeviceContract.Presenter mPresenter;
@@ -53,6 +54,7 @@ public class SceneAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
              * 获取mac下的IO信息
              */
             mPresenter.getIoinfos(item.macAddress);
+            MyDeviceFragment.macAddress = item.macAddress;
         });
     }
 }

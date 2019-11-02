@@ -33,6 +33,12 @@ public interface DataSource {
     /* 获取设备IO信息 */
     Flowable<List<IoInfo>> getIoInfo(String mac);
 
+    /* 打开设备IO. */
+    Flowable<Object> openIO(String mac, String code, int duration);
+
+    /* 关闭设备IO. */
+    Flowable<Object> closeIO(String mac, String code);
+
 
     /* 绑定手机号 */
     Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid);

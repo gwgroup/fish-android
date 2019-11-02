@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp30"
+    android:layout_marginTop="50dp"
+    android:layout_marginRight="@dimen/dp30"
+    android:layout_marginBottom="50dp"
+    android:background="@drawable/bg_white_version"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/layout_version_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="选择时长"
+                android:textColor="@color/common_222222"
+                android:textSize="@dimen/sp15" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.xw.repo.XEditText
+                    android:id="@+id/et_hour"
+                    style="@style/Layout_Wrap_Wrap"
+                    android:layout_width="@dimen/dp60"
+                    android:gravity="right"
+                    android:background="@drawable/bg_common_input"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:paddingLeft="@dimen/dp15"
+                    android:paddingTop="@dimen/dp8"
+                    android:paddingRight="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp8"
+                    android:textColor="@color/common_222222"
+                    android:textColorHint="@color/common_969696"
+                    android:textSize="@dimen/sp14"
+                    app:x_clearDrawable="@mipmap/ic_clear_text"
+                    tools:text="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="时"
+                    android:textColor="@color/common_222222"
+                    android:textSize="@dimen/sp14" />
+
+                <com.xw.repo.XEditText
+                    android:id="@+id/et_minute"
+                    style="@style/Layout_Wrap_Wrap"
+                    android:gravity="right"
+                    android:layout_width="@dimen/dp60"
+                    android:background="@drawable/bg_common_input"
+                    android:hint=""
+                    android:maxLength="2"
+                    android:inputType="number"
+                    android:layout_marginLeft="@dimen/dp5"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:paddingLeft="@dimen/dp15"
+                    android:paddingTop="@dimen/dp8"
+                    android:paddingRight="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp8"
+                    android:textColor="@color/common_222222"
+                    android:textColorHint="@color/common_969696"
+                    android:textSize="@dimen/sp14"
+                    app:x_clearDrawable="@mipmap/ic_clear_text"
+                    tools:text="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="分"
+                    android:textColor="@color/common_222222"
+                    android:textSize="@dimen/sp14" />
+
+                <com.xw.repo.XEditText
+                    android:id="@+id/et_second"
+                    style="@style/Layout_Wrap_Wrap"
+                    android:gravity="right"
+                    android:layout_width="@dimen/dp60"
+                    android:background="@drawable/bg_common_input"
+                    android:hint=""
+                    android:maxLength="2"
+                    android:inputType="number"
+                    android:layout_marginLeft="@dimen/dp5"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:paddingLeft="@dimen/dp15"
+                    android:paddingTop="@dimen/dp8"
+                    android:paddingRight="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp8"
+                    android:textColor="@color/common_222222"
+                    android:textColorHint="@color/common_969696"
+                    android:textSize="@dimen/sp14"
+                    app:x_clearDrawable="@mipmap/ic_clear_text"
+                    tools:text="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="秒"
+                    android:textColor="@color/common_222222"
+                    android:textSize="@dimen/sp14" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            style="@style/divider_05"
+            android:layout_marginTop="@dimen/dp30" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/bt_cancel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp35"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_cancel"
+                android:text="取消"
+                android:textColor="@color/common_7f7f7f"
+                android:textSize="@dimen/sp13" />
+
+            <View
+                android:layout_width="@dimen/dp05"
+                android:layout_height="@dimen/dp35"
+                android:background="@color/common_EEEEEE" />
+
+            <Button
+                android:id="@+id/bt_ok"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp35"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_ok"
+                android:text="确定"
+                android:textColor="@color/main_color_new"
+                android:textSize="@dimen/sp13" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

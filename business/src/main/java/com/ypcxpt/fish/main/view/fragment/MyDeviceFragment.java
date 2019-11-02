@@ -177,6 +177,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         }
     }
 
+    public static String macAddress;
     @Override
     public void showScenes(List<Scenes> scenes) {
         Logger.e("CCC", "showScenes" + scenes);
@@ -185,11 +186,17 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         if (scenes.size() > 0) {
             /* 获取设备IO，默认第一个 */
             mPresenter.getIoinfos(scenes.get(0).macAddress);
+            macAddress = scenes.get(0).macAddress;
         }
     }
 
     @Override
     public void showIoInfos(List<IoInfo> ioInfos) {
+        for (int i = 0; i < ioInfos.size(); i++) {
+            if (!ioInfos.get(i).enabled) {
+                ioInfos.remove(ioInfos.get(i));
+            }
+        }
         ioAdapter.setNewData(ioInfos);
     }
 

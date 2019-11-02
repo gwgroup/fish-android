@@ -64,6 +64,25 @@ public class NetDataSource implements DataSource {
     }
 
     @Override
+    public Flowable<Object> openIO(String mac, String code, int duration) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("client_id", mac)
+                .put("io_code", code)
+                .put("duration", duration)
+                .build();
+        return mApiService.openIO(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> closeIO(String mac, String code) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("client_id", mac)
+                .put("io_code", code)
+                .build();
+        return mApiService.closeIO(AppData.token(), param);
+    }
+
+    @Override
     public Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid) {
         HashMap<String, Object> param = ParamBuilder.newBuilder()
                 .put("mobile", phoneNo)

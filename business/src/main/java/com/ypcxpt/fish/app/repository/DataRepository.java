@@ -48,6 +48,16 @@ public class DataRepository implements DataSource {
         return mNetDS.getIoInfo(mac);
     }
 
+    @Override
+    public Flowable<Object> openIO(String mac, String code, int duration) {
+        return mNetDS.openIO(mac, code, duration);
+    }
+
+    @Override
+    public Flowable<Object> closeIO(String mac, String code) {
+        return mNetDS.closeIO(mac, code);
+    }
+
 
     @Override
     public Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid) {

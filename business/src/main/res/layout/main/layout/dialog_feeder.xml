@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp30"
+    android:layout_marginTop="50dp"
+    android:layout_marginRight="@dimen/dp30"
+    android:layout_marginBottom="50dp"
+    android:background="@drawable/bg_white_version"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/layout_version_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="投食机饲料量"
+                android:textColor="@color/common_222222"
+                android:textSize="@dimen/sp15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_gravity="center_horizontal"
+                android:text="请选择"
+                android:textColor="@color/common_8C8C8C"
+                android:textSize="@dimen/sp14" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="饲料量(克)"
+                    android:textColor="@color/common_8C8C8C"
+                    android:textSize="@dimen/sp14" />
+
+                <com.xw.repo.XEditText
+                    android:id="@+id/et_feeder"
+                    style="@style/Layout_Wrap_Wrap"
+                    android:layout_width="@dimen/dp80"
+                    android:background="@drawable/bg_common_input"
+                    android:hint=""
+                    android:maxLength="3"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:paddingLeft="@dimen/dp15"
+                    android:paddingTop="@dimen/dp8"
+                    android:paddingRight="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp8"
+                    android:textColor="@color/main_color_new"
+                    android:textColorHint="@color/common_969696"
+                    android:textSize="@dimen/sp14"
+                    app:x_clearDrawable="@mipmap/ic_clear_text"
+                    tools:text="500" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="@dimen/dp5"
+                    android:text="出料不准怎么办？"
+                    android:textColor="@color/common_8C8C8C"
+                    android:textSize="@dimen/sp14" />
+
+                <TextView
+                    android:id="@+id/tv_calibration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:padding="@dimen/dp5"
+                    android:layout_gravity="center_horizontal"
+                    android:text="重新校准投喂机"
+                    android:textColor="@color/main_color_new"
+                    android:textSize="@dimen/sp14" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            style="@style/divider_05"
+            android:layout_marginTop="@dimen/dp30" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/bt_cancel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp35"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_cancel"
+                android:text="取消"
+                android:textColor="@color/common_7f7f7f"
+                android:textSize="@dimen/sp13" />
+
+            <View
+                android:layout_width="@dimen/dp05"
+                android:layout_height="@dimen/dp35"
+                android:background="@color/common_EEEEEE" />
+
+            <Button
+                android:id="@+id/bt_ok"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp35"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_ok"
+                android:text="确定"
+                android:textColor="@color/main_color_new"
+                android:textSize="@dimen/sp13" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

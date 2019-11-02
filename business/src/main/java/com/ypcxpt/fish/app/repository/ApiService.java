@@ -39,6 +39,14 @@ public interface ApiService {
     @POST("api/device/get_io_info")
     Flowable<List<IoInfo>> getIoInfo(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
+    /* 打开设备IO */
+    @POST("api/device/open")
+    Flowable<Object> openIO(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 关闭设备IO */
+    @POST("api/device/close")
+    Flowable<Object> closeIO(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
     /* 绑定手机号 */
     @POST("weixin_bind")
     Flowable<LoginResult> bindPhone(@Body HashMap<String, Object> param);

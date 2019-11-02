@@ -17,6 +17,7 @@
     <!-- 首页副标题文字／正文文字 -->
     <color name="common_555555">#555555</color>
     <color name="common_666666">#666666</color>
+    <color name="common_8C8C8C">#8C8C8C</color>
     <!-- 次要文字 -->
     <color name="common_a1a1a1">#A1A1A1</color>
     <color name="common_969696">#969696</color>
