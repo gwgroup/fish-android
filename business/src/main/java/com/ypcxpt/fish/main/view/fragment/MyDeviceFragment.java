@@ -150,6 +150,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             }
 
             @Override
+            public void Config() {
+                operationDialog.dismiss();
+            }
+
+            @Override
             public void Cancel() {
                 operationDialog.dismiss();
             }

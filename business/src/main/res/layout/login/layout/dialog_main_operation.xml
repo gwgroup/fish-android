@@ -47,6 +47,22 @@
                 android:id="@+id/tv_remove_scene"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="移除鱼塘"
+                android:textSize="@dimen/sp14"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"/>
+
+            <View style="@style/divider_05"
+                android:background="@color/white"
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_marginBottom="@dimen/dp9"
+                android:layout_marginTop="@dimen/dp9"/>
+
+            <TextView
+                android:id="@+id/tv_config_scene"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="鱼塘配置"
                 android:textSize="@dimen/sp14"
                 android:layout_gravity="center_horizontal"

@@ -18,6 +18,11 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
     }
 
     @Override
+    public void openDataFetching() {
+        super.openDataFetching();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }
