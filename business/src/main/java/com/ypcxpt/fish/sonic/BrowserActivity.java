@@ -21,7 +21,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -47,13 +46,12 @@ import com.tencent.sonic.sdk.SonicSession;
 import com.tencent.sonic.sdk.SonicSessionConfig;
 import com.tencent.sonic.sdk.SonicSessionConnection;
 import com.tencent.sonic.sdk.SonicSessionConnectionInterceptor;
-
 import com.ypcxpt.fish.R;
+import com.ypcxpt.fish.app.util.DialogUtils;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.login.Constants;
 import com.ypcxpt.fish.main.event.OnRefreshUserEvent;
-import com.ypcxpt.fish.app.util.DialogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -150,13 +148,6 @@ public class BrowserActivity extends Activity {
         // in the real world, the init flow may cost a long time as startup
         // runtime、init configs....
         setContentView(R.layout.activity_browser);
-
-        FloatingActionButton btnFab = findViewById(R.id.btn_refresh);
-        btnFab.setOnClickListener(view -> {
-            if (sonicSession != null) {
-                sonicSession.refresh();
-            }
-        });
 
         RelativeLayout rl_back = findViewById(R.id.rl_back);
         rl_back.setOnClickListener(v -> onBackPressed());

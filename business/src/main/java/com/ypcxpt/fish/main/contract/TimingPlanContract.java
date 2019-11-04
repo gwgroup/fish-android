@@ -18,8 +18,6 @@ public interface TimingPlanContract {
     interface Presenter extends IPresenter {
         void connectServices(NetDevice scanResult);
 
-        void addDevice(NetDevice device);
-
         //解绑移除设备
         void removeDevice(NetDevice device);
         //重命名设备

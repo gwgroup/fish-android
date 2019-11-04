@@ -83,6 +83,32 @@ public class NetDataSource implements DataSource {
     }
 
     @Override
+    public Flowable<Object> addScenes(String mac, String name) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("scene_name", name)
+                .build();
+        return mApiService.addScenes(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> removeDevice(NetDevice device) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("mac", device.macAddress)
+                .build();
+        return mApiService.removeDevice(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> renameDevice(NetDevice device) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("name", device.name)
+                .put("mac", device.macAddress)
+                .build();
+        return mApiService.renameDevice(AppData.token(), param);
+    }
+
+    @Override
     public Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid) {
         HashMap<String, Object> param = ParamBuilder.newBuilder()
                 .put("mobile", phoneNo)
@@ -117,32 +143,7 @@ public class NetDataSource implements DataSource {
         return mApiService.feedback(AppData.token(), param);
     }
 
-    @Override
-    public Flowable<Object> addDevice(NetDevice device) {
-        HashMap<String, Object> param = ParamBuilder.newBuilder()
-                .put("type", device.type)
-                .put("name", device.name)
-                .put("mac", device.macAddress)
-                .build();
-        return mApiService.addDevice(AppData.token(), param);
-    }
 
-    @Override
-    public Flowable<Object> removeDevice(NetDevice device) {
-        HashMap<String, Object> param = ParamBuilder.newBuilder()
-                .put("mac", device.macAddress)
-                .build();
-        return mApiService.removeDevice(AppData.token(), param);
-    }
-
-    @Override
-    public Flowable<Object> renameDevice(NetDevice device) {
-        HashMap<String, Object> param = ParamBuilder.newBuilder()
-                .put("name", device.name)
-                .put("mac", device.macAddress)
-                .build();
-        return mApiService.renameDevice(AppData.token(), param);
-    }
 
     @Override
     public Flowable<WeatherInfo> getWeatherInfo(double lat, double lng) {

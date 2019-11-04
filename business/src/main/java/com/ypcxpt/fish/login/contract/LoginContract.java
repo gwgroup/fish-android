@@ -24,8 +24,6 @@ public interface LoginContract {
 
         void updateUserProfile(UserProfile userProfile);
 
-        void addDevice(NetDevice device);
-
         void removeDevice(NetDevice device);
     }
 }

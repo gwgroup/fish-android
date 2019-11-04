@@ -2,7 +2,9 @@ package com.ypcxpt.fish.main.view.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,9 +18,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.RippleLayout;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
@@ -39,7 +45,7 @@ import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
 import com.ypcxpt.fish.main.presenter.WeatherPresenter;
 import com.ypcxpt.fish.main.util.MainOperationDialog;
-import com.yzq.zxinglibrary.common.Constant;
+import com.ypcxpt.fish.main.view.activity.CaptureScanActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,6 +84,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     private SceneAdapter mAdapter;
     private IOAdapter ioAdapter;
+
+    private int REQUEST_CODE_SCAN = 111;
 
     @Override
     protected int layoutResID() {
@@ -137,6 +145,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             @Override
             public void Add() {
                 operationDialog.dismiss();
+                addByScanCode();
             }
 
             @Override
@@ -162,6 +171,29 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         Window dialogWindow = operationDialog.getWindow();
         dialogWindow.setGravity(Gravity.TOP);
         operationDialog.show();
+    }
+
+    private void addByScanCode() {
+        AndPermission.with(this)
+                .permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
+                .onGranted(new Action() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+                        startActivityForResult(new Intent(getActivity(), CaptureScanActivity.class), REQUEST_CODE_SCAN);
+                    }
+                })
+                .onDenied(new Action() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+                        Uri packageURI = Uri.parse("package:" + "com.ypcxpt.fish");
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        startActivity(intent);
+
+                        Toast.makeText(getActivity(), "没有权限无法扫描呦", Toast.LENGTH_LONG).show();
+                    }
+                }).start();
     }
 
     @OnClick(R.id.iv_main_add)
@@ -232,5 +264,32 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @Subscribe
     public void onEventReceived(OnGetScenesEvent event) {
         mPresenter.getScenes();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // 扫描二维码/条码回传
+        if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
+            if (data != null) {
+
+                String content = data.getStringExtra("QRCODE_RESULT");
+                //获取fishMac值
+                String fishMac = "";
+                if (content.contains("/#")) {
+                    fishMac = content.substring(content.lastIndexOf("/#/") + 2);
+                } else {
+                    fishMac = content;
+                }
+                Logger.e("扫码获取到的mac", fishMac);
+                if(StringUtils.isEmpty(fishMac)){
+                    Toaster.showShort("请扫描正确的二维码");
+                } else {
+                    //添加场景
+                    mPresenter.addScenes(fishMac, "我的鱼塘");
+                }
+            }
+        }
     }
 }

@@ -70,4 +70,6 @@
     <color name="bg_device_detail_t100">#2F6D8B</color>
 
     <color name="main_text">#70899D</color>
+
+    <color name="scan">#33FFFFFF</color>
 </resources>

@@ -1,7 +1,5 @@
 package com.ypcxpt.fish.login.presenter;
 
-import com.blankj.utilcode.util.StringUtils;
-
 import com.google.gson.Gson;
 import com.ypcxpt.fish.app.repository.DataRepository;
 import com.ypcxpt.fish.app.repository.DataSource;
@@ -12,7 +10,6 @@ import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.login.contract.LoginContract;
 import com.ypcxpt.fish.login.model.LoginInfo;
-import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 
 import org.xutils.common.Callback;
@@ -109,14 +106,6 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
-    }
-
-    @Override
-    public void addDevice(NetDevice device) {
-        Flowable<Object> source = mDS.addDevice(device);
-        fetch(source).onSuccess(o -> {
-            Toaster.showLong("设备添加成功");
-        }).start();
     }
 
     @Override

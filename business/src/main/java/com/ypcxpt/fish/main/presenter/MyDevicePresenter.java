@@ -9,6 +9,7 @@ import com.ypcxpt.fish.device.model.NetDevice;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.Logger;
+import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.model.IoInfo;
@@ -27,10 +28,13 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
     }
 
     @Override
-    public void addDevice(NetDevice device) {
-        Flowable<Object> source = mDS.addDevice(device);
+    public void addScenes(String mac, String name) {
+        Flowable<Object> source = mDS.addScenes(mac, name);
         silenceFetch(source)
-                .onSuccess(o -> Logger.d("CCC", "添加成功"))
+                .onSuccess(o -> {
+                    Logger.d("CCC", "添加场景成功");
+                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
+                })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();

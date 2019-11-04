@@ -19,8 +19,8 @@ public interface MyDeviceContract {
     }
 
     interface Presenter extends IPresenter {
-        void addDevice(NetDevice device);
-
+        //添加场景
+        void addScenes(String mac, String name);
         //解绑移除设备
         void removeDevice(NetDevice device);
         //重命名设备

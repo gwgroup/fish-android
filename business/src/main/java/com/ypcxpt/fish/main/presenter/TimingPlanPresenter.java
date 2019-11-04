@@ -158,16 +158,6 @@ public class TimingPlanPresenter extends BasePresenter<TimingPlanContract.View> 
     }
 
     @Override
-    public void addDevice(NetDevice device) {
-        Flowable<Object> source = mDS.addDevice(device);
-        silenceFetch(source)
-                .onSuccess(o -> Logger.d("CCC", "添加成功"))
-                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
-    }
-
-    @Override
     public void removeDevice(NetDevice device) {
         Flowable<Object> source = mDS.removeDevice(device);
         silenceFetch(source)

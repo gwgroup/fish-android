@@ -39,6 +39,15 @@ public interface DataSource {
     /* 关闭设备IO. */
     Flowable<Object> closeIO(String mac, String code);
 
+    /* 添加场景 */
+    Flowable<Object> addScenes(String mac, String name);
+
+    /* 移除设备 */
+    Flowable<Object> removeDevice(NetDevice device);
+
+    /* 重命名设备 */
+    Flowable<Object> renameDevice(NetDevice device);
+
 
     /* 绑定手机号 */
     Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid);
@@ -48,15 +57,6 @@ public interface DataSource {
 
     /* 意见反馈. */
     Flowable<Object> feedback(String content);
-
-    /* 添加设备 */
-    Flowable<Object> addDevice(NetDevice device);
-
-    /* 移除设备 */
-    Flowable<Object> removeDevice(NetDevice device);
-
-    /* 重命名设备 */
-    Flowable<Object> renameDevice(NetDevice device);
 
     /* 查询天气 */
     Flowable<WeatherInfo> getWeatherInfo(double lat, double lng);

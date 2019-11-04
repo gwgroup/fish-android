@@ -58,6 +58,21 @@ public class DataRepository implements DataSource {
         return mNetDS.closeIO(mac, code);
     }
 
+    @Override
+    public Flowable<Object> addScenes(String mac, String name) {
+        return mNetDS.addScenes(mac, name);
+    }
+
+    @Override
+    public Flowable<Object> removeDevice(NetDevice device) {
+        return mNetDS.removeDevice(device);
+    }
+
+    @Override
+    public Flowable<Object> renameDevice(NetDevice device) {
+        return mNetDS.renameDevice(device);
+    }
+
 
     @Override
     public Flowable<LoginResult> bindPhone(String phoneNo, String verifyCode, String openid) {
@@ -76,21 +91,6 @@ public class DataRepository implements DataSource {
     @Override
     public Flowable<Object> feedback(String content) {
         return mNetDS.feedback(content);
-    }
-
-    @Override
-    public Flowable<Object> addDevice(NetDevice device) {
-        return mNetDS.addDevice(device);
-    }
-
-    @Override
-    public Flowable<Object> removeDevice(NetDevice device) {
-        return mNetDS.removeDevice(device);
-    }
-
-    @Override
-    public Flowable<Object> renameDevice(NetDevice device) {
-        return mNetDS.renameDevice(device);
     }
 
     @Override
