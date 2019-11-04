@@ -279,8 +279,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                 String fishMac = "";
                 if (content.contains("/#")) {
                     fishMac = content.substring(content.lastIndexOf("/#/") + 2);
-                } else {
-                    fishMac = content;
                 }
                 Logger.e("扫码获取到的mac", fishMac);
                 if(StringUtils.isEmpty(fishMac)){

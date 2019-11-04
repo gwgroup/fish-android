@@ -129,6 +129,9 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.main.view.activity.EditUserProfileActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.view.activity.CaptureScanActivity"
+            android:screenOrientation="portrait" />
 
         <!--新加的按摩椅界面-->
         <activity android:name="com.ypcxpt.fish.device.view.activity.T100DeviceDetailActivity"
