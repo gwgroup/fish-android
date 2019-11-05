@@ -278,14 +278,14 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                 //获取fishMac值
                 String fishMac = "";
                 if (content.contains("/#")) {
-                    fishMac = content.substring(content.lastIndexOf("/#/") + 2);
+                    fishMac = content.substring(content.lastIndexOf("/#") + 2);
                 }
                 Logger.e("扫码获取到的mac", fishMac);
                 if(StringUtils.isEmpty(fishMac)){
                     Toaster.showShort("请扫描正确的二维码");
                 } else {
                     //添加场景
-                    mPresenter.addScenes(fishMac, "我的鱼塘");
+                    mPresenter.addScenes(fishMac, "渔场");
                 }
             }
         }
