@@ -5,7 +5,6 @@ import com.ypcxpt.fish.app.repository.DataRepository;
 import com.ypcxpt.fish.app.repository.DataSource;
 import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.core.app.BasePresenter;
-import com.ypcxpt.fish.device.model.NetDevice;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.login.contract.LoginContract;
@@ -87,33 +86,4 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
     }
-
-    @Override
-    public void getUserProfile() {
-        Flowable<UserProfile> source = mDS.getUserProfile();
-        fetch(source).onSuccess(userProfile -> {
-            Logger.d("CCC", userProfile.toString());
-        }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
-    }
-
-    @Override
-    public void updateUserProfile(UserProfile userProfile) {
-        Flowable<UserProfile> source = mDS.updateUserProfile(userProfile);
-        fetch(source).onSuccess(newProfile -> {
-            Logger.d("CCC", newProfile.toString());
-        }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
-    }
-
-    @Override
-    public void removeDevice(NetDevice device) {
-        Flowable<Object> source = mDS.removeDevice(device);
-        fetch(source).onSuccess(o -> {
-            Toaster.showLong("设备删除成功");
-        }).start();
-    }
-
 }

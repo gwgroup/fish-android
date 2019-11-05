@@ -1,7 +1,6 @@
 package com.ypcxpt.fish.app.repository;
 
 import com.ypcxpt.fish.device.model.DataHistory;
-import com.ypcxpt.fish.device.model.NetDevice;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
@@ -64,13 +63,13 @@ public class DataRepository implements DataSource {
     }
 
     @Override
-    public Flowable<Object> removeDevice(NetDevice device) {
-        return mNetDS.removeDevice(device);
+    public Flowable<Object> removeScenes(String mac) {
+        return mNetDS.removeScenes(mac);
     }
 
     @Override
-    public Flowable<Object> renameDevice(NetDevice device) {
-        return mNetDS.renameDevice(device);
+    public Flowable<Object> renameScenes(String mac, String name) {
+        return mNetDS.renameScenes(mac, name);
     }
 
 

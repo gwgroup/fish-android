@@ -1,7 +1,6 @@
 package com.ypcxpt.fish.app.repository;
 
 import com.ypcxpt.fish.device.model.DataHistory;
-import com.ypcxpt.fish.device.model.NetDevice;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
@@ -9,7 +8,6 @@ import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.NotificationInfo;
-import com.ypcxpt.fish.main.model.RegionInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 
@@ -42,11 +40,11 @@ public interface DataSource {
     /* 添加场景 */
     Flowable<Object> addScenes(String mac, String name);
 
-    /* 移除设备 */
-    Flowable<Object> removeDevice(NetDevice device);
+    /* 移除场景 */
+    Flowable<Object> removeScenes(String mac);
 
-    /* 重命名设备 */
-    Flowable<Object> renameDevice(NetDevice device);
+    /* 重命名场景 */
+    Flowable<Object> renameScenes(String mac, String name);
 
 
     /* 绑定手机号 */

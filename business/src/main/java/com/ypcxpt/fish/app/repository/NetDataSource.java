@@ -2,7 +2,6 @@ package com.ypcxpt.fish.app.repository;
 
 import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.device.model.DataHistory;
-import com.ypcxpt.fish.device.model.NetDevice;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.net.NetManager;
 import com.ypcxpt.fish.library.net.request.ParamBuilder;
@@ -12,7 +11,6 @@ import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.NotificationInfo;
-import com.ypcxpt.fish.main.model.RegionInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 
@@ -92,20 +90,20 @@ public class NetDataSource implements DataSource {
     }
 
     @Override
-    public Flowable<Object> removeDevice(NetDevice device) {
+    public Flowable<Object> removeScenes(String mac) {
         HashMap<String, Object> param = ParamBuilder.newBuilder()
-                .put("mac", device.macAddress)
+                .put("device_mac", mac)
                 .build();
-        return mApiService.removeDevice(AppData.token(), param);
+        return mApiService.removeScenes(AppData.token(), param);
     }
 
     @Override
-    public Flowable<Object> renameDevice(NetDevice device) {
+    public Flowable<Object> renameScenes(String mac, String name) {
         HashMap<String, Object> param = ParamBuilder.newBuilder()
-                .put("name", device.name)
-                .put("mac", device.macAddress)
+                .put("device_mac", mac)
+                .put("scene_name", name)
                 .build();
-        return mApiService.renameDevice(AppData.token(), param);
+        return mApiService.renameScenes(AppData.token(), param);
     }
 
     @Override

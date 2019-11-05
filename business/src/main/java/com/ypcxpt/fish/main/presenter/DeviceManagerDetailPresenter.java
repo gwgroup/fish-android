@@ -19,28 +19,28 @@ public class DeviceManagerDetailPresenter extends BasePresenter<DeviceManagerDet
 
     @Override
     public void removeDevice(NetDevice device) {
-        Flowable<Object> source = mDS.removeDevice(device);
-        silenceFetch(source)
-                .onSuccess(o -> {
-                    Logger.d("CCC", "移除成功");
-                    getUser();
-                })
-                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
+//        Flowable<Object> source = mDS.removeDevice(device);
+//        silenceFetch(source)
+//                .onSuccess(o -> {
+//                    Logger.d("CCC", "移除成功");
+//                    getUser();
+//                })
+//                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+//                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+//                .start();
     }
 
     @Override
     public void renameDevice(NetDevice device) {
-        Flowable<Object> source = mDS.renameDevice(device);
-        silenceFetch(source)
-                .onSuccess(o -> {
-                    Logger.d("CCC", "重命名成功");
-                    getUser();
-                })
-                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
+//        Flowable<Object> source = mDS.renameDevice(device);
+//        silenceFetch(source)
+//                .onSuccess(o -> {
+//                    Logger.d("CCC", "重命名成功");
+//                    getUser();
+//                })
+//                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+//                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+//                .start();
     }
 
     public void getUser() {

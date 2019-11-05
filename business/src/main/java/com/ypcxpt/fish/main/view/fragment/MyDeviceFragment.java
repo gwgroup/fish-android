@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.StringUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -36,7 +35,6 @@ import com.ypcxpt.fish.library.view.fragment.BaseFragment;
 import com.ypcxpt.fish.main.adapter.IOAdapter;
 import com.ypcxpt.fish.main.adapter.SceneAdapter;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
-import com.ypcxpt.fish.main.event.OnBluetoothPreparedEvent;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
@@ -45,6 +43,7 @@ import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
 import com.ypcxpt.fish.main.presenter.WeatherPresenter;
 import com.ypcxpt.fish.main.util.MainOperationDialog;
+import com.ypcxpt.fish.main.util.ScenesRenameDialog;
 import com.ypcxpt.fish.main.view.activity.CaptureScanActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -151,11 +150,13 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             @Override
             public void Remove() {
                 operationDialog.dismiss();
+                mPresenter.removeScenes(macAddress);
             }
 
             @Override
             public void Rename() {
                 operationDialog.dismiss();
+                showRenameDialog(macAddress, "", 2);
             }
 
             @Override
@@ -284,10 +285,45 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                 if(StringUtils.isEmpty(fishMac)){
                     Toaster.showShort("请扫描正确的二维码");
                 } else {
-                    //添加场景
-                    mPresenter.addScenes(fishMac, "渔场");
+                    showRenameDialog(fishMac, "渔场", 1);
+//                    //添加场景
+//                    mPresenter.addScenes(fishMac, "渔场");
                 }
             }
         }
+    }
+
+    /**
+     * 扫码成功后让用户输入鱼塘名称
+     * @param fishMac 鱼塘唯一标识
+     * @param sceneName 名称
+     * @param type 1:添加 2：重命名
+     */
+    private void showRenameDialog(String fishMac, String sceneName, int type) {
+        ScenesRenameDialog scenesRenameDialog = new ScenesRenameDialog(getActivity(), sceneName, R.style.MyDialog);
+        scenesRenameDialog.setCancelable(false);
+        scenesRenameDialog.setOnResultListener(new ScenesRenameDialog.OnResultListener() {
+            @Override
+            public void Ok(String bark) {
+                if (StringUtils.isTrimEmpty(bark)) {
+                    Toaster.showShort("请输入渔场名称");
+                } else {
+                    if (type == 1) {
+                        //添加场景
+                        mPresenter.addScenes(fishMac, bark);
+                    } else {
+                        //重命名场景
+                        mPresenter.renameScenes(fishMac, bark);
+                    }
+                    scenesRenameDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void Cancel() {
+                scenesRenameDialog.dismiss();
+            }
+        });
+        scenesRenameDialog.show();
     }
 }

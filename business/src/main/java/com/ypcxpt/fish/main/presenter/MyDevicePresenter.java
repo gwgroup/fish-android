@@ -41,12 +41,12 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
     }
 
     @Override
-    public void removeDevice(NetDevice device) {
-        Flowable<Object> source = mDS.removeDevice(device);
+    public void removeScenes(String mac) {
+        Flowable<Object> source = mDS.removeScenes(mac);
         silenceFetch(source)
                 .onSuccess(o -> {
-                    Logger.d("CCC", "移除成功");
-                    EventBus.getDefault().post(new OnGetScenesEvent());
+                    Logger.d("CCC", "移除场景成功");
+                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
@@ -54,12 +54,12 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
     }
 
     @Override
-    public void renameDevice(NetDevice device) {
-        Flowable<Object> source = mDS.renameDevice(device);
+    public void renameScenes(String mac, String name) {
+        Flowable<Object> source = mDS.renameScenes(mac, name);
         silenceFetch(source)
                 .onSuccess(o -> {
-                    Logger.d("CCC", "重命名成功");
-                    EventBus.getDefault().post(new OnGetScenesEvent());
+                    Logger.d("CCC", "重命名场景成功");
+                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))

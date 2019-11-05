@@ -1,6 +1,5 @@
 package com.ypcxpt.fish.login.contract;
 
-import com.ypcxpt.fish.device.model.NetDevice;
 import com.ypcxpt.fish.library.presenter.IPresenter;
 import com.ypcxpt.fish.library.view.IView;
 import com.ypcxpt.fish.login.model.UserProfile;
@@ -19,11 +18,5 @@ public interface LoginContract {
 
         //登录成功之后获取用户信息
         void getUser();
-
-        void getUserProfile();
-
-        void updateUserProfile(UserProfile userProfile);
-
-        void removeDevice(NetDevice device);
     }
 }

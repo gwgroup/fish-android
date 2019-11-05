@@ -47,17 +47,17 @@ public interface ApiService {
     @POST("api/device/close")
     Flowable<Object> closeIO(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
-    /* 添加设备 */
+    /* 添加场景 */
     @POST("api/scene/add_scene")
     Flowable<Object> addScenes(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
-    /* 移除设备 */
-    @POST("remove_device")
-    Flowable<Object> removeDevice(@Header("authorization") String token, @Body HashMap<String, Object> param);
+    /* 移除场景 */
+    @POST("api/scene/remove_scene")
+    Flowable<Object> removeScenes(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
-    /* 重命名设备 */
-    @POST("rename_device")
-    Flowable<Object> renameDevice(@Header("authorization") String token, @Body HashMap<String, Object> param);
+    /* 重命名场景 */
+    @POST("api/scene/rename_scene")
+    Flowable<Object> renameScenes(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
     /* 绑定手机号 */
     @POST("weixin_bind")

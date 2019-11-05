@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.StringHelper;
+import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.util.DurationSelectDialog;
@@ -122,13 +123,18 @@ public class IOAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
 
             @Override
             public void Ok(int feeder) {
-                int duration = (int) (feeder/item.weight_per_second * 1000);
 
-                isOpen = true;
-                mPresenter.openIO(MyDeviceFragment.macAddress, item.code, duration);
-                helper.setChecked(R.id.sb_check, true);
+                if (item.weight_per_second > 0) {
+                    int duration = (int) (feeder/item.weight_per_second * 1000);
 
-                selectDialog.dismiss();
+                    isOpen = true;
+                    mPresenter.openIO(MyDeviceFragment.macAddress, item.code, duration);
+                    helper.setChecked(R.id.sb_check, true);
+
+                    selectDialog.dismiss();
+                } else {
+                    Toaster.showShort("请校准投喂机");
+                }
             }
 
             @Override

@@ -21,10 +21,10 @@ public interface MyDeviceContract {
     interface Presenter extends IPresenter {
         //添加场景
         void addScenes(String mac, String name);
-        //解绑移除设备
-        void removeDevice(NetDevice device);
-        //重命名设备
-        void renameDevice(NetDevice device);
+        //移除场景
+        void removeScenes(String mac);
+        //重命名场景
+        void renameScenes(String mac, String name);
         //获取场景
         void getScenes();
         //获取设备信息
