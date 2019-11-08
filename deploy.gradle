@@ -77,7 +77,7 @@ ext {
             }
 
             variant.outputs.all {
-                outputFileName = "ReeadHome_v${versionName}${flavorName}${buildTypeName}.apk"
+                outputFileName = "FISH_v${versionName}${flavorName}${buildTypeName}.apk"
                 // println outputFileName
             }
         }
