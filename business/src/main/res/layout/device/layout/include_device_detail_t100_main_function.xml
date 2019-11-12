@@ -499,7 +499,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp16"
                     android:layout_marginBottom="@dimen/dp26"
-                    android:background="@drawable/bg_t100_line"
+                    android:background="@drawable/bg_line_blue"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/dp16">
 

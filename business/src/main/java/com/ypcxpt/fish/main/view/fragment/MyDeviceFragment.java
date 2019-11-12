@@ -1,6 +1,5 @@
 package com.ypcxpt.fish.main.view.fragment;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
@@ -10,11 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +20,10 @@ import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 import com.ypcxpt.fish.R;
-import com.ypcxpt.fish.app.util.RippleLayout;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
+import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.util.Toaster;
@@ -162,6 +158,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             @Override
             public void Config() {
                 operationDialog.dismiss();
+                Router.build(Path.Main.IO_CONFIG).withString("DEVICE_MAC", macAddress).navigation(getActivity());
             }
 
             @Override
@@ -245,21 +242,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 //                mAdapter.setNewData(((OnProfileUpdatedEvent) event).userProfile.scenes);
 //            }
         }
-    }
-
-    Dialog dialog;
-    private void showDialog() {
-        dialog = new Dialog(getActivity(), R.style.MyDialog);
-        dialog.show();
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View viewDialog = inflater.inflate(R.layout.dialog_layout_search, null);
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();
-        int height = display.getHeight();
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(width, height);
-        dialog.setContentView(viewDialog, layoutParams);
-        RippleLayout ripple_layout = viewDialog.findViewById(R.id.ripple_layout);
-        ripple_layout.startRippleAnimation();
     }
 
     @Subscribe

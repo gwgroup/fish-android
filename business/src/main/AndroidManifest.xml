@@ -148,7 +148,7 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.main.view.activity.CommentActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.ypcxpt.fish.main.view.activity.NotificationActivity"
+        <activity android:name="com.ypcxpt.fish.main.view.activity.IoConfigActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.sonic.BrowserActivity"
             android:screenOrientation="portrait" />

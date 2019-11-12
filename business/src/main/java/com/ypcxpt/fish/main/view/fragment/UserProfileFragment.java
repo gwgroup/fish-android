@@ -41,7 +41,6 @@ import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.contract.UserProfileContract;
 import com.ypcxpt.fish.main.event.OnGetCollectionsEvent;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
-import com.ypcxpt.fish.main.event.OnGetNotificationsEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 import com.ypcxpt.fish.main.event.OnRabbitMQUpdatedEvent;
 import com.ypcxpt.fish.main.event.OnRefreshUserEvent;
@@ -216,9 +215,7 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
 
     @OnClick(R.id.ll_notification)
     public void onNotification() {
-        Router.build(Path.Main.NOTIFICATION).navigation(getActivity());
-        //通知下一个界面调用通知列表接口
-        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetNotificationsEvent()), 500);
+        Router.build(Path.Main.IO_CONFIG).navigation(getActivity());
     }
 
     int count = 1;

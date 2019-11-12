@@ -25,6 +25,7 @@
     <color name="common_7f7f7f">#7f7f7f</color>
     <!-- 输入框提示性文字/图标 -->
     <color name="common_CCCCCC">#CCCCCC</color>
+    <color name="common_CACBCC">#CACBCC</color>
     <color name="common_DDDDDD">#DDDDDD</color>
     <!-- 不可点击的按钮 -->
     <color name="common_EEEEEE">#EEEEEE</color>
@@ -57,6 +58,7 @@
     <color name="device_detail_manual">#35384d</color>
 
     <color name="main_color_new">#78D0FF</color>
+    <color name="main_color_blue">#42ACFF</color>
     <color name="bg_device_detail_top">#A3C2CF</color>
     <color name="bg_device_detail_top2">#869AB2</color>
     <color name="bg_device_detail_red">#CF121B</color>
