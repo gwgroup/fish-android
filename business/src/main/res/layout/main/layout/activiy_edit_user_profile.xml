@@ -210,11 +210,13 @@
 
             <View
                 style="@style/divider_05"
-                android:layout_marginTop="@dimen/dp12" />
+                android:layout_marginTop="@dimen/dp12"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/ll_region"
-                style="@style/user_profile_item_ll">
+                style="@style/user_profile_item_ll"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/user_profile_item_hint"
@@ -228,11 +230,13 @@
 
             </LinearLayout>
 
-            <View style="@style/divider_05" />
+            <View style="@style/divider_05"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/ll_address"
-                style="@style/user_profile_item_ll">
+                style="@style/user_profile_item_ll"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/user_profile_item_hint"
@@ -245,7 +249,8 @@
                     tools:text="一长串常常尝尝唱唱畅畅场场的地址" />
             </LinearLayout>
 
-            <View style="@style/divider_05" />
+            <View style="@style/divider_05"
+                android:visibility="gone"/>
 
             <View
                 style="@style/divider_05"

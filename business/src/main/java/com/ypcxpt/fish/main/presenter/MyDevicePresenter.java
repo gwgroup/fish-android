@@ -16,6 +16,7 @@ import com.ypcxpt.fish.main.model.IoInfo;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -91,7 +92,10 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
                 .onSuccess(ioInfos -> {
                     Logger.d("CCC", "ioInfos-->" + ioInfos.toString());
                     mView.showIoInfos(ioInfos);
-                }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                }).onBizError(bizMsg -> {
+            mView.showIoInfos(new ArrayList<>());
+            Logger.d("CCC", bizMsg.toString());
+        })
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
     }

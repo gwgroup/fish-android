@@ -30,6 +30,10 @@ public class SceneAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
         this.activity = activity;
     }
 
+    public void setIndex(int itemIndex) {
+        index = itemIndex;
+    }
+
     @Override
     protected void convert(BaseViewHolder helper, Scenes item) {
         String name = StringHelper.nullToDefault(item.scene_name, "");

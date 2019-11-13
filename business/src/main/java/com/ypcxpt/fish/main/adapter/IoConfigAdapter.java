@@ -1,5 +1,6 @@
 package com.ypcxpt.fish.main.adapter;
 
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
@@ -42,6 +43,12 @@ public class IoConfigAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
             Glide.with(mContext)
                     .load(R.mipmap.icon_main_feeder)
                     .into(imageView);
+        }
+
+        if (type.contains("feeder")){
+            helper.getView(R.id.ll_checkFeeder).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.ll_checkFeeder).setVisibility(View.GONE);
         }
 
         helper.setText(R.id.tv_name, name);

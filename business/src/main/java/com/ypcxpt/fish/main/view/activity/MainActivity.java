@@ -268,6 +268,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
+    }
+
+    @Override
     protected void onResume() {
         isForeground = true;
         super.onResume();

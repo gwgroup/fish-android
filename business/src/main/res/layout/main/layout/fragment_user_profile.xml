@@ -19,21 +19,18 @@
             <RelativeLayout
                 style="@style/main_page_header"
                 android:layout_height="@dimen/dp180"
-                android:background="@mipmap/icon_personal_top_bg">
+                android:background="@color/main_color_new">
 
                 <RelativeLayout
                     android:id="@+id/rl_top"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/dp30"
-                    android:paddingTop="@dimen/dp45"
-                    android:paddingRight="@dimen/dp30"
-                    android:paddingBottom="@dimen/dp20">
+                    android:layout_height="match_parent">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv_avatar"
                         android:layout_width="@dimen/dp60"
                         android:layout_height="@dimen/dp60"
+                        android:layout_centerInParent="true"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/ic_default_avatar_female"
                         app:civ_border_color="#9b5C768D"
@@ -43,13 +40,13 @@
                         android:id="@+id/tv_nick_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp15"
-                        android:layout_marginTop="@dimen/dp5"
-                        android:layout_toRightOf="@+id/iv_avatar"
+                        android:layout_marginTop="@dimen/dp8"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/iv_avatar"
                         android:ellipsize="end"
                         android:maxWidth="@dimen/dp80"
                         android:maxLines="1"
-                        android:textColor="@color/common_2f2f2f"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/sp15"
                         tools:text="我是昵称" />
 
@@ -63,7 +60,8 @@
                         android:gravity="center"
                         android:text="  LV1"
                         android:textColor="@color/common_2f2f2f"
-                        android:textSize="@dimen/sp8" />
+                        android:textSize="@dimen/sp8"
+                        android:visibility="gone"/>
 
                     <LinearLayout
                         style="@style/Layout_Wrap_Wrap"
@@ -71,7 +69,8 @@
                         android:layout_marginLeft="@dimen/dp15"
                         android:layout_marginBottom="@dimen/dp5"
                         android:layout_toRightOf="@+id/iv_avatar"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/tv_xp"
@@ -98,7 +97,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:orientation="vertical"
-                        android:paddingTop="@dimen/dp5">
+                        android:paddingTop="@dimen/dp5"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -129,7 +129,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rl_top"
                     android:layout_marginBottom="@dimen/dp15"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:id="@+id/ll_collection"
@@ -268,7 +269,7 @@
                             android:layout_width="@dimen/dp18"
                             android:layout_height="@dimen/dp18"
                             android:layout_centerVertical="true"
-                            android:src="@mipmap/icon_device_manager" />
+                            android:src="@mipmap/icon_set" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -276,7 +277,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/dp14"
                             android:layout_toRightOf="@+id/iv_device"
-                            android:text="设备管理"
+                            android:text="报表"
                             android:textColor="@color/common_2f2f2f"
                             android:textSize="@dimen/sp15" />
 
@@ -301,41 +302,6 @@
                             tools:text="我是昵称" />
 
                     </LinearLayout>
-
-                    <View style="@style/divider_05" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_edit_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp46"
-                        android:background="@color/white"
-                        android:paddingLeft="@dimen/dp20"
-                        android:paddingRight="@dimen/dp20">
-
-                        <ImageView
-                            android:id="@+id/iv_edit"
-                            android:layout_width="@dimen/dp18"
-                            android:layout_height="@dimen/dp18"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/icon_set" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp14"
-                            android:layout_toRightOf="@+id/iv_edit"
-                            android:text="修改个人资料"
-                            android:textColor="@color/common_2f2f2f"
-                            android:textSize="@dimen/sp15" />
-
-                        <ImageView
-                            android:layout_width="@dimen/dp9"
-                            android:layout_height="@dimen/dp18"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/icon_arrow" />
-                    </RelativeLayout>
 
                     <LinearLayout
                         style="@style/user_profile_item_ll"

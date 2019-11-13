@@ -61,6 +61,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.ypcxpt.fish.app.util.DisplayUtils.displayProfileInfo;
+import static com.ypcxpt.fish.app.util.DisplayUtils.getFormatPhone;
 import static com.ypcxpt.fish.sonic.BrowserActivity.MODE_SONIC;
 
 public class UserProfileFragment extends BaseFragment implements UserProfileContract.View {
@@ -173,15 +174,8 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
         factory.setAutomaticRecoveryEnabled(true);// 设置连接恢复
     }
 
-    @OnClick(R.id.iv_edit_profile)
+    @OnClick({R.id.iv_edit_profile, R.id.iv_avatar})
     public void onEditProfile() {
-        Router.build(Path.Main.EDIT_PROFILE)
-                .withParcelable("mUserProfile", mUserProfile)
-                .navigation(getActivity());
-    }
-
-    @OnClick(R.id.rl_edit_profile)
-    public void onEditProfileNew() {
         Router.build(Path.Main.EDIT_PROFILE)
                 .withParcelable("mUserProfile", mUserProfile)
                 .navigation(getActivity());
@@ -352,7 +346,7 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
         mUserProfile = userProfile;
         displayProfileInfo(tvNickName, userProfile.user.display_name);
 //        displayProfileInfo(tvBirthday, getFormatDate(userProfile.birthday));
-//        displayProfileInfo(tvPhoneNo, getFormatPhone(userProfile.phoneNo));
+        displayProfileInfo(tvPhoneNo, getFormatPhone(userProfile.user.phoneNo));
 //        displayProfileInfo(tvAddress, userProfile.address);
 //        String strWeight = userProfile.weight > 0 ? String.format("%dkg", userProfile.weight) : null;
 //        displayProfileInfo(tvWeight, strWeight);

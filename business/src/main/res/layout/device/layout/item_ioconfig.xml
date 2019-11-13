@@ -58,9 +58,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp50"
+        android:weightSum="5"
+        android:gravity="right"
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_rename"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -80,6 +83,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_checkFeeder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp10"
@@ -100,6 +104,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_setPower"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp10"

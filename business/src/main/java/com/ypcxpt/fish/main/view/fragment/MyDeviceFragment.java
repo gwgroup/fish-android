@@ -222,6 +222,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             /* 获取设备IO，默认第一个 */
             mPresenter.getIoinfos(scenes.get(0).macAddress);
             macAddress = scenes.get(0).macAddress;
+
+            mAdapter.setIndex(0);
+            mAdapter.notifyDataSetChanged();
         }
     }
 
