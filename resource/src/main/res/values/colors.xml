@@ -74,4 +74,25 @@
     <color name="main_text">#70899D</color>
 
     <color name="scan">#33FFFFFF</color>
+    
+    <color name="temperature00">#DDDDDD</color>
+    <color name="temperature15">#90D7EC</color>
+    <color name="temperature26">#145B7D</color>
+    <color name="temperature27">#FFD400</color>
+
+    <color name="ph_46">#E77216</color>
+    <color name="ph_56">#EDA516</color>
+    <color name="ph_64">#FAE145</color>
+    <color name="ph_69">#D2E275</color>
+    <color name="ph_74">#86C62D</color>
+    <color name="ph_79">#84C679</color>
+    <color name="ph_88">#4B6C48</color>
+    <color name="ph_93">#2E55AB</color>
+    <color name="ph_98">#394E9F</color>
+    <color name="ph_99">#222A8C</color>
+
+    <color name="o2_00">#F1410F</color>
+    <color name="o2_04">#E09F10</color>
+    <color name="o2_08">#84B70B</color>
+    <color name="o2_09">#93FD28</color>
 </resources>

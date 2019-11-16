@@ -129,6 +129,7 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/ll_temperature"
                         android:layout_width="@dimen/dp80"
                         android:layout_height="@dimen/dp80"
                         android:gravity="center"

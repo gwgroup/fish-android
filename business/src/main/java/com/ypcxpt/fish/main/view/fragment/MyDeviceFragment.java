@@ -1,6 +1,7 @@
 package com.ypcxpt.fish.main.view.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.Settings;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +37,6 @@ import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
-import com.ypcxpt.fish.main.model.IoStatus;
 import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
@@ -80,6 +81,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
 
+    @BindView(R.id.ll_temperature)
+    LinearLayout ll_temperature;
     @BindView(R.id.tv_temperature)
     TextView tv_temperature;
     @BindView(R.id.tv_ph)
@@ -256,6 +259,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             tv_temperature.setText(ioStatusAll.water_temperature + "℃");
             tv_ph.setText(ioStatusAll.ph + "");
             tv_oxygen.setText(ioStatusAll.o2 + "");
+
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setShape(GradientDrawable.OVAL);
+            drawable.setColor(getActivity().getResources().getColor(R.color.bg_device_detail_yellow));
+            ll_temperature.setBackground(drawable);
         } else {
             ioAdapter.setNewData(new ArrayList<>());
         }
