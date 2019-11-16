@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.ypcxpt.fish.library.util.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 设备状态信息Model。
  */
@@ -13,6 +16,7 @@ public class IoStatusAll implements Parcelable {
     public double water_temperature;
     public double ph;
     public double o2;
+    public List<IoStatus> status;
 
     public IoStatusAll() {
     }
@@ -44,6 +48,7 @@ public class IoStatusAll implements Parcelable {
         dest.writeDouble(this.water_temperature);
         dest.writeDouble(this.ph);
         dest.writeDouble(this.o2);
+        dest.writeList(this.status);
     }
 
     protected IoStatusAll(Parcel in) {
@@ -51,6 +56,8 @@ public class IoStatusAll implements Parcelable {
         this.water_temperature = in.readDouble();
         this.ph = in.readDouble();
         this.o2 = in.readDouble();
+        this.status = new ArrayList<>();//有集合定义的时候一定要初始化
+        in.readList(this.status, IoStatus.class.getClassLoader());//这里获取类加载器
     }
 
     public static final Creator<IoStatusAll> CREATOR = new Creator<IoStatusAll>() {

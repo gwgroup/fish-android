@@ -13,6 +13,7 @@ import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoStatusAll;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -83,19 +84,16 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
     }
 
     @Override
-    public void getIoinfos(String mac) {
-        Flowable<List<IoInfo>> source = mDS.getIoInfo(mac);
+    public void getIoStatus(String mac) {
+        Flowable<IoStatusAll> source = mDS.getIoStatus(mac);
         new Fetcher<>(source)
                 .withView(mView)
                 .showLoading(false)
                 .showNoNetWarning(false)
-                .onSuccess(ioInfos -> {
-                    Logger.d("CCC", "ioInfos-->" + ioInfos.toString());
-                    mView.showIoInfos(ioInfos);
-                }).onBizError(bizMsg -> {
-            mView.showIoInfos(new ArrayList<>());
-            Logger.d("CCC", bizMsg.toString());
-        })
+                .onSuccess(ioStatusAll -> {
+                    Logger.d("CCC", "ioStatus-->" + ioStatusAll.status.toString());
+                    mView.showIoStatus(ioStatusAll);
+                }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
     }
@@ -109,6 +107,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
                 .showNoNetWarning(false)
                 .onSuccess(o -> {
                     Logger.d("CCC", "打开成功");
+                    getIoStatus(mac);
                 }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
@@ -123,6 +122,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
                 .showNoNetWarning(false)
                 .onSuccess(o -> {
                     Logger.d("CCC", "关闭成功");
+                    getIoStatus(mac);
                 }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();

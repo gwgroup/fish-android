@@ -10,6 +10,7 @@ import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.NotificationInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
@@ -59,6 +60,14 @@ public class NetDataSource implements DataSource {
                 .put("device_mac", mac)
                 .build();
         return mApiService.getIoInfo(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<IoStatusAll> getIoStatus(String mac) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .build();
+        return mApiService.getIoStatus(AppData.token(), param);
     }
 
     @Override

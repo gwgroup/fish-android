@@ -57,8 +57,9 @@ public class SceneAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
             /**
              * 获取mac下的IO信息
              */
-            mPresenter.getIoinfos(item.macAddress);
+            mPresenter.getIoStatus(item.macAddress);
             MyDeviceFragment.macAddress = item.macAddress;
+            Logger.i("当前mac", MyDeviceFragment.macAddress);
         });
     }
 }

@@ -144,9 +144,9 @@ dependencies {
     /* ButterKnife */
     annotationProcessor butterknife_compiler
     implementation 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
+
     implementation 'com.github.huburt-Hu:NewbieGuide:v2.4.2' //指引蒙版
     implementation 'com.yanzhenjie:permission:2.0.0-rc4' //android权限
-//    implementation 'com.github.yuzhiqiang1993:zxing:2.2.1' //扫码库
     implementation 'com.daimajia.androidanimations:library:2.3@aar' //动画库集合
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     implementation 'com.github.wenchaosong:Banner:2.3.2' //自定义布局的banner
@@ -168,4 +168,6 @@ dependencies {
 
     //扫码库
     implementation 'cn.bingoogolapple:bga-qrcode-zxing:1.3.6'
+    //websocket
+    implementation 'org.java-websocket:Java-WebSocket:1.4.0'
 }

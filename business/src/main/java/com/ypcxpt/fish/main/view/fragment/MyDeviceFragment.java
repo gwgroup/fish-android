@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.StringUtils;
+import com.google.gson.Gson;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -34,10 +35,12 @@ import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
-import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoStatus;
+import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
 import com.ypcxpt.fish.main.presenter.WeatherPresenter;
+import com.ypcxpt.fish.main.util.JWebSocketClient;
 import com.ypcxpt.fish.main.util.MainOperationDialog;
 import com.ypcxpt.fish.main.util.ScenesRenameDialog;
 import com.ypcxpt.fish.main.view.activity.CaptureScanActivity;
@@ -45,13 +48,17 @@ import com.ypcxpt.fish.main.view.activity.CaptureScanActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.java_websocket.handshake.ServerHandshake;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
+import static com.ypcxpt.fish.BaseUrlConstant.WEBSOCKET_URI;
 import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherCollections;
 import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherIcon;
 
@@ -72,6 +79,13 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
+
+    @BindView(R.id.tv_temperature)
+    TextView tv_temperature;
+    @BindView(R.id.tv_ph)
+    TextView tv_ph;
+    @BindView(R.id.tv_oxygen)
+    TextView tv_oxygen;
 
     private MyDeviceContract.Presenter mPresenter;
 
@@ -220,22 +234,31 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
         if (scenes.size() > 0) {
             /* 获取设备IO，默认第一个 */
-            mPresenter.getIoinfos(scenes.get(0).macAddress);
+            mPresenter.getIoStatus(scenes.get(0).macAddress);
             macAddress = scenes.get(0).macAddress;
 
             mAdapter.setIndex(0);
             mAdapter.notifyDataSetChanged();
+
+            //建立websocket
+            initSocketClient();
+            //开启心跳检测
+            mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);
         }
     }
 
     @Override
-    public void showIoInfos(List<IoInfo> ioInfos) {
-        for (int i = 0; i < ioInfos.size(); i++) {
-            if (!ioInfos.get(i).enabled) {
-                ioInfos.remove(ioInfos.get(i));
-            }
+    public void showIoStatus(IoStatusAll ioStatusAll) {
+        Logger.d("溶氧量，PH，水温", ioStatusAll.o2 + "," + ioStatusAll.ph + "," + ioStatusAll.water_temperature);
+        if (ioStatusAll.online == 1) {
+            ioAdapter.setNewData(ioStatusAll.status);
+
+            tv_temperature.setText(ioStatusAll.water_temperature + "℃");
+            tv_ph.setText(ioStatusAll.ph + "");
+            tv_oxygen.setText(ioStatusAll.o2 + "");
+        } else {
+            ioAdapter.setNewData(new ArrayList<>());
         }
-        ioAdapter.setNewData(ioInfos);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -310,5 +333,123 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             }
         });
         scenesRenameDialog.show();
+    }
+
+    private JWebSocketClient client;
+    private static final long HEART_BEAT_RATE = 10 * 1000;//每隔10秒进行一次对长连接的心跳检测
+    private Handler mHandler = new Handler();
+    private Runnable heartBeatRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Logger.e("JWebSocketClientService", "心跳包检测websocket连接状态");
+            if (client != null) {
+                if (client.isClosed()) {
+                    reconnectWs();
+                }
+            } else {
+                //如果client已为空，重新初始化连接
+                client = null;
+                initSocketClient();
+            }
+            //每隔一定的时间，对长连接进行一次心跳检测
+            mHandler.postDelayed(this, HEART_BEAT_RATE);
+        }
+    };
+
+    private void initSocketClient() {
+        URI uri = URI.create(WEBSOCKET_URI);
+        client = new JWebSocketClient(uri) {
+
+            @Override
+            public void onOpen(ServerHandshake handshakedata) {
+                super.onOpen(handshakedata);
+                Logger.e("JWebSocketClientService", "websocket连接成功");
+
+                getActivity().runOnUiThread(() -> {
+                    //客户端可以发消息给服务端
+                });
+            }
+
+            @Override
+            public void onMessage(String message) {
+                //message就是接收到的消息
+                Logger.e("接收到的消息", message);
+
+                Gson gson = new Gson();
+//                JWebSocketReciveInfo jWebSocketReciveInfo = gson.fromJson(message, JWebSocketReciveInfo.class);
+            }
+        };
+
+        connect();
+    }
+
+    /**
+     * 连接websocket
+     */
+    private void connect() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    //connectBlocking多出一个等待操作，会先连接再发送，否则未连接发送会报错
+                    client.connectBlocking();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+    }
+
+    /**
+     * 发送消息
+     *
+     * @param msg
+     */
+    public void sendMsg(String msg) {
+        if (null != client) {
+            Logger.e("JWebSocketClientService", "发送的消息：" + msg);
+            client.send(msg);
+        }
+    }
+
+    /**
+     * 断开连接
+     */
+    private void closeConnect() {
+        try {
+            if (null != client) {
+                client.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            client = null;
+        }
+    }
+
+    /**
+     * 开启重连
+     */
+    private void reconnectWs() {
+        mHandler.removeCallbacks(heartBeatRunnable);
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Logger.e("JWebSocketClientService", "开启重连");
+                    client.reconnectBlocking();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        mHandler.removeCallbacks(heartBeatRunnable);
+        closeConnect();
+        super.onDestroy();
     }
 }

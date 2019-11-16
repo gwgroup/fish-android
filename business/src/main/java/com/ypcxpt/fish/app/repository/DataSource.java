@@ -7,6 +7,7 @@ import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.NotificationInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
@@ -30,6 +31,9 @@ public interface DataSource {
 
     /* 获取设备IO信息 */
     Flowable<List<IoInfo>> getIoInfo(String mac);
+
+    /* 获取设备IO状态信息 */
+    Flowable<IoStatusAll> getIoStatus(String mac);
 
     /* 打开设备IO. */
     Flowable<Object> openIO(String mac, String code, int duration);

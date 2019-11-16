@@ -1,28 +1,22 @@
 package com.ypcxpt.fish.main.adapter;
 
 import android.app.Activity;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ypcxpt.fish.R;
-import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.StringHelper;
-import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
-import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoStatus;
 import com.ypcxpt.fish.main.util.DurationSelectDialog;
 import com.ypcxpt.fish.main.util.FeederDialog;
 import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 
-public class IOAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
+public class IOAdapter extends BaseQuickAdapter<IoStatus, BaseViewHolder> {
     private MyDeviceContract.Presenter mPresenter;
     private Activity activity;
-
-    private boolean isOpen = false;
 
     public IOAdapter(int layoutResId, MyDeviceContract.Presenter presenter) {
         super(layoutResId);
@@ -36,28 +30,33 @@ public class IOAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, IoInfo item) {
-        String name = StringHelper.nullToDefault(item.name, "");
-        String type = StringHelper.nullToDefault(item.type, "");
-//        helper.setChecked(R.id.sb_check, enable);
+    protected void convert(BaseViewHolder helper, IoStatus item) {
+        String code = StringHelper.nullToDefault(item.code, "");
+
+        helper.getView(R.id.sb_check).setClickable(false);
+        helper.setChecked(R.id.sb_check, item.opened == 1);
 
         ImageView imageView = helper.getView(R.id.iv_icon);
-        if (type.contains("lamp")) {
+        if (code.contains("lamp")) {
             Glide.with(activity)
                     .load(R.mipmap.icon_main_led)
                     .into(imageView);
-        } else if (type.contains("pump")) {
+            helper.setText(R.id.tv_name, "灯");
+        } else if (code.contains("pump")) {
             Glide.with(activity)
                     .load(R.mipmap.icon_main_pump)
                     .into(imageView);
-        } else if (type.contains("aerator")) {
+            helper.setText(R.id.tv_name, "水泵");
+        } else if (code.contains("aerator")) {
             Glide.with(activity)
                     .load(R.mipmap.icon_main_aerator)
                     .into(imageView);
-        } else if (type.contains("feeder")) {
+            helper.setText(R.id.tv_name, "增氧机");
+        } else if (code.contains("feeder")) {
             Glide.with(activity)
                     .load(R.mipmap.icon_main_feeder)
                     .into(imageView);
+            helper.setText(R.id.tv_name, "投喂机");
         }
 
 //        helper.setOnCheckedChangeListener(R.id.sb_check, new CompoundButton.OnCheckedChangeListener() {
@@ -69,80 +68,63 @@ public class IOAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
 //                }
 //            }
 //        });
-        helper.setText(R.id.tv_name, name);
         helper.getView(R.id.rl_item).setOnClickListener(v -> {
-            if (!isOpen) {
-                if ("feeder".equals(item.type)) {
-                    showFeederSelect(helper, item);
+            if (item.opened == 0) {
+                if (code.contains("feeder")) {
+                    showFeederSelect(item);
                 } else {
-                    showDurationSelect(helper, item);
+                    showDurationSelect(item);
                 }
             } else {
                 //关闭IO
                 mPresenter.closeIO(MyDeviceFragment.macAddress, item.code);
-                isOpen = false;
-                helper.setChecked(R.id.sb_check, false);
             }
 
         });
     }
 
-    private void showDurationSelect(BaseViewHolder helper, IoInfo item) {
+    private void showDurationSelect(IoStatus item) {
         DurationSelectDialog selectDialog = new DurationSelectDialog(activity, R.style.MyDialog);
-        selectDialog.setTitle(item.name);
+        selectDialog.setTitle(item.code);
         selectDialog.setCancelable(false);
         selectDialog.setOnResultListener(new DurationSelectDialog.OnResultListener() {
 
             @Override
             public void Ok(int hour, int minute, int second) {
                 int duration = (hour * 60 * 60 + minute * 60 + second) * 1000;
-
-                isOpen = true;
                 mPresenter.openIO(MyDeviceFragment.macAddress, item.code, duration);
-                helper.setChecked(R.id.sb_check, true);
-
                 selectDialog.dismiss();
             }
 
             @Override
             public void Cancel() {
                 selectDialog.dismiss();
-
-                isOpen = false;
-                helper.setChecked(R.id.sb_check, false);
             }
         });
         selectDialog.show();
     }
 
-    private void showFeederSelect(BaseViewHolder helper, IoInfo item) {
+    private void showFeederSelect(IoStatus item) {
         FeederDialog selectDialog = new FeederDialog(activity, R.style.MyDialog);
-        selectDialog.setTitle(item.name);
+        selectDialog.setTitle(item.code);
         selectDialog.setCancelable(false);
         selectDialog.setOnResultListener(new FeederDialog.OnResultListener() {
 
             @Override
             public void Ok(int feeder) {
 
-                if (item.weight_per_second > 0) {
-                    int duration = (int) (feeder/item.weight_per_second * 1000);
-
-                    isOpen = true;
+//                if (item.weight_per_second > 0) {
+                    int duration = (int) (feeder/25.4 * 1000);
                     mPresenter.openIO(MyDeviceFragment.macAddress, item.code, duration);
-                    helper.setChecked(R.id.sb_check, true);
-
                     selectDialog.dismiss();
-                } else {
-                    Toaster.showShort("请校准投喂机");
-                }
+//                } else {
+//                    Toaster.showShort("请校准投喂机");
+//                }
             }
 
             @Override
             public void Cancel() {
                 selectDialog.dismiss();
-
-                isOpen = false;
-                helper.setChecked(R.id.sb_check, false);
             }
 
             @Override

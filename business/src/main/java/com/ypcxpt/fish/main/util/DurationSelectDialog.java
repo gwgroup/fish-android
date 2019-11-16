@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.xw.repo.XEditText;
 
 import com.ypcxpt.fish.R;
@@ -98,7 +99,19 @@ public class DurationSelectDialog extends Dialog implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_ok:
-                mListener.Ok(Integer.parseInt(et_hour.getText().toString()), Integer.parseInt(et_minute.getText().toString()), Integer.parseInt(et_second.getText().toString()));
+                String hour = "0";
+                String minute = "0";
+                String second = "0";
+                if (!StringUtils.isEmpty(et_hour.getText().toString())) {
+                    hour = et_hour.getText().toString();
+                }
+                if (!StringUtils.isEmpty(et_minute.getText().toString())) {
+                    minute = et_minute.getText().toString();
+                }
+                if (!StringUtils.isEmpty(et_second.getText().toString())) {
+                    second = et_second.getText().toString();
+                }
+                mListener.Ok(Integer.parseInt(hour), Integer.parseInt(minute), Integer.parseInt(second));
                 break;
             case R.id.bt_cancel:
                 mListener.Cancel();

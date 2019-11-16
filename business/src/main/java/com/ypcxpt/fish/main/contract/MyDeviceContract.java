@@ -4,7 +4,7 @@ import com.ypcxpt.fish.device.model.NetDevice;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.presenter.IPresenter;
 import com.ypcxpt.fish.library.view.IView;
-import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface MyDeviceContract {
 
         void showScenes(List<Scenes> scenes);
 
-        void showIoInfos(List<IoInfo> ioInfos);
+        void showIoStatus(IoStatusAll ioStatusAll);
     }
 
     interface Presenter extends IPresenter {
@@ -28,7 +28,7 @@ public interface MyDeviceContract {
         //获取场景
         void getScenes();
         //获取设备信息
-        void getIoinfos(String mac);
+        void getIoStatus(String mac);
         //打开IO
         void openIO(String mac, String code, int duration);
         //关闭IO

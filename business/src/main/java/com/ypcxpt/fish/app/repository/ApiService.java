@@ -6,6 +6,7 @@ import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.NotificationInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
@@ -35,9 +36,13 @@ public interface ApiService {
     @POST("api/scene/get_all_scene")
     Flowable<List<Scenes>> getScenes(@Header("authorization") String token);
 
-    /* 获取设备IO信息 */
+    /* 获取设备IO配置信息 */
     @POST("api/device/get_io_info")
     Flowable<List<IoInfo>> getIoInfo(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 获取设备IO状态信息 */
+    @POST("api/device/get_device_status")
+    Flowable<IoStatusAll> getIoStatus(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
     /* 打开设备IO */
     @POST("api/device/open")
