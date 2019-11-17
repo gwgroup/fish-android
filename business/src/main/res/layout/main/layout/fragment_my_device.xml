@@ -161,6 +161,7 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/ll_ph"
                         android:layout_width="@dimen/dp80"
                         android:layout_height="@dimen/dp80"
                         android:gravity="center"
@@ -192,6 +193,7 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/ll_oxygen"
                         android:layout_width="@dimen/dp80"
                         android:layout_height="@dimen/dp80"
                         android:gravity="center"

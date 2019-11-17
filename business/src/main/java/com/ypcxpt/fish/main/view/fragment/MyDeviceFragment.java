@@ -39,6 +39,7 @@ import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.WeatherInfo;
+import com.ypcxpt.fish.main.model.WebSocketInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
 import com.ypcxpt.fish.main.presenter.WeatherPresenter;
 import com.ypcxpt.fish.main.util.JWebSocketClient;
@@ -85,8 +86,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     LinearLayout ll_temperature;
     @BindView(R.id.tv_temperature)
     TextView tv_temperature;
+    @BindView(R.id.ll_ph)
+    LinearLayout ll_ph;
     @BindView(R.id.tv_ph)
     TextView tv_ph;
+    @BindView(R.id.ll_oxygen)
+    LinearLayout ll_oxygen;
     @BindView(R.id.tv_oxygen)
     TextView tv_oxygen;
 
@@ -239,13 +244,13 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             /* 获取设备IO，默认第一个 */
             mPresenter.getIoStatus(scenes.get(0).macAddress);
             macAddress = scenes.get(0).macAddress;
-
+            /* 设置选中状态为默认的第一个 */
             mAdapter.setIndex(0);
             mAdapter.notifyDataSetChanged();
 
-            //建立websocket
+            /* 建立websocket */
             initSocketClient();
-            //开启心跳检测
+            /* 开启心跳检测 */
             mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);
         }
     }
@@ -255,15 +260,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         Logger.d("溶氧量，PH，水温", ioStatusAll.o2 + "," + ioStatusAll.ph + "," + ioStatusAll.water_temperature);
         if (ioStatusAll.online == 1) {
             ioAdapter.setNewData(ioStatusAll.status);
-
-            tv_temperature.setText(ioStatusAll.water_temperature + "℃");
-            tv_ph.setText(ioStatusAll.ph + "");
-            tv_oxygen.setText(ioStatusAll.o2 + "");
-
-            GradientDrawable drawable = new GradientDrawable();
-            drawable.setShape(GradientDrawable.OVAL);
-            drawable.setColor(getActivity().getResources().getColor(R.color.bg_device_detail_yellow));
-            ll_temperature.setBackground(drawable);
         } else {
             ioAdapter.setNewData(new ArrayList<>());
         }
@@ -349,7 +345,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     private Runnable heartBeatRunnable = new Runnable() {
         @Override
         public void run() {
-            Logger.e("JWebSocketClientService", "心跳包检测websocket连接状态");
+            Logger.w("JWebSocketClientService", "心跳包检测websocket连接状态");
             if (client != null) {
                 if (client.isClosed()) {
                     reconnectWs();
@@ -371,7 +367,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             @Override
             public void onOpen(ServerHandshake handshakedata) {
                 super.onOpen(handshakedata);
-                Logger.e("JWebSocketClientService", "websocket连接成功");
+                Logger.i("JWebSocketClientService", "websocket连接成功");
 
                 getActivity().runOnUiThread(() -> {
                     //客户端可以发消息给服务端
@@ -381,10 +377,79 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             @Override
             public void onMessage(String message) {
                 //message就是接收到的消息
-                Logger.e("接收到的消息", message);
+                Logger.i("接收到的消息", message);
 
-                Gson gson = new Gson();
-//                JWebSocketReciveInfo jWebSocketReciveInfo = gson.fromJson(message, JWebSocketReciveInfo.class);
+                getActivity().runOnUiThread(() -> {
+                    Gson gson = new Gson();
+                    WebSocketInfo webSocketInfo = gson.fromJson(message, WebSocketInfo.class);
+                    if (webSocketInfo.device_mac.equals(macAddress)) {
+                        IoStatusAll ioStatusAll = webSocketInfo.data;
+                        tv_temperature.setText(ioStatusAll.water_temperature + "℃");
+                        tv_ph.setText(ioStatusAll.ph + "");
+                        tv_oxygen.setText(ioStatusAll.o2 + "");
+
+                        /**
+                         * 水温颜色动态设置
+                         */
+                        GradientDrawable drawableWater = new GradientDrawable();
+                        drawableWater.setShape(GradientDrawable.OVAL);
+                        if (ioStatusAll.water_temperature <= 0) {
+                            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature00));
+                        } else if (ioStatusAll.water_temperature <= 15) {
+                            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature15));
+                        } else if (ioStatusAll.water_temperature <= 26) {
+                            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature26));
+                        } else {
+                            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature27));
+                        }
+                        ll_temperature.setBackground(drawableWater);
+
+                        /**
+                         * PH值颜色动态设置
+                         */
+                        GradientDrawable drawablePH = new GradientDrawable();
+                        drawablePH.setShape(GradientDrawable.OVAL);
+                        if (ioStatusAll.ph < 4.6) {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_46));
+                        } else if (ioStatusAll.ph < 5.6) {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_56));
+                        } else if (ioStatusAll.ph < 6.4) {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_64));
+                        }  else if (ioStatusAll.ph < 6.9) {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_69));
+                        } else if (ioStatusAll.ph < 7.4) {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_74));
+                        } else if (ioStatusAll.ph < 7.9) {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_79));
+                        } else if (ioStatusAll.ph < 8.8) {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_88));
+                        } else if (ioStatusAll.ph < 9.3) {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_93));
+                        } else if (ioStatusAll.ph < 9.8) {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_98));
+                        } else {
+                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_99));
+                        }
+                        ll_ph.setBackground(drawablePH);
+
+                        /**
+                         * 溶氧量颜色动态设置
+                         */
+                        GradientDrawable drawableO2 = new GradientDrawable();
+                        drawableO2.setShape(GradientDrawable.OVAL);
+                        if (ioStatusAll.o2 < 1.5) {
+                            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_00));
+                        } else if (ioStatusAll.o2 < 4) {
+                            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_04));
+                        } else if (ioStatusAll.o2 < 8) {
+                            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_08));
+                        } else {
+                            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_09));
+                        }
+                        ll_oxygen.setBackground(drawableO2);
+                    }
+                });
+
             }
         };
 
@@ -416,7 +481,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
      */
     public void sendMsg(String msg) {
         if (null != client) {
-            Logger.e("JWebSocketClientService", "发送的消息：" + msg);
+            Logger.i("JWebSocketClientService", "发送的消息：" + msg);
             client.send(msg);
         }
     }
@@ -445,7 +510,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             @Override
             public void run() {
                 try {
-                    Logger.e("JWebSocketClientService", "开启重连");
+                    Logger.i("JWebSocketClientService", "开启重连");
                     client.reconnectBlocking();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
