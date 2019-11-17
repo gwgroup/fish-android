@@ -25,13 +25,14 @@ public class IoInfoCurrent implements Parcelable {
     }
 
     public IoInfoCurrent(boolean enabled, String code, String type, String name,
-                         double weight_per_second, int power_w, int opened,
+                         double weight_per_second, int pin, int power_w, int opened,
                          int duration, String start_time) {
         this.enabled = enabled;
         this.code = code;
         this.type = type;
         this.name = name;
         this.weight_per_second = weight_per_second;
+        this.pin = pin;
         this.power_w = power_w;
         this.opened = opened;
         this.duration = duration;
@@ -124,14 +125,30 @@ public class IoInfoCurrent implements Parcelable {
 
     @Override
     public String toString() {
-        Logger.i("NetDevice-->", "{" +
+        Logger.i("IoInfoCurrent-->", "{" +
+                "enabled='" + enabled + '\'' +
                 "code='" + code + '\'' +
                 ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", weight_per_second='" + weight_per_second + '\'' +
+                ", pin='" + pin + '\'' +
+                ", power_w='" + power_w + '\'' +
+                ", opened='" + opened + '\'' +
+                ", duration='" + duration + '\'' +
+                ", start_time='" + start_time + '\'' +
                 '}');
 
-        return "NetDevice{" +
+        return "IoInfoCurrent{" +
+                "enabled='" + enabled + '\'' +
                 "code='" + code + '\'' +
                 ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", weight_per_second='" + weight_per_second + '\'' +
+                ", pin='" + pin + '\'' +
+                ", power_w='" + power_w + '\'' +
+                ", opened='" + opened + '\'' +
+                ", duration='" + duration + '\'' +
+                ", start_time='" + start_time + '\'' +
                 '}';
     }
 

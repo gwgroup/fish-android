@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.library.view.activity.BaseActivity;
@@ -17,7 +16,6 @@ import com.ypcxpt.fish.main.adapter.IoConfigAdapter;
 import com.ypcxpt.fish.main.contract.IoConfigContract;
 import com.ypcxpt.fish.main.event.OnRefreshUserEvent;
 import com.ypcxpt.fish.main.model.IoInfo;
-import com.ypcxpt.fish.main.model.NotificationInfo;
 import com.ypcxpt.fish.main.presenter.IoConfigPresenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,11 +33,6 @@ public class IoConfigActivity extends BaseActivity implements IoConfigContract.V
 
     private IoConfigContract.Presenter mPresenter;
     private IoConfigAdapter mAdapter;
-
-    //收藏数据源
-    private NotificationInfo notification;
-    private int pageIndex = 1;
-    private int pageNum = 10;
 
     @Autowired(name = "DEVICE_MAC")
     public String DEVICE_MAC;

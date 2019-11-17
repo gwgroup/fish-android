@@ -85,14 +85,14 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
 
     @Override
     public void getIoStatus(String mac) {
-        Flowable<IoStatusAll> source = mDS.getIoStatus(mac);
+        Flowable<List<IoInfo>> source = mDS.getIoInfo(mac);
         new Fetcher<>(source)
                 .withView(mView)
                 .showLoading(false)
                 .showNoNetWarning(false)
-                .onSuccess(ioStatusAll -> {
-                    Logger.d("CCC", "ioStatus-->" + ioStatusAll.status.toString());
-                    mView.showIoStatus(ioStatusAll);
+                .onSuccess(ioInfos -> {
+                    Logger.d("CCC", "ioInfos-->" + ioInfos.toString());
+                    mView.showIoStatus(ioInfos);
                 }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
@@ -107,7 +107,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
                 .showNoNetWarning(false)
                 .onSuccess(o -> {
                     Logger.d("CCC", "打开成功");
-                    getIoStatus(mac);
+//                    getIoStatus(mac);
                 }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
@@ -122,7 +122,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
                 .showNoNetWarning(false)
                 .onSuccess(o -> {
                     Logger.d("CCC", "关闭成功");
-                    getIoStatus(mac);
+//                    getIoStatus(mac);
                 }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();

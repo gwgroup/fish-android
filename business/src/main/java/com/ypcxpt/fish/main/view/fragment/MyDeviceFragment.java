@@ -37,6 +37,9 @@ import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
+import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoInfoCurrent;
+import com.ypcxpt.fish.main.model.IoStatus;
 import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.model.WebSocketInfo;
@@ -241,28 +244,25 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         mAdapter.setNewData(scenes);
 
         if (scenes.size() > 0) {
-            /* 获取设备IO，默认第一个 */
-            mPresenter.getIoStatus(scenes.get(0).macAddress);
-            macAddress = scenes.get(0).macAddress;
             /* 设置选中状态为默认的第一个 */
             mAdapter.setIndex(0);
             mAdapter.notifyDataSetChanged();
 
-            /* 建立websocket */
-            initSocketClient();
-            /* 开启心跳检测 */
-            mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);
+            /* 获取设备IO配置状态，默认第一个 */
+            mPresenter.getIoStatus(scenes.get(0).macAddress);
+            macAddress = scenes.get(0).macAddress;
         }
     }
 
+    private List<IoInfoCurrent> ioInfoCurrents = new ArrayList<>();
+    private List<IoInfo> mIoInfos;
     @Override
-    public void showIoStatus(IoStatusAll ioStatusAll) {
-        Logger.d("溶氧量，PH，水温", ioStatusAll.o2 + "," + ioStatusAll.ph + "," + ioStatusAll.water_temperature);
-        if (ioStatusAll.online == 1) {
-            ioAdapter.setNewData(ioStatusAll.status);
-        } else {
-            ioAdapter.setNewData(new ArrayList<>());
-        }
+    public void showIoStatus(List<IoInfo> ioInfos) {
+        mIoInfos = ioInfos;
+        /* 建立websocket */
+        initSocketClient();
+        /* 开启心跳检测 */
+        mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -384,69 +384,40 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     WebSocketInfo webSocketInfo = gson.fromJson(message, WebSocketInfo.class);
                     if (webSocketInfo.device_mac.equals(macAddress)) {
                         IoStatusAll ioStatusAll = webSocketInfo.data;
+                        Logger.d("溶氧量，PH，水温", ioStatusAll.o2 + "," + ioStatusAll.ph + "," + ioStatusAll.water_temperature);
                         tv_temperature.setText(ioStatusAll.water_temperature + "℃");
                         tv_ph.setText(ioStatusAll.ph + "");
                         tv_oxygen.setText(ioStatusAll.o2 + "");
 
-                        /**
-                         * 水温颜色动态设置
-                         */
-                        GradientDrawable drawableWater = new GradientDrawable();
-                        drawableWater.setShape(GradientDrawable.OVAL);
-                        if (ioStatusAll.water_temperature <= 0) {
-                            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature00));
-                        } else if (ioStatusAll.water_temperature <= 15) {
-                            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature15));
-                        } else if (ioStatusAll.water_temperature <= 26) {
-                            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature26));
-                        } else {
-                            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature27));
-                        }
-                        ll_temperature.setBackground(drawableWater);
+                        setStatusColor(ioStatusAll.water_temperature, ioStatusAll.ph, ioStatusAll.o2);
 
-                        /**
-                         * PH值颜色动态设置
-                         */
-                        GradientDrawable drawablePH = new GradientDrawable();
-                        drawablePH.setShape(GradientDrawable.OVAL);
-                        if (ioStatusAll.ph < 4.6) {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_46));
-                        } else if (ioStatusAll.ph < 5.6) {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_56));
-                        } else if (ioStatusAll.ph < 6.4) {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_64));
-                        }  else if (ioStatusAll.ph < 6.9) {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_69));
-                        } else if (ioStatusAll.ph < 7.4) {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_74));
-                        } else if (ioStatusAll.ph < 7.9) {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_79));
-                        } else if (ioStatusAll.ph < 8.8) {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_88));
-                        } else if (ioStatusAll.ph < 9.3) {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_93));
-                        } else if (ioStatusAll.ph < 9.8) {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_98));
-                        } else {
-                            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_99));
-                        }
-                        ll_ph.setBackground(drawablePH);
+                        /* 实时状态IO数组 */
+                        List<IoStatus> ioStatuses = webSocketInfo.data.status;
 
-                        /**
-                         * 溶氧量颜色动态设置
-                         */
-                        GradientDrawable drawableO2 = new GradientDrawable();
-                        drawableO2.setShape(GradientDrawable.OVAL);
-                        if (ioStatusAll.o2 < 1.5) {
-                            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_00));
-                        } else if (ioStatusAll.o2 < 4) {
-                            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_04));
-                        } else if (ioStatusAll.o2 < 8) {
-                            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_08));
-                        } else {
-                            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_09));
+                        ioInfoCurrents.clear();//先清空组装的数据
+                        for (int i = 0; i < mIoInfos.size(); i++) {
+                            IoInfoCurrent ioInfoCurrent
+                                    = new IoInfoCurrent(mIoInfos.get(i).enabled,
+                                    mIoInfos.get(i).code,
+                                    mIoInfos.get(i).type,
+                                    mIoInfos.get(i).name,
+                                    mIoInfos.get(i).weight_per_second,
+                                    mIoInfos.get(i).pin,
+                                    mIoInfos.get(i).power_w,
+                                    ioStatuses.get(i).opened,
+                                    ioStatuses.get(i).duration,
+                                    ioStatuses.get(i).start_time);
+                            ioInfoCurrents.add(ioInfoCurrent);
                         }
-                        ll_oxygen.setBackground(drawableO2);
+                        Logger.d("组装的数据", ioInfoCurrents.toString() + "");
+
+                        for (int i = 0; i < ioInfoCurrents.size(); i++) {
+                            if (!ioInfoCurrents.get(i).enabled) {
+                                ioInfoCurrents.remove(ioInfoCurrents.get(i));
+                            }
+                        }
+
+                        ioAdapter.setNewData(ioInfoCurrents);
                     }
                 });
 
@@ -454,6 +425,74 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         };
 
         connect();
+    }
+
+    /**
+     * 根据实时的数据动态设置属性颜色
+     * @param water_temperature 水温
+     * @param ph PH值
+     * @param o2 溶氧量
+     */
+    private void setStatusColor(double water_temperature, double ph, double o2) {
+        /**
+         * 水温颜色动态设置
+         */
+        GradientDrawable drawableWater = new GradientDrawable();
+        drawableWater.setShape(GradientDrawable.OVAL);
+        if (water_temperature <= 0) {
+            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature00));
+        } else if (water_temperature <= 15) {
+            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature15));
+        } else if (water_temperature <= 26) {
+            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature26));
+        } else {
+            drawableWater.setColor(getActivity().getResources().getColor(R.color.temperature27));
+        }
+        ll_temperature.setBackground(drawableWater);
+
+        /**
+         * PH值颜色动态设置
+         */
+        GradientDrawable drawablePH = new GradientDrawable();
+        drawablePH.setShape(GradientDrawable.OVAL);
+        if (ph < 4.6) {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_46));
+        } else if (ph < 5.6) {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_56));
+        } else if (ph < 6.4) {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_64));
+        }  else if (ph < 6.9) {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_69));
+        } else if (ph < 7.4) {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_74));
+        } else if (ph < 7.9) {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_79));
+        } else if (ph < 8.8) {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_88));
+        } else if (ph < 9.3) {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_93));
+        } else if (ph < 9.8) {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_98));
+        } else {
+            drawablePH.setColor(getActivity().getResources().getColor(R.color.ph_99));
+        }
+        ll_ph.setBackground(drawablePH);
+
+        /**
+         * 溶氧量颜色动态设置
+         */
+        GradientDrawable drawableO2 = new GradientDrawable();
+        drawableO2.setShape(GradientDrawable.OVAL);
+        if (o2 < 1.5) {
+            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_00));
+        } else if (o2 < 4) {
+            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_04));
+        } else if (o2 < 8) {
+            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_08));
+        } else {
+            drawableO2.setColor(getActivity().getResources().getColor(R.color.o2_09));
+        }
+        ll_oxygen.setBackground(drawableO2);
     }
 
     /**
