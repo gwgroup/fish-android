@@ -345,7 +345,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     private Runnable heartBeatRunnable = new Runnable() {
         @Override
         public void run() {
-            Logger.w("JWebSocketClientService", "心跳包检测websocket连接状态");
+            Logger.d("JWebSocketClientService", "心跳包检测websocket连接状态");
             if (client != null) {
                 if (client.isClosed()) {
                     reconnectWs();
@@ -384,7 +384,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     WebSocketInfo webSocketInfo = gson.fromJson(message, WebSocketInfo.class);
                     if (webSocketInfo.device_mac.equals(macAddress)) {
                         IoStatusAll ioStatusAll = webSocketInfo.data;
-                        Logger.d("溶氧量，PH，水温", ioStatusAll.o2 + "," + ioStatusAll.ph + "," + ioStatusAll.water_temperature);
+                        Logger.d("onMessage", "水温：" + ioStatusAll.water_temperature + ",PH：" + ioStatusAll.ph + ",溶氧量：" + ioStatusAll.o2);
                         tv_temperature.setText(ioStatusAll.water_temperature + "℃");
                         tv_ph.setText(ioStatusAll.ph + "");
                         tv_oxygen.setText(ioStatusAll.o2 + "");
