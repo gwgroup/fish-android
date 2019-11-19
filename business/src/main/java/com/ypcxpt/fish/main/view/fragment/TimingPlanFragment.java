@@ -1,22 +1,12 @@
 package com.ypcxpt.fish.main.view.fragment;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.ypcxpt.fish.R;
-import com.ypcxpt.fish.app.util.RippleLayout;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.util.ThreadHelper;
@@ -25,37 +15,33 @@ import com.ypcxpt.fish.main.adapter.SceneAdapter;
 import com.ypcxpt.fish.main.contract.TimingPlanContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
-import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
-import com.ypcxpt.fish.main.model.WeatherInfo;
+import com.ypcxpt.fish.main.event.OnSceneInfoEvent;
 import com.ypcxpt.fish.main.presenter.TimingPlanPresenter;
-import com.ypcxpt.fish.main.presenter.WeatherPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 
-import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherCollections;
-import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherIcon;
-
 public class TimingPlanFragment extends BaseFragment implements TimingPlanContract.View {
+    @BindView(R.id.tv_scene)
+    TextView tv_scene;
+    @BindView(R.id.iv_arrow)
+    ImageView iv_arrow;
+
     @BindView(R.id.rv)
     RecyclerView rv;
 
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
 
+    private List<Scenes> mScenes;
+
     private TimingPlanContract.Presenter mPresenter;
 
-    private WeatherPresenter mWeatherPresenter;
-
     private SceneAdapter mAdapter;
-
-    private int REQUEST_CODE_SCAN = 111;
 
     @Override
     protected int layoutResID() {
@@ -65,9 +51,7 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
     @Override
     protected void initData() {
         mPresenter = new TimingPlanPresenter();
-//        mWeatherPresenter = new WeatherPresenter();
         addPresenter(mPresenter);
-//        addPresenter(mWeatherPresenter);
     }
 
     @Override
@@ -95,38 +79,6 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
         });
         //设置刷新时旋转图标的颜色，这是一个可变参数，当设置多个颜色时，旋转一周改变一次颜色。
         swipe_refresh_layout.setColorSchemeResources(R.color.main_color_new, R.color.bg_device_detail_yellow, R.color.bg_device_detail_top);
-
-//        getBanner();
-
-//        View view = LayoutInflater.from(getActivity()).inflate(R.layout.include_footview_scan, null);
-//        RelativeLayout rl_manually_scan = view.findViewById(R.id.rl_manually_scan);
-//        rl_manually_scan.setOnClickListener(v -> {
-//            /* 并不是直接开始扫描，而是先检查蓝牙是否开启 */
-//            checkBluetoothState();
-//        });
-//        mAdapter.addFooterView(view);
-
-//        setTopData();
-    }
-
-    //如果你需要考虑更好的体验，可以这么操作
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onGetWhetherResult(WeatherInfo weatherInfo) {
-        if (weatherInfo == null) {
-//            tvLocation.setText("未定位");
-        } else {
-//            tvLocation.setText(weatherInfo.city);
-        }
     }
 
     @Override
@@ -134,48 +86,14 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventReceived(Object event) {
-        if (event instanceof OnProfileUpdatedEvent) {
-            if (!StringUtils.isTrimEmpty(((OnProfileUpdatedEvent) event).userProfile.user.display_name)) {
-//                tvLocation.setText(((OnProfileUpdatedEvent) event).userProfile.user.display_name + "的家");
-            } else {
-//                tvLocation.setText("我的家");
-            }
-        }
-    }
-
-    Dialog dialog;
-    private void showDialog() {
-        dialog = new Dialog(getActivity(), R.style.MyDialog);
-        dialog.show();
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View viewDialog = inflater.inflate(R.layout.dialog_layout_search, null);
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();
-        int height = display.getHeight();
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(width, height);
-        dialog.setContentView(viewDialog, layoutParams);
-        RippleLayout ripple_layout = viewDialog.findViewById(R.id.ripple_layout);
-        ripple_layout.startRippleAnimation();
-    }
-
     @Subscribe
     public void onEventReceived(OnGetScenesEvent event) {
         mPresenter.getScenes();
     }
 
-    /**
-     * 取得应用的版本号
-     */
-    public static String getAPKVersion(Context ctx) {
-        PackageManager packageManager = ctx.getPackageManager();
-        try {
-            PackageInfo packageInfo = packageManager.getPackageInfo(ctx.getPackageName(), 0);
-            return packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return "";
+    @Subscribe
+    public void onEventReceived(OnSceneInfoEvent event) {
+        tv_scene.setText(event.sceneName);
+        mScenes = event.scenes;
     }
 }

@@ -36,7 +36,7 @@ import com.ypcxpt.fish.main.adapter.SceneAdapter;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
-import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
+import com.ypcxpt.fish.main.event.OnSceneInfoEvent;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoInfoCurrent;
 import com.ypcxpt.fish.main.model.IoStatus;
@@ -52,7 +52,6 @@ import com.ypcxpt.fish.main.view.activity.CaptureScanActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
@@ -237,10 +236,13 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         }
     }
 
-    public static String macAddress;
+    private List<Scenes> mScenes;
+    public static String macAddress;//场景mac
+    public static String sceneName;//场景名称
     @Override
     public void showScenes(List<Scenes> scenes) {
         Logger.e("CCC", "showScenes" + scenes);
+        mScenes = scenes;
         mAdapter.setNewData(scenes);
 
         if (scenes.size() > 0) {
@@ -251,6 +253,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             /* 获取设备IO配置状态，默认第一个 */
             mPresenter.getIoStatus(scenes.get(0).macAddress);
             macAddress = scenes.get(0).macAddress;
+            sceneName = scenes.get(0).scene_name;
         }
     }
 
@@ -258,20 +261,14 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     private List<IoInfo> mIoInfos;
     @Override
     public void showIoStatus(List<IoInfo> ioInfos) {
+        /* 这里创建Event通知TimingPlanFragment List<Scenes> scenes和当前sceneName */
+        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnSceneInfoEvent(mScenes, sceneName)), 500);
+
         mIoInfos = ioInfos;
         /* 建立websocket */
         initSocketClient();
         /* 开启心跳检测 */
         mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventReceived(Object event) {
-        if (event instanceof OnProfileUpdatedEvent) {
-//            if (((OnProfileUpdatedEvent) event).userProfile.scenes != null) {
-//                mAdapter.setNewData(((OnProfileUpdatedEvent) event).userProfile.scenes);
-//            }
-        }
     }
 
     @Subscribe

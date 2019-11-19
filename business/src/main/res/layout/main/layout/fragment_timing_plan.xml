@@ -19,27 +19,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:paddingLeft="@dimen/dp12"
                 android:paddingTop="@dimen/dp28"
-                android:paddingRight="@dimen/dp12"
-                android:paddingLeft="@dimen/dp12">
+                android:paddingRight="@dimen/dp12">
 
                 <TextView
                     style="@style/Layout_Wrap_Wrap"
                     android:layout_height="@dimen/dp35"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:layout_centerHorizontal="true"
+                    android:text="计划"
                     android:textColor="@color/common_141515"
                     android:textSize="@dimen/sp15"
-                    android:textStyle="bold"
-                    android:text="计划" />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/ll_select_scenes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp5"
                     android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp5"
                     android:orientation="horizontal">
 
                     <TextView
@@ -47,9 +47,9 @@
                         style="@style/Layout_Wrap_Wrap"
                         android:layout_height="@dimen/dp35"
                         android:gravity="center"
+                        android:text="渔场"
                         android:textColor="@color/common_141515"
-                        android:textSize="@dimen/sp12"
-                        android:text="渔场" />
+                        android:textSize="@dimen/sp12" />
 
                     <ImageView
                         android:id="@+id/iv_arrow"
@@ -64,11 +64,11 @@
                 android:id="@+id/ll_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/dp16"
-                android:paddingRight="@dimen/dp16"
-                android:background="@color/white"
                 android:layout_below="@+id/rl_top"
-                android:orientation="vertical">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp16"
+                android:paddingRight="@dimen/dp16">
 
                 <View style="@style/divider_05" />
 
@@ -80,17 +80,17 @@
                     <RelativeLayout
                         android:id="@+id/rl_check01"
                         android:layout_width="@dimen/dp0"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
                         <TextView
                             android:id="@+id/tv_check01"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp2"
-                            android:text="定时"
                             android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/dp2"
                             android:gravity="center"
+                            android:text="定时"
                             android:textColor="@color/common_141515"
                             android:textSize="@dimen/sp14" />
 
@@ -98,26 +98,26 @@
                             android:id="@+id/view_line01"
                             android:layout_width="@dimen/dp80"
                             android:layout_height="@dimen/dp3"
-                            android:layout_centerHorizontal="true"
                             android:layout_alignParentBottom="true"
-                            android:background="@drawable/bg_page_line"
-                            android:layout_marginTop="@dimen/dp3" />
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:background="@drawable/bg_page_line" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rl_check02"
                         android:layout_width="@dimen/dp0"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
                         <TextView
                             android:id="@+id/tv_check02"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp2"
-                            android:text="触发"
                             android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/dp2"
                             android:gravity="center"
+                            android:text="触发"
                             android:textColor="@color/common_141515"
                             android:textSize="@dimen/sp14" />
 
@@ -125,11 +125,11 @@
                             android:id="@+id/view_line02"
                             android:layout_width="@dimen/dp80"
                             android:layout_height="@dimen/dp3"
-                            android:layout_centerHorizontal="true"
                             android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dp3"
                             android:background="@drawable/bg_page_line"
-                            android:visibility="invisible"
-                            android:layout_marginTop="@dimen/dp3" />
+                            android:visibility="invisible" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -138,14 +138,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ll_top"
+                android:layout_above="@+id/tv_addPlan"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp0" />
+                    android:layout_height="match_parent" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_addPlan"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp45"
+                android:background="@color/white"
+                android:gravity="center"
+                android:textSize="@dimen/sp14"
+                android:textColor="@color/main_color_new"
+                android:text="添加定时"
+                android:layout_alignParentBottom="true" />
         </RelativeLayout>
     </com.ypcxpt.fish.app.util.VpSwipeRefreshLayout>
 </RelativeLayout>
