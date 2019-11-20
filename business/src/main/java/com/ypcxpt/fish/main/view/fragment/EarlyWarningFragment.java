@@ -96,8 +96,6 @@ public class EarlyWarningFragment extends BaseFragment implements EarlyWarningCo
 
     private EarlyWarningContract.Presenter mPresenter;
 
-    private WeatherPresenter mWeatherPresenter;
-
     private SceneAdapter mAdapter;
 
     private int REQUEST_CODE_SCAN = 111;
