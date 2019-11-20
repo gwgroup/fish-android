@@ -8,9 +8,9 @@ MVP架构
 
 #### 使用说明
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. add场景
+2. getIO
+3. useIO
 
 #### 参与贡献
 
