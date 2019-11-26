@@ -262,7 +262,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @Override
     public void showIoStatus(List<IoInfo> ioInfos) {
         /* 这里创建Event通知TimingPlanFragment List<Scenes> scenes和当前sceneName */
-        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnSceneInfoEvent(mScenes, sceneName)), 500);
+        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnSceneInfoEvent(mScenes, macAddress, sceneName)), 500);
 
         mIoInfos = ioInfos;
         /* 建立websocket */
@@ -382,9 +382,22 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     if (webSocketInfo.device_mac.equals(macAddress)) {
                         IoStatusAll ioStatusAll = webSocketInfo.data;
                         Logger.d("onMessage", "水温：" + ioStatusAll.water_temperature + ",PH：" + ioStatusAll.ph + ",溶氧量：" + ioStatusAll.o2);
-                        tv_temperature.setText(ioStatusAll.water_temperature + "℃");
-                        tv_ph.setText(ioStatusAll.ph + "");
-                        tv_oxygen.setText(ioStatusAll.o2 + "");
+
+                        if (ioStatusAll.water_temperature == 0) {
+                            tv_temperature.setText("无");
+                        } else {
+                            tv_temperature.setText(ioStatusAll.water_temperature + "℃");
+                        }
+                        if (ioStatusAll.ph == 0) {
+                            tv_ph.setText("无");
+                        } else {
+                            tv_ph.setText(ioStatusAll.ph + "");
+                        }
+                        if (ioStatusAll.o2 == 0) {
+                            tv_oxygen.setText("无");
+                        } else {
+                            tv_oxygen.setText(ioStatusAll.o2 + "");
+                        }
 
                         setStatusColor(ioStatusAll.water_temperature, ioStatusAll.ph, ioStatusAll.o2);
 

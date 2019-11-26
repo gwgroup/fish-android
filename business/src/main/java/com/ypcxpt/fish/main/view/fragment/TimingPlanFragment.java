@@ -4,7 +4,9 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnSceneInfoEvent;
 import com.ypcxpt.fish.main.presenter.TimingPlanPresenter;
+import com.ypcxpt.fish.main.util.SelectScenesDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,10 +49,17 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
     @BindView(R.id.rv)
     RecyclerView rv;
 
+    @BindView(R.id.tv_addPlan)
+    TextView tv_addPlan;
+
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
 
+    private int tab = 1;
+
     private List<Scenes> mScenes;
+    private String mSceneName;
+    private String mMacAddress;
 
     private TimingPlanContract.Presenter mPresenter;
 
@@ -95,23 +105,62 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
 
     @OnClick(R.id.ll_select_scenes)
     public void onSelectScenesClick() {
+        iv_arrow.setImageResource(R.mipmap.icon_plan_arrow_expanding);
+        showSelectScenesDialog();
+    }
 
+    /**
+     * 选择场景弹窗
+     */
+    private void showSelectScenesDialog() {
+        SelectScenesDialog selectScenesDialog = new SelectScenesDialog(getActivity(), mScenes, R.style.MyDialog);
+        selectScenesDialog.setOnResultListener(new SelectScenesDialog.OnResultListener() {
+
+            @Override
+            public void SelectScenes(String macAddress, String scene_name) {
+                iv_arrow.setImageResource(R.mipmap.icon_plan_arrow_folding);
+                selectScenesDialog.dismiss();
+
+                mMacAddress = macAddress;
+                tv_scene.setText(scene_name);
+                if (tab == 1) {
+                    //根据mac调用获取所有定时任务接口
+                } else {
+                    //根据mac调用获取所有触发任务接口
+                }
+            }
+
+            @Override
+            public void Cancel() {
+                iv_arrow.setImageResource(R.mipmap.icon_plan_arrow_folding);
+                selectScenesDialog.dismiss();
+            }
+        });
+        Window dialogWindow = selectScenesDialog.getWindow();
+        dialogWindow.setGravity(Gravity.TOP);
+        selectScenesDialog.show();
     }
 
     @OnClick({R.id.rl_check01, R.id.rl_check02})
     public void onCheckClick(View view) {
         switch (view.getId()) {
             case R.id.rl_check01:
+                tab = 1;
                 tv_check01.setTypeface(Typeface.DEFAULT_BOLD);
                 view_line01.setVisibility(View.VISIBLE);
                 tv_check02.setTypeface(Typeface.DEFAULT);
                 view_line02.setVisibility(View.INVISIBLE);
+                tv_addPlan.setText("添加定时");
+                //调用获取所有定时任务接口
                 break;
             case R.id.rl_check02:
+                tab = 2;
                 tv_check01.setTypeface(Typeface.DEFAULT);
                 view_line01.setVisibility(View.INVISIBLE);
                 tv_check02.setTypeface(Typeface.DEFAULT_BOLD);
                 view_line02.setVisibility(View.VISIBLE);
+                tv_addPlan.setText("添加触发任务");
+                //调用获取所有触发任务接口
                 break;
         }
     }
@@ -135,5 +184,9 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
     public void onEventReceived(OnSceneInfoEvent event) {
         tv_scene.setText(event.sceneName);
         mScenes = event.scenes;
+        mMacAddress = event.macAddress;
+        mSceneName = event.sceneName;
+
+        //调用获取所有定时任务接口
     }
 }

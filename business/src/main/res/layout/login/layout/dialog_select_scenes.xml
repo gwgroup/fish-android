@@ -7,18 +7,10 @@
     <LinearLayout
         android:layout_width="@dimen/dp100"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp35"
+        android:layout_marginTop="@dimen/dp43"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/dp7"
+        android:layout_marginRight="@dimen/dp16"
         android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="@dimen/dp12"
-            android:layout_height="@dimen/dp12"
-            android:rotation="270"
-            android:layout_gravity="right"
-            android:layout_marginRight="@dimen/dp18"
-            android:background="@drawable/layer_triangle"/>
 
         <LinearLayout
             android:layout_width="match_parent"

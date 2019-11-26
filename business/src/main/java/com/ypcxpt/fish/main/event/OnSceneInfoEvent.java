@@ -6,10 +6,12 @@ import java.util.List;
 
 public class OnSceneInfoEvent {
     public List<Scenes> scenes;
+    public String macAddress;
     public String sceneName;
 
-    public OnSceneInfoEvent(List<Scenes> scenes, String sceneName) {
+    public OnSceneInfoEvent(List<Scenes> scenes, String macAddress, String sceneName) {
         this.scenes = scenes;
+        this.macAddress = macAddress;
         this.sceneName = sceneName;
     }
 

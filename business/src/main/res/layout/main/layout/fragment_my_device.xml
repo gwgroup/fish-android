@@ -133,7 +133,7 @@
                         android:layout_width="@dimen/dp80"
                         android:layout_height="@dimen/dp80"
                         android:gravity="center"
-                        android:background="@drawable/bg_cycle01"
+                        android:background="@drawable/bg_cycle"
                         android:orientation="vertical">
 
                         <TextView
@@ -165,7 +165,7 @@
                         android:layout_width="@dimen/dp80"
                         android:layout_height="@dimen/dp80"
                         android:gravity="center"
-                        android:background="@drawable/bg_cycle02"
+                        android:background="@drawable/bg_cycle"
                         android:orientation="vertical">
 
                         <TextView
@@ -197,7 +197,7 @@
                         android:layout_width="@dimen/dp80"
                         android:layout_height="@dimen/dp80"
                         android:gravity="center"
-                        android:background="@drawable/bg_cycle03"
+                        android:background="@drawable/bg_cycle"
                         android:orientation="vertical">
 
                         <TextView
