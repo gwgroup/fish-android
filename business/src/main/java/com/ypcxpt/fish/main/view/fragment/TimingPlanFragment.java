@@ -3,6 +3,8 @@ package com.ypcxpt.fish.main.view.fragment;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
@@ -10,16 +12,19 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.view.fragment.BaseFragment;
+import com.ypcxpt.fish.main.adapter.PlanAdapter;
 import com.ypcxpt.fish.main.adapter.SceneAdapter;
 import com.ypcxpt.fish.main.contract.TimingPlanContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnSceneInfoEvent;
+import com.ypcxpt.fish.main.model.IoPlan;
 import com.ypcxpt.fish.main.presenter.TimingPlanPresenter;
 import com.ypcxpt.fish.main.util.SelectScenesDialog;
 
@@ -57,13 +62,14 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
 
     private int tab = 1;
 
+    /* 首页的切换场景数据传过来 */
     private List<Scenes> mScenes;
     private String mSceneName;
     private String mMacAddress;
 
     private TimingPlanContract.Presenter mPresenter;
 
-    private SceneAdapter mAdapter;
+    private PlanAdapter mAdapter;
 
     @Override
     protected int layoutResID() {
@@ -78,13 +84,12 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
 
     @Override
     protected void initViews() {
-//        mAdapter = new SceneAdapter(R.layout.item_scenes, mPresenter, getActivity());
-//        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        rv.setAdapter(mAdapter);
-//        ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
-//        rv.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
-//        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-//        mPresenter.acceptData("mAdapter", mAdapter);
+        mAdapter = new PlanAdapter(R.layout.item_plans, mPresenter, getActivity());
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setAdapter(mAdapter);
+        ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
+        rv.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
 
         swipe_refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {//设置刷新监听器
             @Override
@@ -125,6 +130,7 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
                 tv_scene.setText(scene_name);
                 if (tab == 1) {
                     //根据mac调用获取所有定时任务接口
+                    mPresenter.getAllPlans(macAddress);
                 } else {
                     //根据mac调用获取所有触发任务接口
                 }
@@ -175,6 +181,11 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
 
     }
 
+    @Override
+    public void showIoPlans(List<IoPlan> ioPlans) {
+        mAdapter.setNewData(ioPlans);
+    }
+
     @Subscribe
     public void onEventReceived(OnGetScenesEvent event) {
         mPresenter.getScenes();
@@ -188,5 +199,6 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
         mSceneName = event.sceneName;
 
         //调用获取所有定时任务接口
+        mPresenter.getAllPlans(event.macAddress);
     }
 }

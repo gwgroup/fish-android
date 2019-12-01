@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.ypcxpt.fish.library.util.Logger;
 
 /**
- * 首页组装的model。
+ * 首页经过组装的model。
  */
 public class IoInfoCurrent implements Parcelable {
     public String code;

@@ -6,6 +6,7 @@ import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoPlan;
 import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.NotificationInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
@@ -63,6 +64,14 @@ public interface ApiService {
     /* 重命名场景 */
     @POST("api/scene/rename_scene")
     Flowable<Object> renameScenes(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 获取所有定时计划 */
+    @POST("api/plan/get_all_plan")
+    Flowable<List<IoPlan>> getAllPlan(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+
+
+
 
     /* 绑定手机号 */
     @POST("weixin_bind")

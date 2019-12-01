@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.library.router.Router;
+import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.login.event.SplashEvent;
 import com.ypcxpt.fish.login.presenter.SplashPresenter;
 
@@ -40,6 +41,7 @@ public class SplashActivity extends Activity {
 
     private void doOnCreate() {
 //        AppData.setToken("b5fff1337ab14429b7880d5678c94651");
+        Logger.e("检查token", "token-->" + AppData.token());
         if (StringUtils.isTrimEmpty(AppData.token())) {
             /* 第一次启动或者双清 */
             jumpToLoginPage();

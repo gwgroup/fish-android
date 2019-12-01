@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp16"
+    android:layout_marginTop="@dimen/dp10"
+    android:layout_marginRight="@dimen/dp16"
+    android:background="@drawable/bg_common_white"
+    android:orientation="vertical"
+    android:padding="@dimen/dp10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="@dimen/dp35"
+                    android:layout_height="@dimen/dp35"
+                    android:padding="@dimen/dp5"
+                    android:src="@mipmap/icon_coin" />
+
+                <TextView
+                    android:id="@+id/tv_dateType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="每天"
+                    android:textColor="@color/common_161717"
+                    android:textSize="@dimen/sp15" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp5"
+                android:text="上午 10:00"
+                android:textColor="@color/common_161717"
+                android:textSize="@dimen/sp15" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/ll_01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp30"
+                    android:padding="@dimen/dp5"
+                    android:src="@mipmap/icon_coin" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="开启投喂机"
+                    android:textColor="@color/common_a1a1a1"
+                    android:textSize="@dimen/sp13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_01"
+                android:layout_alignLeft="@+id/ll_01"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp30"
+                    android:padding="@dimen/dp5"
+                    android:src="@mipmap/icon_coin" />
+
+                <TextView
+                    android:id="@+id/tv_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="投喂0克"
+                    android:textColor="@color/common_a1a1a1"
+                    android:textSize="@dimen/sp13" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp42"
+        android:layout_marginTop="@dimen/dp16">
+
+        <TextView
+            android:id="@+id/tv_planEdit"
+            android:layout_width="@dimen/dp90"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_toLeftOf="@+id/tv_planEnable"
+            android:background="@drawable/bg_line_grey"
+            android:gravity="center"
+            android:text="编辑"
+            android:textColor="@color/common_CACBCC"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:id="@+id/tv_planEnable"
+            android:layout_width="@dimen/dp90"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_common_blue"
+            android:gravity="center"
+            android:text="禁用计划"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp14" />
+    </RelativeLayout>
+</LinearLayout>

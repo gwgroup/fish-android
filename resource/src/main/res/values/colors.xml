@@ -95,4 +95,7 @@
     <color name="o2_04">#E09F10</color>
     <color name="o2_08">#84B70B</color>
     <color name="o2_09">#93FD28</color>
+
+    <color name="plan_blue">#3F97E8</color>
+    <color name="plan_red">#EA7676</color>
 </resources>

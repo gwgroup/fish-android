@@ -7,6 +7,7 @@ import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoPlan;
 import com.ypcxpt.fish.main.model.IoStatusAll;
 import com.ypcxpt.fish.main.model.NotificationInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
@@ -49,6 +50,9 @@ public interface DataSource {
 
     /* 重命名场景 */
     Flowable<Object> renameScenes(String mac, String name);
+
+    /* 获取所有定时计划 */
+    Flowable<List<IoPlan>> getAllPlan(String mac);
 
 
     /* 绑定手机号 */

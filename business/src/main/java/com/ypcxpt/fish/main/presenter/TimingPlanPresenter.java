@@ -7,6 +7,7 @@ import com.ypcxpt.fish.core.net.Fetcher;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.main.contract.TimingPlanContract;
+import com.ypcxpt.fish.main.model.IoPlan;
 
 import java.util.List;
 
@@ -36,6 +37,21 @@ public class TimingPlanPresenter extends BasePresenter<TimingPlanContract.View> 
             Logger.d("CCC", "scenes-->" + scenes.toString());
             mView.showScenes(scenes);
         }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                .start();
+    }
+
+    @Override
+    public void getAllPlans(String mac) {
+        Flowable<List<IoPlan>> source = mDS.getAllPlan(mac);
+        new Fetcher<>(source)
+                .withView(mView)
+                .showLoading(false)
+                .showNoNetWarning(false)
+                .onSuccess(ioPlans -> {
+                    Logger.d("CCC", "ioPlans-->" + ioPlans.toString());
+                    mView.showIoPlans(ioPlans);
+                }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
     }
