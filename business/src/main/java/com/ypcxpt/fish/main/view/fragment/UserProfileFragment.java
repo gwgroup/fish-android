@@ -325,7 +325,7 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
         displayProfileInfo(tvGender, "");
         /* 如果没有设置头像，则默认头像随性别改变 */
         if (StringUtils.isTrimEmpty(userProfile.user.avatar)) {
-            ivAvatar.setImageResource(R.mipmap.ic_default_avatar_male);
+            ivAvatar.setImageResource(R.mipmap.ic_default_avatar);
         }
     }
 

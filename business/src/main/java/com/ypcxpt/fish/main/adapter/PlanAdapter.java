@@ -39,26 +39,51 @@ public class PlanAdapter extends BaseQuickAdapter<IoPlan, BaseViewHolder> {
         ImageView imageView = helper.getView(R.id.iv_icon);
         if ("day".equals(per)) {
             Glide.with(activity)
-                    .load(R.mipmap.icon_main_led)
+                    .load(R.mipmap.icon_plan_day)
                     .into(imageView);
             helper.setText(R.id.tv_dateType, "每天");
         } else if ("week".equals(per)) {
             Glide.with(activity)
-                    .load(R.mipmap.icon_main_pump)
+                    .load(R.mipmap.icon_plan_week)
                     .into(imageView);
             helper.setText(R.id.tv_dateType, praseNetWeek(item.day_of_week));
         } else if ("month".equals(per)) {
             Glide.with(activity)
-                    .load(R.mipmap.icon_main_aerator)
+                    .load(R.mipmap.icon_plan_month)
                     .into(imageView);
             helper.setText(R.id.tv_dateType, "每月" + item.day_of_month + "号");
         }
 
         helper.setText(R.id.tv_name, "开启" + item.io_name);
+
+        ImageView imageView2 = helper.getView(R.id.iv_useType);
+        ImageView imageView3 = helper.getView(R.id.iv_useDuration);
         if ("feeder".equals(item.io_type)) {
             helper.setText(R.id.tv_duration, "投喂" + item.weight + "克");
+            Glide.with(activity)
+                    .load(R.mipmap.icon_main_feeder)
+                    .into(imageView2);
+            Glide.with(activity)
+                    .load(R.mipmap.icon_plan_feeder)
+                    .into(imageView3);
         } else {
+            if ("lamp".equals(item.io_type)) {
+                Glide.with(activity)
+                        .load(R.mipmap.icon_main_led)
+                        .into(imageView2);
+            } else if ("pump".equals(item.io_type)) {
+                Glide.with(activity)
+                        .load(R.mipmap.icon_main_pump)
+                        .into(imageView2);
+            } else if ("aerator".equals(item.io_type)) {
+                Glide.with(activity)
+                        .load(R.mipmap.icon_main_aerator)
+                        .into(imageView2);
+            }
             helper.setText(R.id.tv_duration, TimeUtil.generateTime(item.duration));
+            Glide.with(activity)
+                    .load(R.mipmap.icon_plan_duration)
+                    .into(imageView3);
         }
 
         if (item.hour < 12) {

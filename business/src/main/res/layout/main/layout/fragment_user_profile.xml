@@ -32,7 +32,7 @@
                         android:layout_height="@dimen/dp60"
                         android:layout_centerInParent="true"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/ic_default_avatar_female"
+                        android:src="@mipmap/ic_default_avatar"
                         app:civ_border_color="#9b5C768D"
                         app:civ_border_width="@dimen/dp1" />
 

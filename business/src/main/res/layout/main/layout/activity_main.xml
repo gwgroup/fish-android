@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/dp2"
-                android:text="定时"
+                android:text="计划"
                 android:textColor="@color/common_a1a1a1"
                 android:textSize="@dimen/sp12" />
         </LinearLayout>

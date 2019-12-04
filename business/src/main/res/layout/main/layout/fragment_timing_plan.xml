@@ -91,6 +91,7 @@
                             android:layout_marginTop="@dimen/dp2"
                             android:gravity="center"
                             android:text="定时"
+                            android:textStyle="bold"
                             android:textColor="@color/common_141515"
                             android:textSize="@dimen/sp14" />
 
@@ -154,7 +155,7 @@
                 android:background="@color/white"
                 android:gravity="center"
                 android:textSize="@dimen/sp14"
-                android:textColor="@color/main_color_new"
+                android:textColor="@color/plan_blue"
                 android:text="添加定时"
                 android:layout_alignParentBottom="true" />
         </RelativeLayout>
