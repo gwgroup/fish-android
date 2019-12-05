@@ -8,6 +8,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.TimeUtil;
+import com.ypcxpt.fish.core.app.Path;
+import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.StringHelper;
 import com.ypcxpt.fish.main.contract.TimingPlanContract;
 import com.ypcxpt.fish.main.model.IoPlan;
@@ -120,6 +122,10 @@ public class PlanAdapter extends BaseQuickAdapter<IoPlan, BaseViewHolder> {
         });
 
         helper.getView(R.id.tv_planEdit).setOnClickListener(v -> {
+            Router.build(Path.Main.ADD_PLAN)
+                    .withInt("PLAN_TYPE", 2)
+                    .withParcelable("IO_PLAN", item)
+                    .navigation(activity);
         });
     }
 

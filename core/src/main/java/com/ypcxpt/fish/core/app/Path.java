@@ -31,6 +31,7 @@ public class Path {
     public static class Main {
         public static final String MAIN = "/main/main";
         public static final String IO_CONFIG= "/main/ioConfig";
+        public static final String ADD_PLAN= "/main/addPlan";
 
         public static final String EDIT_PROFILE = "/main/edit_user_profile";
         public static final String DEVICE_MANAGER = "/main/device_manager";

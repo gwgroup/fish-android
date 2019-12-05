@@ -83,7 +83,7 @@
 
     <style name="divider_05" parent="Layout_Match_Wrap">
         <item name="android:layout_height">@dimen/dp05</item>
-        <item name="android:background">@color/common_EEEEEE</item>
+        <item name="android:background">@color/common_D8D8D8</item>
     </style>
 
     <style name="divider_02" parent="divider_05">

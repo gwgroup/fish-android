@@ -119,6 +119,11 @@
 
         <activity android:name="com.ypcxpt.fish.login.view.activity.LoginActivity"
             android:screenOrientation="portrait" />
+        <activity android:name="com.ypcxpt.fish.main.view.activity.IoConfigActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.ypcxpt.fish.main.view.activity.AddPlanActivity"
+            android:screenOrientation="portrait" />
+
         <activity android:name="com.ypcxpt.fish.login.view.activity.BindActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.login.view.activity.AdvertisingActivity"
@@ -147,8 +152,6 @@
         <activity android:name="com.ypcxpt.fish.main.view.activity.CollectionActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.main.view.activity.CommentActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.ypcxpt.fish.main.view.activity.IoConfigActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.sonic.BrowserActivity"
             android:screenOrientation="portrait" />
