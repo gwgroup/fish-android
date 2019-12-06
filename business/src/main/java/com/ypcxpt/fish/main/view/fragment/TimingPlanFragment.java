@@ -168,6 +168,7 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
     public void onAddPlanClick() {
         Router.build(Path.Main.ADD_PLAN)
                 .withInt("PLAN_TYPE", 1)
+                .withString("DEVICE_MAC", mMacAddress)
                 .navigation(getActivity());
     }
 

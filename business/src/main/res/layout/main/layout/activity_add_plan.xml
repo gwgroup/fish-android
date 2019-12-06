@@ -250,7 +250,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/dp8"
                         android:layout_toLeftOf="@+id/iv_arrow4"
-                        android:text="2小时5分钟0秒"
+                        android:text="00小时00分钟01秒"
                         android:textColor="@color/common_838486"
                         android:textSize="@dimen/sp14" />
 

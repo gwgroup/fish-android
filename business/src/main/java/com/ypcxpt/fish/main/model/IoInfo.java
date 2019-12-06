@@ -31,15 +31,13 @@ public class IoInfo implements Parcelable {
 
     @Override
     public String toString() {
-        Logger.i("NetDevice-->", "{" +
+        Logger.i("IoInfo-->", "{" +
                 "code='" + code + '\'' +
                 ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
                 '}');
 
-        return "NetDevice{" +
-                "code='" + code + '\'' +
-                ", type='" + type + '\'' +
-                '}';
+        return name;
     }
 
     @Override
