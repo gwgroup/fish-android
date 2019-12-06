@@ -49,10 +49,10 @@
                         android:id="@+id/tv_day"
                         android:layout_width="@dimen/dp70"
                         android:layout_height="@dimen/dp70"
-                        android:background="@drawable/bg_cycle"
+                        android:background="@drawable/bg_cycle01"
                         android:gravity="center"
                         android:text="每天"
-                        android:textColor="@color/common_838486" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/tv_week"
@@ -78,11 +78,13 @@
                 <RelativeLayout
                     android:id="@+id/rl_select_wm"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp46">
+                    android:layout_height="@dimen/dp46"
+                    android:visibility="gone">
                     <View
                         style="@style/divider_05" />
 
                     <TextView
+                        android:id="@+id/tv_wm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
