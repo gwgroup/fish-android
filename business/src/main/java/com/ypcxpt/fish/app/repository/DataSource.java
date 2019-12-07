@@ -9,7 +9,10 @@ import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoPlan;
 import com.ypcxpt.fish.main.model.IoStatusAll;
+import com.ypcxpt.fish.main.model.IoTrigger;
 import com.ypcxpt.fish.main.model.NotificationInfo;
+import com.ypcxpt.fish.main.model.PlanParam;
+import com.ypcxpt.fish.main.model.TriggerParam;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 
@@ -53,6 +56,33 @@ public interface DataSource {
 
     /* 获取所有定时计划 */
     Flowable<List<IoPlan>> getAllPlan(String mac);
+
+    /* 启用计划 */
+    Flowable<Object> openPlan(String mac, String id);
+
+    /* 禁用计划 */
+    Flowable<Object> closePlan(String mac, String id);
+
+    /* 删除计划 */
+    Flowable<Object> deletePlan(String mac, String id);
+
+    /* 添加计划 */
+    Flowable<Object> addPlan(String mac, PlanParam planParam);
+
+    /* 修改计划 */
+    Flowable<Object> editPlan(String mac, PlanParam planParam);
+
+    /* 获取所有定时计划 */
+    Flowable<List<IoTrigger>> getAllTrigger(String mac);
+
+    /* 删除计划 */
+    Flowable<Object> deleteTrigger(String mac, String id);
+
+    /* 添加计划 */
+    Flowable<Object> addTrigger(String mac, TriggerParam planParam);
+
+    /* 修改计划 */
+    Flowable<Object> editTrigger(String mac, TriggerParam planParam);
 
 
     /* 绑定手机号 */

@@ -91,9 +91,9 @@
                             android:layout_marginTop="@dimen/dp2"
                             android:gravity="center"
                             android:text="定时"
-                            android:textStyle="bold"
                             android:textColor="@color/common_141515"
-                            android:textSize="@dimen/sp14" />
+                            android:textSize="@dimen/sp14"
+                            android:textStyle="bold" />
 
                         <View
                             android:id="@+id/view_line01"
@@ -138,26 +138,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_top"
                 android:layout_above="@+id/tv_addPlan"
+                android:layout_below="@+id/ll_top"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_addPlan"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp45"
+                android:layout_alignParentBottom="true"
                 android:background="@color/white"
                 android:gravity="center"
-                android:textSize="@dimen/sp14"
-                android:textColor="@color/plan_blue"
                 android:text="添加定时"
-                android:layout_alignParentBottom="true" />
+                android:textColor="@color/plan_blue"
+                android:textSize="@dimen/sp14" />
         </RelativeLayout>
     </com.ypcxpt.fish.app.util.VpSwipeRefreshLayout>
 </RelativeLayout>

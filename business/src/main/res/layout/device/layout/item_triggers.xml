@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp16"
+    android:layout_marginTop="@dimen/dp6"
+    android:layout_marginRight="@dimen/dp16"
+    android:layout_marginBottom="@dimen/dp6"
+    android:background="@drawable/bg_common_white"
+    android:orientation="vertical"
+    android:padding="@dimen/dp10">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp100">
+
+        <LinearLayout
+            android:id="@+id/ll_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="@dimen/dp35"
+                android:layout_height="@dimen/dp35"
+                android:padding="@dimen/dp5"
+                android:src="@mipmap/icon_plan_o2" />
+
+            <TextView
+                android:id="@+id/tv_trigger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="溶氧量大于0.4mg/L"
+                android:textColor="@color/common_161717"
+                android:textSize="@dimen/sp15" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_control"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_01"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp5"
+            android:layout_marginTop="@dimen/dp5"
+            android:text="开启增氧机"
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_control"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp5"
+            android:layout_marginTop="@dimen/dp8"
+            android:text="时长:00小时00分钟00秒"
+            android:textColor="@color/common_a1a1a1"
+            android:textSize="@dimen/sp13" />
+
+        <TextView
+            android:id="@+id/tv_triggerEdit"
+            android:layout_width="@dimen/dp90"
+            android:layout_height="@dimen/dp42"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_line_grey"
+            android:gravity="center"
+            android:text="编辑"
+            android:textColor="@color/common_CACBCC"
+            android:textSize="@dimen/sp14" />
+    </RelativeLayout>
+</LinearLayout>

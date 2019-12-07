@@ -8,6 +8,7 @@ import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoPlan;
 import com.ypcxpt.fish.main.model.IoStatusAll;
+import com.ypcxpt.fish.main.model.IoTrigger;
 import com.ypcxpt.fish.main.model.NotificationInfo;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
@@ -69,8 +70,41 @@ public interface ApiService {
     @POST("api/plan/get_all_plan")
     Flowable<List<IoPlan>> getAllPlan(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
+    /* 启用定时计划 */
+    @POST("api/plan/enable_plan")
+    Flowable<Object> openPlan(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
+    /* 禁用定时计划 */
+    @POST("api/plan/disable_plan")
+    Flowable<Object> closePlan(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
+    /* 删除定时计划 */
+    @POST("api/plan/remove_plan")
+    Flowable<Object> deletePlan(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 添加定时计划 */
+    @POST("api/plan/add_plan")
+    Flowable<Object> addPlan(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 编辑定时计划 */
+    @POST("api/plan/edit_plan")
+    Flowable<Object> editPlan(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 获取所有触发任务 */
+    @POST("api/trigger/get_all_trigger")
+    Flowable<List<IoTrigger>> getAllTrigger(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 删除触发任务 */
+    @POST("api/trigger/remove_trigger")
+    Flowable<Object> deleteTrigger(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 添加触发任务 */
+    @POST("api/trigger/add_trigger")
+    Flowable<Object> addTrigger(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 编辑触发任务 */
+    @POST("aapi/trigger/edit_trigger")
+    Flowable<Object> editTrigger(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
 
     /* 绑定手机号 */

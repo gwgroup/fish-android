@@ -18,7 +18,9 @@ import com.ypcxpt.fish.library.view.activity.BaseActivity;
 import com.ypcxpt.fish.main.contract.AddPlanContract;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoPlan;
+import com.ypcxpt.fish.main.model.PlanParam;
 import com.ypcxpt.fish.main.presenter.AddPlanPresenter;
+import com.ypcxpt.fish.main.util.PlanDeleteDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,9 +37,12 @@ import cn.qqtheme.framework.util.ConvertUtils;
 import cn.qqtheme.framework.util.DateUtils;
 import cn.qqtheme.framework.widget.WheelView;
 
+import static com.ypcxpt.fish.app.util.TimeUtil.generateTime;
+
 @Route(path = Path.Main.ADD_PLAN)
 public class AddPlanActivity extends BaseActivity implements AddPlanContract.View {
     @BindView(R.id.tv_title) TextView tv_title;
+    @BindView(R.id.rl_add) RelativeLayout rl_add;
 
     @BindView(R.id.tv_day) TextView tv_day;
     @BindView(R.id.tv_week) TextView tv_week;
@@ -65,10 +70,18 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
 
     private List<IoInfo> ioInfoCurrents;
 
+    private String id;
     private String per = "day";
     private int day_of_month = 0;
     private int day_of_week = -1;
+    private int hour = 0;
+    private int minute = 0;
+    private int second = 0;
+    private int duration = 0;
+    private double weight = 0;
+
     private String io_code = "";
+    private boolean enabled = true;
 
     @Override
     protected int layoutResID() {
@@ -86,9 +99,78 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
     protected void initViews() {
         if (PLAN_TYPE == 1) {
             tv_title.setText("添加定时");
+            rl_add.setVisibility(View.GONE);
         } else {
             tv_title.setText("编辑定时");
+            rl_add.setVisibility(View.VISIBLE);
+            setEditPlanData();
         }
+    }
+
+    private void setEditPlanData() {
+        id = ioPlan.id;
+        per = ioPlan.per;
+        day_of_month = ioPlan.day_of_month;
+        day_of_week = ioPlan.day_of_week;
+        hour = ioPlan.hour;
+        minute = ioPlan.minute;
+        second = ioPlan.second;
+        duration = ioPlan.duration;
+        weight = ioPlan.weight;
+        io_code = ioPlan.io_code;
+        enabled = ioPlan.enabled;
+
+        if ("day".equals(ioPlan.per)) {
+            closeColor();
+            tv_day.setBackgroundResource(R.drawable.bg_cycle01);
+            tv_day.setTextColor(getResources().getColor(R.color.white));
+        } else if ("week".equals(ioPlan.per)) {
+            closeColor();
+            tv_week.setBackgroundResource(R.drawable.bg_cycle01);
+            tv_week.setTextColor(getResources().getColor(R.color.white));
+            rl_select_wm.setVisibility(View.VISIBLE);
+            tv_wm.setText("每周");
+            tv_timeParent.setText(praseNetWeek(ioPlan.day_of_week));
+        } else if ("month".equals(ioPlan.per)) {
+            closeColor();
+            tv_month.setBackgroundResource(R.drawable.bg_cycle01);
+            tv_month.setTextColor(getResources().getColor(R.color.white));
+            rl_select_wm.setVisibility(View.VISIBLE);
+            tv_wm.setText("每月");
+            tv_timeParent.setText(ioPlan.day_of_month + "号");
+        }
+
+        tv_time.setText(DateUtils.fillZero(ioPlan.hour) + ":" + DateUtils.fillZero(ioPlan.minute));
+        tv_name.setText(ioPlan.io_name);
+        if ("feeder".equals(ioPlan.io_type)) {
+            rl_feeder.setVisibility(View.VISIBLE);
+            rl_duration.setVisibility(View.GONE);
+            et_feeder.setText(ioPlan.weight + "");
+        } else {
+            rl_feeder.setVisibility(View.GONE);
+            rl_duration.setVisibility(View.VISIBLE);
+            tv_duration.setText(generateTime(ioPlan.duration));
+        }
+    }
+
+    private String praseNetWeek(int dayOfWeek){
+        String week = "";
+        if (dayOfWeek == 1) {
+            week = "周一";
+        } else if (dayOfWeek == 2) {
+            week = "周二";
+        } else if (dayOfWeek == 3) {
+            week = "周三";
+        } else if (dayOfWeek == 4) {
+            week = "周四";
+        } else if (dayOfWeek == 5) {
+            week = "周五";
+        } else if (dayOfWeek == 6) {
+            week = "周六";
+        } else if (dayOfWeek == 0) {
+            week = "周日";
+        }
+        return week;
     }
 
     private void closeColor() {
@@ -204,8 +286,11 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
                 picker.setTextPadding(ConvertUtils.toPx(this, 15));
                 picker.setOnTimePickListener(new TimePicker.OnTimePickListener() {
                     @Override
-                    public void onTimePicked(String hour, String minute) {
-                        tv_time.setText(hour + ":" + minute);
+                    public void onTimePicked(String hour2, String minute2) {
+                        tv_time.setText(hour2 + ":" + minute2);
+
+                        hour = Integer.parseInt(hour2);
+                        minute = Integer.parseInt(minute2);
                     }
                 });
                 picker.show();
@@ -288,6 +373,10 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
             @Override
             public void onPicked(String first, String second, String third) {
                 tv_duration.setText(first + "小时" + second + "分钟" + third + "秒");
+
+                duration = (Integer.parseInt(first) * 60 * 60
+                        + Integer.parseInt(second) * 60
+                        + Integer.parseInt(third)) * 1000;
             }
         });
         picker.show();
@@ -300,12 +389,47 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
 
     @OnClick(R.id.tv_commit)
     public void onBackSave() {
-        String content = ViewHelper.getText(et_feeder);
-        if (StringUtils.isTrimEmpty(content)) {
-            Toaster.showShort("");
-            return;
+        if (io_code.contains("feeder")) {
+            String content = ViewHelper.getText(et_feeder);
+            if (!StringUtils.isEmpty(content)) {
+                weight = Double.valueOf(content).doubleValue();
+            } else {
+                Toaster.showShort("您还没有输入投喂量");
+            }
         }
-        mPresenter.commitOpinion(content);
+
+        PlanParam planParam = new PlanParam();
+        if (PLAN_TYPE == 1) {
+            //添加计划
+            planParam.setId(null);
+            planParam.setPer(per);
+            planParam.setDay_of_month(day_of_month);
+            planParam.setDay_of_week(day_of_week);
+            planParam.setHour(hour);
+            planParam.setMinute(minute);
+            planParam.setSecond(second);
+            planParam.setIo_code(io_code);
+            planParam.setWeight(weight);
+            planParam.setDuration(duration);
+            planParam.setEnabled(enabled);
+
+            mPresenter.addPlan(DEVICE_MAC, planParam);
+        } else {
+            //编辑计划
+            planParam.setId(id);
+            planParam.setPer(per);
+            planParam.setDay_of_month(day_of_month);
+            planParam.setDay_of_week(day_of_week);
+            planParam.setHour(hour);
+            planParam.setMinute(minute);
+            planParam.setSecond(second);
+            planParam.setIo_code(io_code);
+            planParam.setWeight(weight);
+            planParam.setDuration(duration);
+            planParam.setEnabled(enabled);
+
+            mPresenter.editPlan(DEVICE_MAC, planParam);
+        }
     }
 
     @Override
@@ -318,14 +442,16 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
         ioInfoCurrents = ioInfos;
 
         if (ioInfoCurrents.size() > 0) {
-            io_code = ioInfoCurrents.get(0).code;
-            tv_name.setText(ioInfoCurrents.get(0).name);
-            if ("feeder".equals(ioInfoCurrents.get(0).type)) {
-                rl_feeder.setVisibility(View.VISIBLE);
-                rl_duration.setVisibility(View.GONE);
-            } else {
-                rl_feeder.setVisibility(View.GONE);
-                rl_duration.setVisibility(View.VISIBLE);
+            if (PLAN_TYPE == 1) {
+                io_code = ioInfoCurrents.get(0).code;
+                tv_name.setText(ioInfoCurrents.get(0).name);
+                if ("feeder".equals(ioInfoCurrents.get(0).type)) {
+                    rl_feeder.setVisibility(View.VISIBLE);
+                    rl_duration.setVisibility(View.GONE);
+                } else {
+                    rl_feeder.setVisibility(View.GONE);
+                    rl_duration.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -333,5 +459,25 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
     @Override
     public void onCommitSuccess() {
         onBackPressed();
+    }
+
+    @OnClick(R.id.rl_add)
+    public void onDeletePlan() {
+        PlanDeleteDialog planDeleteDialog = new PlanDeleteDialog(this, R.style.MyDialog);
+        planDeleteDialog.setCancelable(false);
+        planDeleteDialog.setOnResultListener(new PlanDeleteDialog.OnResultListener() {
+            @Override
+            public void Ok() {
+                planDeleteDialog.dismiss();
+
+                mPresenter.deletePlan(DEVICE_MAC, id);
+            }
+
+            @Override
+            public void Cancel() {
+                planDeleteDialog.dismiss();
+            }
+        });
+        planDeleteDialog.show();
     }
 }

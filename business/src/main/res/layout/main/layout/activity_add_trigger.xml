@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp16"
-                android:text="时间"
+                android:text="选择指标"
                 android:textColor="@color/common_a1a1a1"
                 android:textSize="@dimen/sp15" />
 
@@ -32,79 +32,87 @@
                 android:orientation="vertical"
                 android:padding="@dimen/dp12">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="请选择连续天数"
-                    android:textColor="@color/common_a1a1a1"
-                    android:textSize="@dimen/sp12" />
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp12"
-                    android:layout_marginBottom="@dimen/dp12">
+                    android:background="@drawable/bg_common_white">
 
                     <TextView
-                        android:id="@+id/tv_day"
+                        android:id="@+id/tv_water"
                         android:layout_width="@dimen/dp70"
                         android:layout_height="@dimen/dp70"
                         android:background="@drawable/bg_cycle01"
                         android:gravity="center"
-                        android:text="每天"
+                        android:text="水温"
                         android:textColor="@color/white" />
 
                     <TextView
-                        android:id="@+id/tv_week"
+                        android:id="@+id/tv_ph"
                         android:layout_width="@dimen/dp70"
                         android:layout_height="@dimen/dp70"
                         android:layout_centerInParent="true"
                         android:background="@drawable/bg_cycle"
                         android:gravity="center"
-                        android:text="每周"
+                        android:text="PH"
                         android:textColor="@color/common_838486" />
 
                     <TextView
-                        android:id="@+id/tv_month"
+                        android:id="@+id/tv_o2"
                         android:layout_width="@dimen/dp70"
                         android:layout_height="@dimen/dp70"
                         android:layout_alignParentRight="true"
                         android:background="@drawable/bg_cycle"
                         android:gravity="center"
-                        android:text="每月"
+                        android:text="溶氧量"
                         android:textColor="@color/common_838486" />
                 </RelativeLayout>
 
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp16"
+                android:text="选择条件"
+                android:textColor="@color/common_a1a1a1"
+                android:textSize="@dimen/sp15" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp16"
+                android:layout_marginRight="@dimen/dp16"
+                android:background="@drawable/bg_common_white"
+                android:orientation="vertical"
+                android:padding="@dimen/dp12">
+
                 <RelativeLayout
-                    android:id="@+id/rl_select_wm"
+                    android:id="@+id/rl_select"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp46"
-                    android:visibility="gone">
-                    <View
-                        style="@style/divider_05" />
+                    android:layout_height="@dimen/dp46">
 
                     <TextView
-                        android:id="@+id/tv_wm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="每周"
+                        android:text="选择区间"
                         android:textColor="@color/common_141515"
                         android:textSize="@dimen/sp14" />
 
                     <TextView
-                        android:id="@+id/tv_timeParent"
+                        android:id="@+id/tv_select"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/dp8"
-                        android:layout_toLeftOf="@+id/iv_arrow"
-                        android:text="周一"
+                        android:layout_toLeftOf="@+id/iv_arrow1"
+                        android:text="大于"
                         android:textColor="@color/common_838486"
                         android:textSize="@dimen/sp14" />
 
                     <ImageView
-                        android:id="@+id/iv_arrow"
+                        android:id="@+id/iv_arrow1"
                         android:layout_width="@dimen/dp9"
                         android:layout_height="@dimen/dp18"
                         android:layout_alignParentRight="true"
@@ -115,7 +123,7 @@
                 <View style="@style/divider_05" />
 
                 <RelativeLayout
-                    android:id="@+id/rl_select_time"
+                    android:id="@+id/rl_select_value"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp46">
 
@@ -123,18 +131,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="请选择时间"
+                        android:text="条件值"
                         android:textColor="@color/common_141515"
                         android:textSize="@dimen/sp14" />
 
                     <TextView
-                        android:id="@+id/tv_time"
+                        android:id="@+id/tv_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/dp8"
                         android:layout_toLeftOf="@+id/iv_arrow2"
-                        android:text="10:05"
+                        android:text="10"
                         android:textColor="@color/common_838486"
                         android:textSize="@dimen/sp14" />
 
@@ -164,6 +172,41 @@
                 android:background="@drawable/bg_common_white"
                 android:orientation="vertical"
                 android:padding="@dimen/dp12">
+
+                <RelativeLayout
+                    android:id="@+id/rl_openclose"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp46">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="操作"
+                        android:textColor="@color/common_141515"
+                        android:textSize="@dimen/sp14" />
+
+                    <TextView
+                        android:id="@+id/tv_openclose"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp8"
+                        android:layout_toLeftOf="@+id/iv_arrow"
+                        android:text="打开"
+                        android:textColor="@color/common_838486"
+                        android:textSize="@dimen/sp14" />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow"
+                        android:layout_width="@dimen/dp9"
+                        android:layout_height="@dimen/dp18"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/icon_arrow" />
+                </RelativeLayout>
+
+                <View style="@style/divider_05" />
 
                 <RelativeLayout
                     android:id="@+id/rl_select_io"
@@ -198,42 +241,12 @@
                         android:src="@mipmap/icon_arrow" />
                 </RelativeLayout>
 
-                <View style="@style/divider_05" />
-
-                <RelativeLayout
-                    android:id="@+id/rl_feeder"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp80">
-
-                    <TextView
-                        android:id="@+id/tv_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="克数(克)"
-                        android:textColor="@color/common_141515"
-                        android:textSize="@dimen/sp14" />
-
-                    <EditText
-                        android:id="@+id/et_feeder"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp40"
-                        android:layout_toRightOf="@+id/tv_txt"
-                        android:layout_marginLeft="@dimen/dp20"
-                        android:inputType="number"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/bg_line_grey"
-                        android:gravity="left|center_vertical"
-                        android:hint="请输入投喂量"
-                        android:padding="@dimen/dp8"
-                        android:textColor="@color/common_141515"
-                        android:textSize="@dimen/sp13" />
-                </RelativeLayout>
+                <View style="@style/divider_05" android:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/rl_duration"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp80"
+                    android:layout_height="@dimen/dp46"
                     android:visibility="gone">
 
                     <TextView

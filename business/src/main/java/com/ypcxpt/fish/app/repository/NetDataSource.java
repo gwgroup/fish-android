@@ -12,7 +12,10 @@ import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoPlan;
 import com.ypcxpt.fish.main.model.IoStatusAll;
+import com.ypcxpt.fish.main.model.IoTrigger;
 import com.ypcxpt.fish.main.model.NotificationInfo;
+import com.ypcxpt.fish.main.model.PlanParam;
+import com.ypcxpt.fish.main.model.TriggerParam;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 
@@ -124,6 +127,85 @@ public class NetDataSource implements DataSource {
         return mApiService.getAllPlan(AppData.token(), param);
     }
 
+    @Override
+    public Flowable<Object> openPlan(String mac, String id) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("id", id)
+                .build();
+        return mApiService.openPlan(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> closePlan(String mac, String id) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("id", id)
+                .build();
+        return mApiService.closePlan(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> deletePlan(String mac, String id) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("id", id)
+                .build();
+        return mApiService.deletePlan(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> addPlan(String mac, PlanParam planParam) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("plan", planParam)
+                .build();
+        return mApiService.addPlan(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> editPlan(String mac, PlanParam planParam) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("plan", planParam)
+                .build();
+        return mApiService.editPlan(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<List<IoTrigger>> getAllTrigger(String mac) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .build();
+        return mApiService.getAllTrigger(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> deleteTrigger(String mac, String id) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("id", id)
+                .build();
+        return mApiService.deleteTrigger(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> addTrigger(String mac, TriggerParam planParam) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("trigger", planParam)
+                .build();
+        return mApiService.addTrigger(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> editTrigger(String mac, TriggerParam planParam) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("trigger", planParam)
+                .build();
+        return mApiService.editTrigger(AppData.token(), param);
+    }
 
 
     @Override

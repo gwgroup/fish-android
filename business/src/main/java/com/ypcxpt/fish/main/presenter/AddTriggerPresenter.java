@@ -6,20 +6,21 @@ import com.ypcxpt.fish.core.app.BasePresenter;
 import com.ypcxpt.fish.core.net.Fetcher;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.Toaster;
-import com.ypcxpt.fish.main.contract.AddPlanContract;
+import com.ypcxpt.fish.main.contract.AddTriggerContract;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.PlanParam;
+import com.ypcxpt.fish.main.model.TriggerParam;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 
-public class AddPlanPresenter extends BasePresenter<AddPlanContract.View> implements AddPlanContract.Presenter {
+public class AddTriggerPresenter extends BasePresenter<AddTriggerContract.View> implements AddTriggerContract.Presenter {
     private DataSource mDS;
 
     public String DEVICE_MAC;
 
-    public AddPlanPresenter() {
+    public AddTriggerPresenter() {
         mDS = new DataRepository();
     }
 
@@ -35,7 +36,7 @@ public class AddPlanPresenter extends BasePresenter<AddPlanContract.View> implem
                 .showLoading(false)
                 .showNoNetWarning(false)
                 .onSuccess(ioInfos -> {
-                    Logger.d("定时计划", "ioInfos-->" + ioInfos.toString());
+                    Logger.d("触发任务", "ioInfos-->" + ioInfos.toString());
                     mView.showIoInfos(ioInfos);
                 }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
@@ -43,29 +44,29 @@ public class AddPlanPresenter extends BasePresenter<AddPlanContract.View> implem
     }
 
     @Override
-    public void addPlan(String mac, PlanParam planParam) {
-        Flowable<Object> source = mDS.addPlan(mac, planParam);
+    public void addPlan(String mac, TriggerParam planParam) {
+        Flowable<Object> source = mDS.addTrigger(mac, planParam);
         fetch(source).onSuccess(o -> {
-            Toaster.showShort("添加定时计划成功");
+            Toaster.showShort("添加触发任务成功");
             mView.onCommitSuccess();
         }).start();
     }
 
     @Override
-    public void editPlan(String mac, PlanParam planParam) {
-        Flowable<Object> source = mDS.editPlan(mac, planParam);
+    public void editPlan(String mac, TriggerParam planParam) {
+        Flowable<Object> source = mDS.editTrigger(mac, planParam);
         fetch(source).onSuccess(o -> {
-            Toaster.showShort("修改定时计划成功");
+            Toaster.showShort("修改触发任务成功");
             mView.onCommitSuccess();
         }).start();
     }
 
     @Override
     public void deletePlan(String mac, String planId) {
-        Flowable<Object> source = mDS.deletePlan(mac, planId);
+        Flowable<Object> source = mDS.deleteTrigger(mac, planId);
         silenceFetch(source)
                 .onSuccess(o -> {
-                    Toaster.showShort("删除计划成功");
+                    Toaster.showShort("删除触发任务成功");
                     mView.onCommitSuccess();
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))

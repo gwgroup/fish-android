@@ -19,10 +19,12 @@ import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.view.fragment.BaseFragment;
 import com.ypcxpt.fish.main.adapter.PlanAdapter;
+import com.ypcxpt.fish.main.adapter.TriggerAdapter;
 import com.ypcxpt.fish.main.contract.TimingPlanContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnSceneInfoEvent;
 import com.ypcxpt.fish.main.model.IoPlan;
+import com.ypcxpt.fish.main.model.IoTrigger;
 import com.ypcxpt.fish.main.presenter.TimingPlanPresenter;
 import com.ypcxpt.fish.main.util.SelectScenesDialog;
 
@@ -50,6 +52,8 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
 
     @BindView(R.id.rv)
     RecyclerView rv;
+    @BindView(R.id.rv2)
+    RecyclerView rv2;
 
     @BindView(R.id.tv_addPlan)
     TextView tv_addPlan;
@@ -62,11 +66,12 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
     /* 首页的切换场景数据传过来 */
     private List<Scenes> mScenes;
     private String mSceneName;
-    private String mMacAddress;
+    public static String mMacAddress;
 
     private TimingPlanContract.Presenter mPresenter;
 
     private PlanAdapter mAdapter;
+    private TriggerAdapter mAdapter2;
 
     @Override
     protected int layoutResID() {
@@ -88,6 +93,13 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
         rv.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
 
+        mAdapter2 = new TriggerAdapter(R.layout.item_triggers, mPresenter, getActivity());
+        rv2.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv2.setAdapter(mAdapter2);
+        ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
+        rv2.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
+        mAdapter2.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+
         swipe_refresh_layout.setOnRefreshListener(() -> new Handler().postDelayed(() -> {
             swipe_refresh_layout.setRefreshing(false);//取消刷新
             if (tab == 1) {
@@ -95,6 +107,7 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
                 mPresenter.getAllPlans(mMacAddress);
             } else {
                 //根据mac调用获取所有触发任务接口
+                mPresenter.getAllTriggers(mMacAddress);
             }
         }, 2000));
         //设置刷新时旋转图标的颜色，这是一个可变参数，当设置多个颜色时，旋转一周改变一次颜色。
@@ -126,6 +139,7 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
                     mPresenter.getAllPlans(macAddress);
                 } else {
                     //根据mac调用获取所有触发任务接口
+                    mPresenter.getAllTriggers(macAddress);
                 }
             }
 
@@ -144,6 +158,8 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
     public void onCheckClick(View view) {
         switch (view.getId()) {
             case R.id.rl_check01:
+                rv.setVisibility(View.VISIBLE);
+                rv2.setVisibility(View.GONE);
                 tab = 1;
                 tv_check01.setTypeface(Typeface.DEFAULT_BOLD);
                 view_line01.setVisibility(View.VISIBLE);
@@ -151,8 +167,11 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
                 view_line02.setVisibility(View.INVISIBLE);
                 tv_addPlan.setText("添加定时");
                 //调用获取所有定时任务接口
+                mPresenter.getAllPlans(mMacAddress);
                 break;
             case R.id.rl_check02:
+                rv.setVisibility(View.GONE);
+                rv2.setVisibility(View.VISIBLE);
                 tab = 2;
                 tv_check01.setTypeface(Typeface.DEFAULT);
                 view_line01.setVisibility(View.INVISIBLE);
@@ -160,16 +179,25 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
                 view_line02.setVisibility(View.VISIBLE);
                 tv_addPlan.setText("添加触发任务");
                 //调用获取所有触发任务接口
+                mPresenter.getAllTriggers(mMacAddress);
                 break;
         }
     }
 
     @OnClick(R.id.tv_addPlan)
     public void onAddPlanClick() {
-        Router.build(Path.Main.ADD_PLAN)
-                .withInt("PLAN_TYPE", 1)
-                .withString("DEVICE_MAC", mMacAddress)
-                .navigation(getActivity());
+        if (tab == 1) {
+            Router.build(Path.Main.ADD_PLAN)
+                    .withInt("PLAN_TYPE", 1)
+                    .withString("DEVICE_MAC", mMacAddress)
+                    .navigation(getActivity());
+        } else {
+            Router.build(Path.Main.ADD_TRIGGER)
+                    .withInt("TRIGGER_TYPE", 1)
+                    .withString("DEVICE_MAC", mMacAddress)
+                    .navigation(getActivity());
+        }
+
     }
 
     @Override
@@ -180,6 +208,11 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
     @Override
     public void showIoPlans(List<IoPlan> ioPlans) {
         mAdapter.setNewData(ioPlans);
+    }
+
+    @Override
+    public void showIoTriggers(List<IoTrigger> ioTriggers) {
+        mAdapter2.setNewData(ioTriggers);
     }
 
     @Subscribe
@@ -194,7 +227,11 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
         mMacAddress = event.macAddress;
         mSceneName = event.sceneName;
 
-        //调用获取所有定时任务接口
-        mPresenter.getAllPlans(event.macAddress);
+        if (tab == 1) {
+            //调用获取所有定时任务接口
+            mPresenter.getAllPlans(event.macAddress);
+        } else {
+            mPresenter.getAllTriggers(event.macAddress);
+        }
     }
 }

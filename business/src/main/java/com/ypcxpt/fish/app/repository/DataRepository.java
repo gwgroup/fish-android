@@ -9,7 +9,10 @@ import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoPlan;
 import com.ypcxpt.fish.main.model.IoStatusAll;
+import com.ypcxpt.fish.main.model.IoTrigger;
 import com.ypcxpt.fish.main.model.NotificationInfo;
+import com.ypcxpt.fish.main.model.PlanParam;
+import com.ypcxpt.fish.main.model.TriggerParam;
 import com.ypcxpt.fish.main.model.VersionDetailInfo;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 
@@ -84,8 +87,50 @@ public class DataRepository implements DataSource {
         return mNetDS.getAllPlan(mac);
     }
 
+    @Override
+    public Flowable<Object> openPlan(String mac, String id) {
+        return mNetDS.openPlan(mac, id);
+    }
 
+    @Override
+    public Flowable<Object> closePlan(String mac, String id) {
+        return mNetDS.closePlan(mac, id);
+    }
 
+    @Override
+    public Flowable<Object> deletePlan(String mac, String id) {
+        return mNetDS.deletePlan(mac, id);
+    }
+
+    @Override
+    public Flowable<Object> addPlan(String mac, PlanParam planParam) {
+        return mNetDS.addPlan(mac, planParam);
+    }
+
+    @Override
+    public Flowable<Object> editPlan(String mac, PlanParam planParam) {
+        return mNetDS.editPlan(mac, planParam);
+    }
+
+    @Override
+    public Flowable<List<IoTrigger>> getAllTrigger(String mac) {
+        return mNetDS.getAllTrigger(mac);
+    }
+
+    @Override
+    public Flowable<Object> deleteTrigger(String mac, String id) {
+        return mNetDS.deleteTrigger(mac, id);
+    }
+
+    @Override
+    public Flowable<Object> addTrigger(String mac, TriggerParam planParam) {
+        return mNetDS.addTrigger(mac, planParam);
+    }
+
+    @Override
+    public Flowable<Object> editTrigger(String mac, TriggerParam planParam) {
+        return mNetDS.editTrigger(mac, planParam);
+    }
 
 
     @Override
