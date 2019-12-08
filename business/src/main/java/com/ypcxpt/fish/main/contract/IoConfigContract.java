@@ -13,5 +13,11 @@ public interface IoConfigContract {
     }
 
     interface Presenter extends IPresenter {
+        void enableIO(String mac, String code);
+        void disableIO(String mac, String code);
+
+        void renameIO(String mac, String code, String name);
+        void setIOPower(String mac, String code, int power);
+        void calibrationFeeder(String mac, String code, double feeder);
     }
 }

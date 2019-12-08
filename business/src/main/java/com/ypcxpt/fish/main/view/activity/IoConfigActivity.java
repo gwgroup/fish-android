@@ -53,7 +53,7 @@ public class IoConfigActivity extends BaseActivity implements IoConfigContract.V
     protected void initViews() {
         tv_title.setText("鱼塘配置");
 
-        mAdapter = new IoConfigAdapter(R.layout.item_ioconfig, mPresenter);
+        mAdapter = new IoConfigAdapter(R.layout.item_ioconfig, DEVICE_MAC, mPresenter);
         rv.setLayoutManager(new LinearLayoutManager(this));
         mAdapter.bindToRecyclerView(rv);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);

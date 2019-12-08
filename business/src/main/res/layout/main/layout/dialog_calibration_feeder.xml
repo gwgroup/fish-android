@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp18"
-                android:text="渔场名称"
+                android:text="输入饲料重量"
                 android:textColor="@color/common_222222"
                 android:textSize="@dimen/sp14" />
 
@@ -39,8 +39,9 @@
                 style="@style/Layout_Match_Wrap"
                 android:layout_marginTop="@dimen/dp8"
                 android:background="@drawable/bg_common_input"
-                android:hint="最多可输入6个字符"
+                android:hint="单位（克）"
                 android:maxLength="6"
+                android:inputType="number|numberDecimal"
                 android:layout_marginLeft="@dimen/dp12"
                 android:layout_marginRight="@dimen/dp12"
                 android:paddingLeft="@dimen/dp15"

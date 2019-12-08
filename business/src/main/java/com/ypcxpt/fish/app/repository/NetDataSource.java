@@ -67,6 +67,54 @@ public class NetDataSource implements DataSource {
     }
 
     @Override
+    public Flowable<Object> enableIO(String mac, String code) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("code", code)
+                .build();
+        return mApiService.enableIO(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> disableIO(String mac, String code) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("code", code)
+                .build();
+        return mApiService.disableIO(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> renameIO(String mac, String code, String name) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("code", code)
+                .put("name", name)
+                .build();
+        return mApiService.renameIO(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> setPowerIO(String mac, String code, int power) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("code", code)
+                .put("power_w", power)
+                .build();
+        return mApiService.setPowerIO(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> calibrationFeederIO(String mac, String code, double feeder) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("code", code)
+                .put("weight_per_second", feeder)
+                .build();
+        return mApiService.calibrationFeederIO(AppData.token(), param);
+    }
+
+    @Override
     public Flowable<IoStatusAll> getIoStatus(String mac) {
         HashMap<String, Object> param = ParamBuilder.newBuilder()
                 .put("device_mac", mac)

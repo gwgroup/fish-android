@@ -13,11 +13,9 @@ import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.model.IoInfo;
-import com.ypcxpt.fish.main.model.IoStatusAll;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -124,6 +122,18 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
                     Logger.d("CCC", "关闭成功");
 //                    getIoStatus(mac);
                 }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                .start();
+    }
+
+    @Override
+    public void calibrationFeeder(String mac, String code, double feeder) {
+        Flowable<Object> source = mDS.calibrationFeederIO(mac, code, feeder);
+        silenceFetch(source)
+                .onSuccess(o -> {
+                    Logger.d("CCC", "校准投喂机成功");
+                })
+                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
     }

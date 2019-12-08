@@ -3,6 +3,7 @@ package com.ypcxpt.fish.main.util;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.InputType;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,10 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.xw.repo.XEditText;
-
 import com.ypcxpt.fish.R;
 
-public class ScenesRenameDialog extends Dialog implements View.OnClickListener {
+public class CalibrationFeederDialog extends Dialog implements View.OnClickListener {
 
     private TextView tv_title;
     private XEditText et_bark;
@@ -27,25 +27,31 @@ public class ScenesRenameDialog extends Dialog implements View.OnClickListener {
 
     private String bark;
 
-    public ScenesRenameDialog(Context context) {
+    public CalibrationFeederDialog(Context context) {
         super(context);
         init();
     }
 
-    public ScenesRenameDialog(Context context, String bark, int theme) {
+    public CalibrationFeederDialog(Context context, int theme) {
+        super(context, theme);
+        this.context = context;
+        init();
+    }
+
+    public CalibrationFeederDialog(Context context, String bark, int theme) {
         super(context, theme);
         this.context = context;
         this.bark = bark;
         init();
     }
 
-    public ScenesRenameDialog(Context context, int theme, boolean isCenter) {
+    public CalibrationFeederDialog(Context context, int theme, boolean isCenter) {
         super(context, theme);
         this.isCenter = isCenter;
         init();
     }
 
-    public ScenesRenameDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    public CalibrationFeederDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         init();
     }
@@ -64,7 +70,7 @@ public class ScenesRenameDialog extends Dialog implements View.OnClickListener {
      * 初始化数据
      */
     private void init() {
-        setContentView(R.layout.dialog_scenes_rename);
+        setContentView(R.layout.dialog_calibration_feeder);
         tv_title = findViewById(R.id.tv_title);
         bt_cancel = (Button) findViewById(R.id.bt_cancel);
         bt_ok = (Button) findViewById(R.id.bt_ok);
@@ -72,8 +78,9 @@ public class ScenesRenameDialog extends Dialog implements View.OnClickListener {
         bt_cancel.setOnClickListener(this);
         bt_ok.setOnClickListener(this);
 
-        et_bark.setText(bark);
-        et_bark.setSelection(bark.length());
+//        et_bark.setText(bark);
+//        et_bark.setSelection(bark.length());
+        et_bark.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         setOnDismissListener(new OnDismissListener() {
             @Override
@@ -81,10 +88,6 @@ public class ScenesRenameDialog extends Dialog implements View.OnClickListener {
                 mListener.Cancel();
             }
         });
-    }
-
-    public void setTitle(String title) {
-        tv_title.setText(title);
     }
 
     /**

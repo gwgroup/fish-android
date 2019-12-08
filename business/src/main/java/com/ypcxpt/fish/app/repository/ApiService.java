@@ -42,6 +42,26 @@ public interface ApiService {
     @POST("api/device/get_io_info")
     Flowable<List<IoInfo>> getIoInfo(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
+    /* 启用设备IO */
+    @POST("api/device/io_enable")
+    Flowable<Object> enableIO(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 禁用设备IO */
+    @POST("api/device/io_disable")
+    Flowable<Object> disableIO(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 重命名设备IO */
+    @POST("api/device/io_rename")
+    Flowable<Object> renameIO(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 设置功耗设备IO */
+    @POST("api/device/power")
+    Flowable<Object> setPowerIO(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 投喂机校准设备IO */
+    @POST("api/device/calibration_feeder")
+    Flowable<Object> calibrationFeederIO(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
     /* 获取设备IO状态信息 */
     @POST("api/device/get_device_status")
     Flowable<IoStatusAll> getIoStatus(@Header("authorization") String token, @Body HashMap<String, Object> param);

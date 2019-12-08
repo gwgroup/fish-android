@@ -53,6 +53,31 @@ public class DataRepository implements DataSource {
     }
 
     @Override
+    public Flowable<Object> enableIO(String mac, String code) {
+        return mNetDS.enableIO(mac, code);
+    }
+
+    @Override
+    public Flowable<Object> disableIO(String mac, String code) {
+        return mNetDS.disableIO(mac, code);
+    }
+
+    @Override
+    public Flowable<Object> renameIO(String mac, String code, String name) {
+        return mNetDS.renameIO(mac, code, name);
+    }
+
+    @Override
+    public Flowable<Object> setPowerIO(String mac, String code, int power) {
+        return mNetDS.setPowerIO(mac, code, power);
+    }
+
+    @Override
+    public Flowable<Object> calibrationFeederIO(String mac, String code, double feeder) {
+        return mNetDS.calibrationFeederIO(mac, code, feeder);
+    }
+
+    @Override
     public Flowable<IoStatusAll> getIoStatus(String mac) {
         return mNetDS.getIoStatus(mac);
     }

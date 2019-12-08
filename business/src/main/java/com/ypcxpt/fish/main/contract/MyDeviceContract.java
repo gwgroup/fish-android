@@ -33,6 +33,7 @@ public interface MyDeviceContract {
         void openIO(String mac, String code, int duration);
         //关闭IO
         void closeIO(String mac, String code);
+        void calibrationFeeder(String mac, String code, double feeder);
 
         //跳转设备详情进行操作
         void skipDetail(NetDevice device);

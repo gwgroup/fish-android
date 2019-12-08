@@ -48,6 +48,12 @@
             app:kswThumbMargin="@dimen/dp5"
             app:kswThumbWidth="@dimen/dp28"
             app:kswTintColor="@color/main_color_new" />
+
+        <TextView
+            android:id="@+id/tv_checkEnable"
+            android:layout_width="@dimen/dp70"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
     <View

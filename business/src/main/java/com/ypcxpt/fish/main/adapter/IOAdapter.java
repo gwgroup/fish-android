@@ -3,6 +3,7 @@ package com.ypcxpt.fish.main.adapter;
 import android.app.Activity;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -11,9 +12,12 @@ import com.ypcxpt.fish.library.util.StringHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.model.IoInfoCurrent;
+import com.ypcxpt.fish.main.util.CalibrationFeederDialog;
 import com.ypcxpt.fish.main.util.DurationSelectDialog;
 import com.ypcxpt.fish.main.util.FeederDialog;
 import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
+
+import java.math.BigDecimal;
 
 public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
     private MyDeviceContract.Presenter mPresenter;
@@ -128,8 +132,33 @@ public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
             @Override
             public void CalibrationFeeder() {
                 selectDialog.dismiss();
+
+                showCalibrationFeederDialog(MyDeviceFragment.macAddress, item.code);
             }
         });
         selectDialog.show();
+    }
+
+    private void showCalibrationFeederDialog(String mMac, String code) {
+        CalibrationFeederDialog calibrationFeederDialog = new CalibrationFeederDialog(mContext, R.style.MyDialog);
+        calibrationFeederDialog.setCancelable(false);
+        calibrationFeederDialog.setOnResultListener(new CalibrationFeederDialog.OnResultListener() {
+            @Override
+            public void Ok(String bark) {
+                if (StringUtils.isTrimEmpty(bark)) {
+                    Toaster.showShort("请输入饲料重量");
+                } else {
+                    BigDecimal b = new BigDecimal(Double.valueOf(bark).doubleValue());
+                    mPresenter.calibrationFeeder(mMac, code, b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue());
+                    calibrationFeederDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void Cancel() {
+                calibrationFeederDialog.dismiss();
+            }
+        });
+        calibrationFeederDialog.show();
     }
 }

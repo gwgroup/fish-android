@@ -36,6 +36,21 @@ public interface DataSource {
     /* 获取设备IO信息 */
     Flowable<List<IoInfo>> getIoInfo(String mac);
 
+    /* 启用设备IO */
+    Flowable<Object> enableIO(String mac, String code);
+
+    /* 禁用设备IO */
+    Flowable<Object> disableIO(String mac, String code);
+
+    /* 重命名设备IO */
+    Flowable<Object> renameIO(String mac, String code, String name);
+
+    /* 设置功耗设备IO */
+    Flowable<Object> setPowerIO(String mac, String code, int power);
+
+    /* 投喂机校准设备IO */
+    Flowable<Object> calibrationFeederIO(String mac, String code, double feeder);
+
     /* 获取设备IO状态信息 */
     Flowable<IoStatusAll> getIoStatus(String mac);
 
