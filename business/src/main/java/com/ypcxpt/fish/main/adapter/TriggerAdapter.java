@@ -76,7 +76,7 @@ public class TriggerAdapter extends BaseQuickAdapter<IoTrigger, BaseViewHolder> 
             helper.setText(R.id.tv_trigger, triggerStr);
         }
 
-        String operaction = StringHelper.nullToDefault(item.monitor, "");
+        String operaction = StringHelper.nullToDefault(item.operaction, "");
         if ("open".equals(operaction)) {
             helper.setText(R.id.tv_control, "开启" + item.io_name);
         } else {
@@ -84,6 +84,24 @@ public class TriggerAdapter extends BaseQuickAdapter<IoTrigger, BaseViewHolder> 
         }
 
         helper.setText(R.id.tv_duration, "时长:" + TimeUtil.generateTime(item.duration));
+
+        if (item.enabled) {
+            helper.getView(R.id.tv_triggerEnable).setBackgroundResource(R.drawable.bg_common_blue);
+            helper.setText(R.id.tv_triggerEnable, "禁用触发");
+        } else {
+            helper.getView(R.id.tv_triggerEnable).setBackgroundResource(R.drawable.bg_common_red);
+            helper.setText(R.id.tv_triggerEnable, "启用触发");
+        }
+
+        helper.getView(R.id.tv_triggerEnable).setOnClickListener(v -> {
+            if (item.enabled) {
+                //调用禁用触发接口
+                mPresenter.closeTrigger(TimingPlanFragment.mMacAddress, item.id);
+            } else {
+                //调用启用触发接口
+                mPresenter.openTrigger(TimingPlanFragment.mMacAddress, item.id);
+            }
+        });
 
         helper.getView(R.id.tv_triggerEdit).setOnClickListener(v -> {
             Router.build(Path.Main.ADD_TRIGGER)

@@ -118,6 +118,16 @@ public class DataRepository implements DataSource {
     }
 
     @Override
+    public Flowable<Object> openTrigger(String mac, String id) {
+        return mNetDS.openTrigger(mac, id);
+    }
+
+    @Override
+    public Flowable<Object> closeTrigger(String mac, String id) {
+        return mNetDS.closeTrigger(mac, id);
+    }
+
+    @Override
     public Flowable<Object> deleteTrigger(String mac, String id) {
         return mNetDS.deleteTrigger(mac, id);
     }

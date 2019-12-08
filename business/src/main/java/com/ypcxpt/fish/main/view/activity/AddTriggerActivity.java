@@ -16,6 +16,8 @@ import com.ypcxpt.fish.main.model.TriggerParam;
 import com.ypcxpt.fish.main.presenter.AddTriggerPresenter;
 import com.ypcxpt.fish.main.util.PlanDeleteDialog;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,6 +60,8 @@ public class AddTriggerActivity extends BaseActivity implements AddTriggerContra
     private double condition_val = 0;
     private String io_code = "";
     private boolean enabled = true;
+
+    DecimalFormat df = new DecimalFormat("######0.00");
 
     @Override
     protected int layoutResID() {
@@ -228,9 +232,10 @@ public class AddTriggerActivity extends BaseActivity implements AddTriggerContra
                     picker2.setOnNumberPickListener(new NumberPicker.OnNumberPickListener() {
                         @Override
                         public void onNumberPicked(int index, Number item) {
-                            tv_value.setText(item.intValue() + "");
+                            tv_value.setText(df.format(item.doubleValue()) + "");
 
-                            condition_val = item.intValue();
+                            BigDecimal b = new BigDecimal(item.doubleValue());
+                            condition_val =  b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
                         }
                     });
                     picker2.show();

@@ -142,7 +142,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/dp8"
                         android:layout_toLeftOf="@+id/iv_arrow2"
-                        android:text="10"
+                        android:text=""
                         android:textColor="@color/common_838486"
                         android:textSize="@dimen/sp14" />
 

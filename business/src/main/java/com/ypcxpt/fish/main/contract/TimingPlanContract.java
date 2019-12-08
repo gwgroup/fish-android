@@ -21,10 +21,11 @@ public interface TimingPlanContract {
         void getScenes();
 
         void getAllPlans(String mac);
-
         void openPlan(String mac, String planId);
         void closePlan(String mac, String planId);
 
         void getAllTriggers(String mac);
+        void openTrigger(String mac, String planId);
+        void closeTrigger(String mac, String planId);
     }
 }

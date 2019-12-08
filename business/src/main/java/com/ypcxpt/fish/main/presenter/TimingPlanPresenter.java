@@ -103,6 +103,32 @@ public class TimingPlanPresenter extends BasePresenter<TimingPlanContract.View> 
     }
 
     @Override
+    public void openTrigger(String mac, String planId) {
+        Flowable<Object> source = mDS.openTrigger(mac, planId);
+        silenceFetch(source)
+                .onSuccess(o -> {
+                    Logger.d("CCC", "启用触发任务成功");
+                    ThreadHelper.postDelayed(() -> getAllTriggers(mac), 500);
+                })
+                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                .start();
+    }
+
+    @Override
+    public void closeTrigger(String mac, String planId) {
+        Flowable<Object> source = mDS.closeTrigger(mac, planId);
+        silenceFetch(source)
+                .onSuccess(o -> {
+                    Logger.d("CCC", "禁用触发任务成功");
+                    ThreadHelper.postDelayed(() -> getAllTriggers(mac), 500);
+                })
+                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                .start();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }

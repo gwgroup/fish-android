@@ -181,6 +181,24 @@ public class NetDataSource implements DataSource {
     }
 
     @Override
+    public Flowable<Object> openTrigger(String mac, String id) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("id", id)
+                .build();
+        return mApiService.openTrigger(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> closeTrigger(String mac, String id) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("id", id)
+                .build();
+        return mApiService.closeTrigger(AppData.token(), param);
+    }
+
+    @Override
     public Flowable<Object> deleteTrigger(String mac, String id) {
         HashMap<String, Object> param = ParamBuilder.newBuilder()
                 .put("device_mac", mac)

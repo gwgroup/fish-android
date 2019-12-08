@@ -60,6 +60,7 @@
             android:layout_marginTop="@dimen/dp8"
             android:text="时长:00小时00分钟00秒"
             android:textColor="@color/common_a1a1a1"
+            android:visibility="gone"
             android:textSize="@dimen/sp13" />
 
         <TextView
@@ -67,12 +68,24 @@
             android:layout_width="@dimen/dp90"
             android:layout_height="@dimen/dp42"
             android:layout_marginRight="@dimen/dp10"
-            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/tv_triggerEnable"
             android:layout_alignParentBottom="true"
             android:background="@drawable/bg_line_grey"
             android:gravity="center"
             android:text="编辑"
             android:textColor="@color/common_CACBCC"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:id="@+id/tv_triggerEnable"
+            android:layout_width="@dimen/dp90"
+            android:layout_height="@dimen/dp42"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_common_blue"
+            android:gravity="center"
+            android:text="禁用触发"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp14" />
     </RelativeLayout>
 </LinearLayout>

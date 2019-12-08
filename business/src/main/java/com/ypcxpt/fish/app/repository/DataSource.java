@@ -72,16 +72,22 @@ public interface DataSource {
     /* 修改计划 */
     Flowable<Object> editPlan(String mac, PlanParam planParam);
 
-    /* 获取所有定时计划 */
+    /* 获取所有触发任务 */
     Flowable<List<IoTrigger>> getAllTrigger(String mac);
 
-    /* 删除计划 */
+    /* 启用触发任务 */
+    Flowable<Object> openTrigger(String mac, String id);
+
+    /* 禁用触发任务 */
+    Flowable<Object> closeTrigger(String mac, String id);
+
+    /* 删除触发任务 */
     Flowable<Object> deleteTrigger(String mac, String id);
 
-    /* 添加计划 */
+    /* 添加触发任务 */
     Flowable<Object> addTrigger(String mac, TriggerParam planParam);
 
-    /* 修改计划 */
+    /* 修改触发任务 */
     Flowable<Object> editTrigger(String mac, TriggerParam planParam);
 
 

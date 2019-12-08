@@ -94,6 +94,14 @@ public interface ApiService {
     @POST("api/trigger/get_all_trigger")
     Flowable<List<IoTrigger>> getAllTrigger(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
+    /* 启用触发任务 */
+    @POST("api/trigger/enable_trigger")
+    Flowable<Object> openTrigger(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 禁用触发任务 */
+    @POST("api/trigger/disable_trigger")
+    Flowable<Object> closeTrigger(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
     /* 删除触发任务 */
     @POST("api/trigger/remove_trigger")
     Flowable<Object> deleteTrigger(@Header("authorization") String token, @Body HashMap<String, Object> param);
