@@ -4,6 +4,7 @@ import com.ypcxpt.fish.device.model.DataHistory;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
+import com.ypcxpt.fish.main.model.Cams;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
@@ -104,6 +105,12 @@ public interface DataSource {
 
     /* 修改触发任务 */
     Flowable<Object> editTrigger(String mac, TriggerParam planParam);
+
+    /* 获取摄像头配置 */
+    Flowable<Cams> getCamsConfig(String mac);
+
+    /* 请求推流 */
+    Flowable<Object> doPlay(String mac, String key);
 
 
     /* 绑定手机号 */

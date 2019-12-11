@@ -7,6 +7,7 @@ import com.ypcxpt.fish.library.net.NetManager;
 import com.ypcxpt.fish.library.net.request.ParamBuilder;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
+import com.ypcxpt.fish.main.model.Cams;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
@@ -271,6 +272,23 @@ public class NetDataSource implements DataSource {
                 .put("trigger", planParam)
                 .build();
         return mApiService.editTrigger(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Cams> getCamsConfig(String mac) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .build();
+        return mApiService.getCamsConfig(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> doPlay(String mac, String key) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("cam_key", key)
+                .build();
+        return mApiService.doPlay(AppData.token(), param);
     }
 
 

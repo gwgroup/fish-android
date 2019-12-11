@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.StringUtils;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
@@ -37,6 +38,8 @@ import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnSceneInfoEvent;
+import com.ypcxpt.fish.main.model.CamsUseable;
+import com.ypcxpt.fish.main.model.CamsUseableProfiles;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoInfoCurrent;
 import com.ypcxpt.fish.main.model.IoStatus;
@@ -83,6 +86,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
+
+    @BindView(R.id.iv_videobg)
+    ImageView iv_videobg;
 
     @BindView(R.id.ll_temperature)
     LinearLayout ll_temperature;
@@ -254,6 +260,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             mPresenter.getIoStatus(scenes.get(0).macAddress);
             macAddress = scenes.get(0).macAddress;
             sceneName = scenes.get(0).scene_name;
+
+            /* 获取摄像头配置 */
+            mPresenter.getCamsConfig(scenes.get(0).macAddress);
         }
     }
 
@@ -269,6 +278,36 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         initSocketClient();
         /* 开启心跳检测 */
         mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);
+    }
+
+    @Override
+    public void displayCamsCount(List<CamsUseable> usable_cams) {
+        /* 展示摄像头个数 */
+        if (usable_cams.size() > 0) {
+
+        } else {
+            /* 展示天气预报 */
+        }
+        /* 请求推流 */
+        mPresenter.doCamsPlay(macAddress, usable_cams);
+    }
+
+    @Override
+    public void showVLCVideo(List<CamsUseable> usable_cams) {
+        //设置背景图片
+        Glide.with(getActivity())
+                .load(R.mipmap.icon_main_aerator)
+                .into(iv_videobg);
+
+        List<CamsUseableProfiles> profiles = usable_cams.get(0).profiles;
+        String rtsp_url = "";
+        for (int i = 0; i < profiles.size(); i++) {
+            if (profiles.get(i).selected) {
+                rtsp_url = profiles.get(i).rtsp_url;
+            }
+        }
+        //播放rtsp_url
+        Logger.e("播放地址","rtspUrl:" + rtsp_url);
     }
 
     @Subscribe

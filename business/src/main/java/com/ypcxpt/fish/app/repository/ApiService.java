@@ -3,6 +3,7 @@ package com.ypcxpt.fish.app.repository;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
+import com.ypcxpt.fish.main.model.Cams;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
@@ -133,6 +134,14 @@ public interface ApiService {
     /* 编辑触发任务 */
     @POST("aapi/trigger/edit_trigger")
     Flowable<Object> editTrigger(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 获取摄像头配置 */
+    @POST("api/cams/get_config")
+    Flowable<Cams> getCamsConfig(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 请求推流 */
+    @POST("api/cams/play")
+    Flowable<Object> doPlay(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
 
     /* 绑定手机号 */

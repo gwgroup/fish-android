@@ -61,6 +61,11 @@ public class SceneAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
             MyDeviceFragment.macAddress = item.macAddress;
             MyDeviceFragment.sceneName = item.scene_name;
             Logger.i("当前mac", MyDeviceFragment.macAddress + "," + MyDeviceFragment.sceneName);
+
+            /**
+             * 获取mac下的摄像头配置
+             */
+            mPresenter.getCamsConfig(item.macAddress);
         });
     }
 }

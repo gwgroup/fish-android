@@ -12,7 +12,10 @@ import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
+import com.ypcxpt.fish.main.model.Cams;
+import com.ypcxpt.fish.main.model.CamsUseable;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -139,10 +142,38 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
     }
 
     @Override
-    public void skipDetail(NetDevice device) {
-        Router.build(Path.Main.DEVICE_MANAGER_DETAIL)
-                .withParcelable("mDevice", device)
-                .navigation(getActivity());
+    public void getCamsConfig(String mac) {
+        Flowable<Cams> source = mDS.getCamsConfig(mac);
+        silenceFetch(source)
+                .onSuccess(cams -> {
+                    Logger.d("CCC", "获取摄像头配置-->" + cams.toString());
+                    if (cams.not_available_cams != null && cams.not_available_cams.size() > 0) {
+                        /* 有口令的摄像头数组 */
+                    } else {
+                        /* 可直接访问的摄像头数组 */
+                        mView.displayCamsCount(cams.usable_cams);
+                    }
+                })
+                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                .start();
+    }
+
+    /**
+     * 请求服务器开始推流
+     * @param usable_cams 可直接访问的摄像头数组
+     */
+    @Override
+    public void doCamsPlay(String mac, List<CamsUseable> usable_cams) {
+        Flowable<Object> source = mDS.doPlay(mac, usable_cams.get(0).key);
+        silenceFetch(source)
+                .onSuccess(o -> {
+                    Logger.d("CCC", "推流成功");
+                    mView.showVLCVideo(usable_cams);
+                })
+                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                .start();
     }
 
     @Override

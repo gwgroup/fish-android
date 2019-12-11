@@ -4,6 +4,7 @@ import com.ypcxpt.fish.device.model.DataHistory;
 import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
+import com.ypcxpt.fish.main.model.Cams;
 import com.ypcxpt.fish.main.model.CollectionInfo;
 import com.ypcxpt.fish.main.model.CommentInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
@@ -165,6 +166,16 @@ public class DataRepository implements DataSource {
     @Override
     public Flowable<Object> editTrigger(String mac, TriggerParam planParam) {
         return mNetDS.editTrigger(mac, planParam);
+    }
+
+    @Override
+    public Flowable<Cams> getCamsConfig(String mac) {
+        return mNetDS.getCamsConfig(mac);
+    }
+
+    @Override
+    public Flowable<Object> doPlay(String mac, String key) {
+        return mNetDS.doPlay(mac, key);
     }
 
 
