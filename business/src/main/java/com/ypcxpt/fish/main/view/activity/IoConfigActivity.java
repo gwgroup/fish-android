@@ -56,7 +56,7 @@ public class IoConfigActivity extends BaseActivity implements IoConfigContract.V
         mAdapter = new IoConfigAdapter(R.layout.item_ioconfig, DEVICE_MAC, mPresenter);
         rv.setLayoutManager(new LinearLayoutManager(this));
         mAdapter.bindToRecyclerView(rv);
-        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+//        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mAdapter.setEmptyView(R.layout.include_d_m_nomsg);
         rv.setAdapter(mAdapter);
         mPresenter.acceptData("mAdapter", mAdapter);

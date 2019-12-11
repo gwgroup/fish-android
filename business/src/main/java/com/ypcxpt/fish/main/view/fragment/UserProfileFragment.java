@@ -176,23 +176,23 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
 
     @OnClick({R.id.iv_edit_profile, R.id.iv_avatar})
     public void onEditProfile() {
-        Router.build(Path.Main.EDIT_PROFILE)
-                .withParcelable("mUserProfile", mUserProfile)
-                .navigation(getActivity());
+//        Router.build(Path.Main.EDIT_PROFILE)
+//                .withParcelable("mUserProfile", mUserProfile)
+//                .navigation(getActivity());
     }
 
     @OnClick(R.id.rl_feed_back)
     public void onFeedback() {
-        Router.build(Path.Main.EDIT_FEEDBACK)
-                .navigation(getActivity());
+//        Router.build(Path.Main.EDIT_FEEDBACK)
+//                .navigation(getActivity());
     }
 
     @OnClick(R.id.rl_device_manager)
     public void onDeviceManager() {
 //        mPresenter.getDevices();
-        Router.build(Path.Main.DEVICE_MANAGER).navigation(getActivity());
-        //通知下一个界面调用设备列表接口
-        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
+//        Router.build(Path.Main.DEVICE_MANAGER).navigation(getActivity());
+//        //通知下一个界面调用设备列表接口
+//        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
     }
 
     @OnClick(R.id.ll_collection)

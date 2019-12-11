@@ -91,14 +91,14 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
         rv.setAdapter(mAdapter);
         ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
         rv.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
-        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+//        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
 
         mAdapter2 = new TriggerAdapter(R.layout.item_triggers, mPresenter, getActivity());
         rv2.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv2.setAdapter(mAdapter2);
         ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
         rv2.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
-        mAdapter2.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+//        mAdapter2.openLoadAnimation(BaseQuickAdapter.SCALEIN);
 
         swipe_refresh_layout.setOnRefreshListener(() -> new Handler().postDelayed(() -> {
             swipe_refresh_layout.setRefreshing(false);//取消刷新
