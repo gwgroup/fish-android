@@ -296,7 +296,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     public void showVLCVideo(List<CamsUseable> usable_cams) {
         //设置背景图片
         Glide.with(getActivity())
-                .load(R.mipmap.icon_main_aerator)
+                .load(usable_cams.get(0).preview_image)
                 .into(iv_videobg);
 
         List<CamsUseableProfiles> profiles = usable_cams.get(0).profiles;
