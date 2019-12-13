@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -89,6 +90,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @BindView(R.id.iv_videobg)
     ImageView iv_videobg;
+    @BindView(R.id.tv_cams01)
+    TextView tv_cams01;
+    @BindView(R.id.tv_cams02)
+    TextView tv_cams02;
+    @BindView(R.id.tv_cams03)
+    TextView tv_cams03;
 
     @BindView(R.id.ll_temperature)
     LinearLayout ll_temperature;
@@ -282,9 +289,22 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @Override
     public void displayCamsCount(List<CamsUseable> usable_cams) {
+        Logger.e("展示cams个数","size:" + usable_cams.size());
         /* 展示摄像头个数 */
         if (usable_cams.size() > 0) {
-
+            if (usable_cams.size() == 1) {
+                tv_cams01.setVisibility(View.VISIBLE);
+                tv_cams02.setVisibility(View.GONE);
+                tv_cams03.setVisibility(View.GONE);
+            } else if (usable_cams.size() == 2) {
+                tv_cams01.setVisibility(View.VISIBLE);
+                tv_cams02.setVisibility(View.VISIBLE);
+                tv_cams03.setVisibility(View.GONE);
+            } else if (usable_cams.size() == 3) {
+                tv_cams01.setVisibility(View.VISIBLE);
+                tv_cams02.setVisibility(View.VISIBLE);
+                tv_cams03.setVisibility(View.VISIBLE);
+            }
         } else {
             /* 展示天气预报 */
         }

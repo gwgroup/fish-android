@@ -91,6 +91,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_videobg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp200"
                 android:background="@color/common_EAEAEA"
@@ -132,7 +133,8 @@
                         android:textColor="@color/white"
                         android:gravity="center_horizontal"
                         android:background="@mipmap/icon_cams_off"
-                        android:layout_marginLeft="@dimen/dp10"/>
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tv_cams03"
@@ -146,7 +148,8 @@
                         android:textColor="@color/white"
                         android:gravity="center_horizontal"
                         android:background="@mipmap/icon_cams_off"
-                        android:layout_marginLeft="@dimen/dp10"/>
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:visibility="gone"/>
 
                     <ImageView
                         android:layout_width="@dimen/dp26"

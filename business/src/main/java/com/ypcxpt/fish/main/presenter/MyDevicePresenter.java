@@ -146,7 +146,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
         Flowable<Cams> source = mDS.getCamsConfig(mac);
         silenceFetch(source)
                 .onSuccess(cams -> {
-                    Logger.d("CCC", "获取摄像头配置-->" + cams.toString());
+                    Logger.i("CCC", "获取摄像头配置-->" + cams.toString());
                     if (cams.not_available_cams != null && cams.not_available_cams.size() > 0) {
                         /* 有口令的摄像头数组 */
                         mView.displayCamsCount(cams.usable_cams);
@@ -166,10 +166,11 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
      */
     @Override
     public void doCamsPlay(String mac, List<CamsUseable> usable_cams) {
+        Logger.i("推流请求", "mac:" + mac + ",key:" + usable_cams.get(0).key);
         Flowable<Object> source = mDS.doPlay(mac, usable_cams.get(0).key);
         silenceFetch(source)
                 .onSuccess(o -> {
-                    Logger.e("CCC", "推流成功");
+                    Logger.d("CCC", "推流成功");
                     mView.showVLCVideo(usable_cams);
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
