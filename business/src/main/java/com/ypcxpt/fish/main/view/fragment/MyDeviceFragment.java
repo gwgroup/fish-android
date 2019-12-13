@@ -97,6 +97,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @BindView(R.id.tv_cams03)
     TextView tv_cams03;
 
+    @BindView(R.id.tv_videoLabel)
+    TextView tv_videoLabel;
+
     @BindView(R.id.ll_temperature)
     LinearLayout ll_temperature;
     @BindView(R.id.tv_temperature)
@@ -118,6 +121,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     private IOAdapter ioAdapter;
 
     private int REQUEST_CODE_SCAN = 111;
+
+    /* 可用的摄像头 */
+    private List<CamsUseable> usableCams;
+    private String camsKey;
+    /* 每个摄像头中的播放信息 */
+    private List<CamsUseableProfiles> profiles;
 
     @Override
     protected int layoutResID() {
@@ -287,9 +296,91 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);
     }
 
+    private void setCamsBgDefault() {
+        tv_cams01.setBackgroundResource(R.mipmap.icon_cams_off);
+        tv_cams02.setBackgroundResource(R.mipmap.icon_cams_off);
+        tv_cams03.setBackgroundResource(R.mipmap.icon_cams_off);
+    }
+
+    @OnClick({R.id.tv_cams01, R.id.tv_cams02, R.id.tv_cams03})
+    public void onCheckCams(View view) {
+        switch (view.getId()) {
+            case R.id.tv_cams01:
+                if (usableCams != null && usableCams.size() > 0) {
+                    setCamsBgDefault();
+                    tv_cams01.setBackgroundResource(R.mipmap.icon_cams_on);
+
+                    //设置背景图片
+                    Glide.with(getActivity())
+                            .load(usableCams.get(0).preview_image)
+                            .into(iv_videobg);
+
+                    camsKey = usableCams.get(0).key;
+                    profiles = usableCams.get(0).profiles;
+                    String rtsp_url = "";
+                    for (int i = 0; i < profiles.size(); i++) {
+                        if (profiles.get(i).selected) {
+                            rtsp_url = profiles.get(i).rtsp_url;
+                            tv_videoLabel.setText(profiles.get(i).label);
+                        }
+                    }
+                    //播放rtsp_url
+                    Logger.e("播放地址","rtspUrl:" + rtsp_url);
+                }
+                break;
+            case R.id.tv_cams02:
+                if (usableCams != null && usableCams.size() > 1) {
+                    setCamsBgDefault();
+                    tv_cams02.setBackgroundResource(R.mipmap.icon_cams_on);
+
+                    //设置背景图片
+                    Glide.with(getActivity())
+                            .load(usableCams.get(1).preview_image)
+                            .into(iv_videobg);
+
+                    camsKey = usableCams.get(1).key;
+                    profiles = usableCams.get(1).profiles;
+                    String rtsp_url = "";
+                    for (int i = 0; i < profiles.size(); i++) {
+                        if (profiles.get(i).selected) {
+                            rtsp_url = profiles.get(i).rtsp_url;
+                            tv_videoLabel.setText(profiles.get(i).label);
+                        }
+                    }
+                    //播放rtsp_url
+                    Logger.e("播放地址","rtspUrl:" + rtsp_url);
+                }
+                break;
+            case R.id.tv_cams03:
+                if (usableCams != null && usableCams.size() > 2) {
+                    setCamsBgDefault();
+                    tv_cams03.setBackgroundResource(R.mipmap.icon_cams_on);
+
+                    //设置背景图片
+                    Glide.with(getActivity())
+                            .load(usableCams.get(2).preview_image)
+                            .into(iv_videobg);
+
+                    camsKey = usableCams.get(2).key;
+                    profiles = usableCams.get(2).profiles;
+                    String rtsp_url = "";
+                    for (int i = 0; i < profiles.size(); i++) {
+                        if (profiles.get(i).selected) {
+                            rtsp_url = profiles.get(i).rtsp_url;
+                            tv_videoLabel.setText(profiles.get(i).label);
+                        }
+                    }
+                    //播放rtsp_url
+                    Logger.e("播放地址","rtspUrl:" + rtsp_url);
+                }
+                break;
+        }
+    }
+
     @Override
     public void displayCamsCount(List<CamsUseable> usable_cams) {
         Logger.e("展示cams个数","size:" + usable_cams.size());
+        usableCams = usable_cams;
         /* 展示摄像头个数 */
         if (usable_cams.size() > 0) {
             if (usable_cams.size() == 1) {
@@ -314,16 +405,18 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @Override
     public void showVLCVideo(List<CamsUseable> usable_cams) {
+        camsKey = usable_cams.get(0).key;
         //设置背景图片
         Glide.with(getActivity())
                 .load(usable_cams.get(0).preview_image)
                 .into(iv_videobg);
 
-        List<CamsUseableProfiles> profiles = usable_cams.get(0).profiles;
+        profiles = usable_cams.get(0).profiles;
         String rtsp_url = "";
         for (int i = 0; i < profiles.size(); i++) {
             if (profiles.get(i).selected) {
                 rtsp_url = profiles.get(i).rtsp_url;
+                tv_videoLabel.setText(profiles.get(i).label);
             }
         }
         //播放rtsp_url

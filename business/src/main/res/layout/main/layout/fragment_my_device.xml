@@ -151,7 +151,21 @@
                         android:layout_marginLeft="@dimen/dp10"
                         android:visibility="gone"/>
 
+                    <TextView
+                        android:id="@+id/tv_videoLabel"
+                        android:layout_width="@dimen/dp50"
+                        android:layout_height="@dimen/dp35"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp30"
+                        android:layout_toLeftOf="@+id/iv_big"
+                        android:background="@drawable/bg_line_blue"
+                        android:gravity="center"
+                        android:text="标清"
+                        android:textColor="@color/main_color_blue"
+                        android:textSize="@dimen/sp13" />
+
                     <ImageView
+                        android:id="@+id/iv_big"
                         android:layout_width="@dimen/dp26"
                         android:layout_height="@dimen/dp26"
                         android:layout_centerVertical="true"
