@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/fish-android.iml" filepath="$PROJECT_DIR$/fish-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/resource/resource.iml" filepath="$PROJECT_DIR$/resource/resource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vlcplayer/vlcplayer.iml" filepath="$PROJECT_DIR$/vlcplayer/vlcplayer.iml" />
     </modules>
   </component>
 </project>

@@ -1,6 +1,8 @@
 package com.ypcxpt.fish.main.view.fragment;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +56,7 @@ import com.ypcxpt.fish.main.util.JWebSocketClient;
 import com.ypcxpt.fish.main.util.MainOperationDialog;
 import com.ypcxpt.fish.main.util.ScenesRenameDialog;
 import com.ypcxpt.fish.main.view.activity.CaptureScanActivity;
+import com.yyl.videolist.video.VlcMediaView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -88,6 +92,13 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
 
+    @BindView(R.id.rl_hide01)
+    RelativeLayout rl_hide01;
+    @BindView(R.id.ll_hide02)
+    LinearLayout ll_hide02;
+
+    @BindView(R.id.vlcMediaView)
+    VlcMediaView vlcMediaView;
     @BindView(R.id.iv_videobg)
     ImageView iv_videobg;
     @BindView(R.id.tv_cams01)
@@ -129,6 +140,22 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     private List<CamsUseableProfiles> profiles;
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_USER) {
+//            getSupportActionBar().hide();
+            rl_hide01.setVisibility(View.GONE);
+            ll_hide02.setVisibility(View.GONE);
+            rv_io.setVisibility(View.GONE);
+        } else {
+//            getSupportActionBar().show();
+            rl_hide01.setVisibility(View.VISIBLE);
+            ll_hide02.setVisibility(View.VISIBLE);
+            rv_io.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     protected int layoutResID() {
         return R.layout.fragment_my_device;
     }
@@ -143,6 +170,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @Override
     protected void initViews() {
+        vlcMediaView.onAttached(getActivity());
+
         mAdapter = new SceneAdapter(R.layout.item_scenes, mPresenter, getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -326,6 +355,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     }
                     //播放rtsp_url
                     Logger.e("播放地址","rtspUrl:" + rtsp_url);
+                    vlcMediaView.setVisibility(View.VISIBLE);
+                    vlcMediaView.playVideo(rtsp_url);
                 }
                 break;
             case R.id.tv_cams02:
@@ -349,6 +380,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     }
                     //播放rtsp_url
                     Logger.e("播放地址","rtspUrl:" + rtsp_url);
+                    vlcMediaView.setVisibility(View.VISIBLE);
+                    vlcMediaView.playVideo(rtsp_url);
                 }
                 break;
             case R.id.tv_cams03:
@@ -372,6 +405,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     }
                     //播放rtsp_url
                     Logger.e("播放地址","rtspUrl:" + rtsp_url);
+                    vlcMediaView.setVisibility(View.VISIBLE);
+                    vlcMediaView.playVideo(rtsp_url);
                 }
                 break;
         }
@@ -421,6 +456,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         }
         //播放rtsp_url
         Logger.e("播放地址","rtspUrl:" + rtsp_url);
+        vlcMediaView.setVisibility(View.VISIBLE);
+        vlcMediaView.playVideo(rtsp_url);
     }
 
     @Subscribe

@@ -133,6 +133,7 @@
         <activity android:name="com.ypcxpt.fish.login.view.activity.AdvertisingDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.main.view.activity.MainActivity"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.main.view.activity.EditUserProfileActivity"
             android:screenOrientation="portrait" />

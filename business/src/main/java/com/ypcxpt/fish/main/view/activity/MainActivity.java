@@ -19,7 +19,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.gyf.barlibrary.ImmersionBar;
 import com.ypcxpt.fish.App;
 import com.ypcxpt.fish.R;
-import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.core.ble.BLEHelper;
 import com.ypcxpt.fish.jpush.ExampleUtil;
