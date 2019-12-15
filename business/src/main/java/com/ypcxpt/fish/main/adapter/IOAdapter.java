@@ -1,6 +1,8 @@
 package com.ypcxpt.fish.main.adapter;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -18,6 +20,11 @@ import com.ypcxpt.fish.main.util.FeederDialog;
 import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.qqtheme.framework.picker.LinkagePicker;
+import cn.qqtheme.framework.util.DateUtils;
 
 public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
     private MyDeviceContract.Presenter mPresenter;
@@ -86,24 +93,82 @@ public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
     }
 
     private void showDurationSelect(IoInfoCurrent item) {
-        DurationSelectDialog selectDialog = new DurationSelectDialog(activity, R.style.MyDialog);
-        selectDialog.setTitle(item.code);
-        selectDialog.setCancelable(false);
-        selectDialog.setOnResultListener(new DurationSelectDialog.OnResultListener() {
-
+        //联动选择器的更多用法，可参见AddressPicker和CarNumberPicker
+        LinkagePicker.DataProvider provider = new LinkagePicker.DataProvider() {
             @Override
-            public void Ok(int hour, int minute, int second) {
-                int duration = (hour * 60 * 60 + minute * 60 + second) * 1000;
-                mPresenter.openIO(MyDeviceFragment.macAddress, item.code, duration);
-                selectDialog.dismiss();
+            public boolean isOnlyTwo() {
+                return false;
             }
 
+            @NonNull
             @Override
-            public void Cancel() {
-                selectDialog.dismiss();
+            public List<String> provideFirstData() {
+                ArrayList<String> firstList = new ArrayList<>();
+                for (int i = 0; i <= 24; i++) {
+                    String str = DateUtils.fillZero(i);
+                    firstList.add(str);
+                }
+                return firstList;
+            }
+
+            @NonNull
+            @Override
+            public List<String> provideSecondData(int firstIndex) {
+                ArrayList<String> secondList = new ArrayList<>();
+                for (int i = 0; i < 60; i++) {
+                    String str = DateUtils.fillZero(i);
+                    secondList.add(str);
+                }
+                return secondList;
+            }
+
+            @Nullable
+            @Override
+            public List<String> provideThirdData(int firstIndex, int secondIndex) {
+                ArrayList<String> thirdList = new ArrayList<>();
+                for (int i = 1; i < 60; i++) {
+                    String str = DateUtils.fillZero(i);
+                    thirdList.add(str);
+                }
+                return thirdList;
+            }
+
+        };
+        LinkagePicker picker = new LinkagePicker(activity, provider);
+        picker.setCycleDisable(true);
+        picker.setUseWeight(true);
+        picker.setLabel("小时", "分钟", "秒");
+        picker.setSelectedIndex(0, 0, 0);
+        //picker.setSelectedItem("12", "9");
+        picker.setContentPadding(10, 0);
+        picker.setOnStringPickListener(new LinkagePicker.OnStringPickListener() {
+            @Override
+            public void onPicked(String first, String second, String third) {
+                int duration = (Integer.parseInt(first) * 60 * 60
+                        + Integer.parseInt(second) * 60
+                        + Integer.parseInt(third)) * 1000;
+                mPresenter.openIO(MyDeviceFragment.macAddress, item.code, duration);
             }
         });
-        selectDialog.show();
+        picker.show();
+//        DurationSelectDialog selectDialog = new DurationSelectDialog(activity, R.style.MyDialog);
+//        selectDialog.setTitle(item.code);
+//        selectDialog.setCancelable(false);
+//        selectDialog.setOnResultListener(new DurationSelectDialog.OnResultListener() {
+//
+//            @Override
+//            public void Ok(int hour, int minute, int second) {
+//                int duration = (hour * 60 * 60 + minute * 60 + second) * 1000;
+//                mPresenter.openIO(MyDeviceFragment.macAddress, item.code, duration);
+//                selectDialog.dismiss();
+//            }
+//
+//            @Override
+//            public void Cancel() {
+//                selectDialog.dismiss();
+//            }
+//        });
+//        selectDialog.show();
     }
 
     private void showFeederSelect(IoInfoCurrent item) {

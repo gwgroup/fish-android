@@ -108,6 +108,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @BindView(R.id.tv_cams03)
     TextView tv_cams03;
 
+    @BindView(R.id.rl_videobg)
+    RelativeLayout rl_videobg;
+    @BindView(R.id.rl_weather)
+    RelativeLayout rl_weather;
+
     @BindView(R.id.tv_videoLabel)
     TextView tv_videoLabel;
 
@@ -418,6 +423,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         usableCams = usable_cams;
         /* 展示摄像头个数 */
         if (usable_cams.size() > 0) {
+            rl_videobg.setVisibility(View.VISIBLE);
+            rl_weather.setVisibility(View.GONE);
             if (usable_cams.size() == 1) {
                 tv_cams01.setVisibility(View.VISIBLE);
                 tv_cams02.setVisibility(View.GONE);
@@ -433,6 +440,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             }
         } else {
             /* 展示天气预报 */
+            rl_videobg.setVisibility(View.GONE);
+            rl_weather.setVisibility(View.VISIBLE);
         }
         /* 请求推流 */
         mPresenter.doCamsPlay(macAddress, usable_cams);
