@@ -15,6 +15,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {}
+
+        /* BuildType names cannot start with 'test' */
+        QA {}
+
+        staging {}
     }
 }
 
