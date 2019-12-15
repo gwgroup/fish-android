@@ -141,7 +141,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     /* 可用的摄像头 */
     private List<CamsUseable> usableCams;
     private String camsKey;
-    /* 每个摄像头中的播放信息 */
+    /* 每个摄像头中的播放信息(清晰度) */
     private List<CamsUseableProfiles> profiles;
 
     @Override
@@ -157,6 +157,20 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             rl_hide01.setVisibility(View.VISIBLE);
             ll_hide02.setVisibility(View.VISIBLE);
             rv_io.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+            //隐藏的操作
+//            vlcMediaView.saveState();
+        } else {
+            //显示的操作
+//            vlcMediaView.stopVideo(false);
+            /* 获取摄像头配置 */
+            mPresenter.getCamsConfig(macAddress);
         }
     }
 

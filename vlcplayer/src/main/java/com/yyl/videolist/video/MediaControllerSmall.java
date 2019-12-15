@@ -140,7 +140,7 @@ public class MediaControllerSmall implements VideoViewControllerListeners {
     @Override
     public void close() {
         mShowing = false;
-        down_layout.setVisibility(View.GONE);
+//        down_layout.setVisibility(View.GONE);
         conterLayout.setVisibility(View.GONE);
     }
 
@@ -199,7 +199,7 @@ public class MediaControllerSmall implements VideoViewControllerListeners {
 
         @Override
         public void onAnimationEnd(Animation animation) {
-            down_layout.setVisibility(View.GONE);
+//            down_layout.setVisibility(View.GONE);
             conterLayout.setVisibility(View.GONE);
         }
 
