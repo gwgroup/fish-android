@@ -201,6 +201,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 Logger.e("CCC", "推流失败");
+                doCamsPlay(mac, usable_cams, playKey, camsIndex);
             }
 
             @Override
