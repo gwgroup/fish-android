@@ -6,31 +6,21 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
-import com.ms.banner.Banner;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.view.fragment.BaseFragment;
 import com.ypcxpt.fish.main.adapter.SceneAdapter;
 import com.ypcxpt.fish.main.contract.EarlyWarningContract;
-import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
-import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
-import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.presenter.EarlyWarningPresenter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
 import butterknife.BindView;
-
-import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherCollections;
-import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherIcon;
 
 public class EarlyWarningFragment extends BaseFragment implements EarlyWarningContract.View {
     @BindView(R.id.rv)

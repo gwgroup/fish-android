@@ -28,11 +28,11 @@ public class IoStatusAll implements Parcelable {
 
     @Override
     public String toString() {
-        Logger.i("NetDevice-->", "{" +
+        Logger.i("IoStatusAll-->", "{" +
                 ", online='" + online + '\'' +
                 '}');
 
-        return "NetDevice{" +
+        return "IoStatusAll{" +
                 ", online='" + online + '\'' +
                 '}';
     }

@@ -4,10 +4,7 @@ import com.ypcxpt.fish.app.repository.DataRepository;
 import com.ypcxpt.fish.app.repository.DataSource;
 import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.core.app.BasePresenter;
-import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.core.net.Fetcher;
-import com.ypcxpt.fish.device.model.NetDevice;
-import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.contract.UserProfileContract;
@@ -15,8 +12,6 @@ import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
 
 import io.reactivex.Flowable;
 
@@ -68,15 +63,6 @@ public class UserProfilePresenter extends BasePresenter<UserProfileContract.View
 
     @Override
     public void getDevices() {
-//        Flowable<List<NetDevice>> source = mDS.getDevices();
-//        fetch(source).onSuccess(devices -> {
-//            Logger.d("CCC", "devices-->" + devices.toString());
-//            Router.build(Path.Main.DEVICE_MANAGER)
-////                    .withParcelable("mDevices", (Parcelable) devices)
-//                    .navigation(getActivity());
-//        }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-//                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-//                .start();
     }
 
     @Override

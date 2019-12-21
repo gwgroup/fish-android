@@ -1,6 +1,6 @@
 package com.ypcxpt.fish.app.repository;
 
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.Cams;
@@ -183,8 +183,4 @@ public interface ApiService {
     /* 使用设备记录一下 */
     @POST("control_device")
     Flowable<Object> getControlDevice(@Header("authorization") String token, @Body HashMap<String, Object> param);
-
-    /* 记录数据日志 */
-    @POST("device_action_log")
-    Flowable<Object> deviceActionLog(@Header("authorization") String token, @Body HashMap<String, Object> param);
 }

@@ -1,27 +1,31 @@
 package com.ypcxpt.fish.main.presenter;
 
+import com.google.gson.Gson;
 import com.ypcxpt.fish.app.repository.DataRepository;
 import com.ypcxpt.fish.app.repository.DataSource;
+import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.core.app.BasePresenter;
-import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.core.net.Fetcher;
-import com.ypcxpt.fish.device.model.NetDevice;
-import com.ypcxpt.fish.device.model.Scenes;
-import com.ypcxpt.fish.library.router.Router;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.model.Cams;
 import com.ypcxpt.fish.main.model.CamsUseable;
+import com.ypcxpt.fish.main.model.CommonInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
-import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+
+import static com.ypcxpt.fish.BaseUrlConstant.BASE_URL;
 
 public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> implements MyDeviceContract.Presenter {
     private DataSource mDS;
@@ -165,17 +169,47 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
      * @param usable_cams 可直接访问的摄像头数组
      */
     @Override
-    public void doCamsPlay(String mac, List<CamsUseable> usable_cams) {
-        Logger.i("推流请求", "mac:" + mac + ",key:" + usable_cams.get(0).key);
-        Flowable<Object> source = mDS.doPlay(mac, usable_cams.get(0).key);
-        silenceFetch(source)
-                .onSuccess(o -> {
-                    Logger.d("CCC", "推流成功");
-                    mView.showVLCVideo(usable_cams);
-                })
-                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
-                .start();
+    public void doCamsPlay(String mac, List<CamsUseable> usable_cams, String playKey, int camsIndex) {
+        Logger.i("推流请求", "mac:" + mac + ",key:" + playKey);
+//        Flowable<Object> source = mDS.doPlay(mac, usable_cams.get(0).key);
+//        silenceFetch(source)
+//                .onSuccess(o -> {
+//                    Logger.d("CCC", "推流成功");
+//                    mView.showVLCVideo(usable_cams);
+//                })
+//                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+//                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+//                .start();
+
+        RequestParams params = new RequestParams(BASE_URL + "api/cams/play");
+        params.addParameter("device_mac", mac);
+        params.addParameter("cam_key", playKey);
+
+        params.addHeader("authorization", AppData.token()); //为当前请求添加一个头
+        params.setAsJsonContent(true);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonInfo commonInfo = gson.fromJson(result, CommonInfo.class);
+                if (commonInfo.getCode() == 1000) {
+                    Logger.e("CCC", "推流成功,key:" + playKey);
+                    mView.showVLCVideo(usable_cams, playKey, camsIndex);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+        });
     }
 
     @Override

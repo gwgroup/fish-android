@@ -4,7 +4,7 @@ import com.ypcxpt.fish.app.repository.DataRepository;
 import com.ypcxpt.fish.app.repository.DataSource;
 import com.ypcxpt.fish.core.app.BasePresenter;
 import com.ypcxpt.fish.core.net.Fetcher;
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.main.adapter.SceneAdapter;
 import com.ypcxpt.fish.main.contract.EarlyWarningContract;

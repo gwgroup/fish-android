@@ -1,6 +1,6 @@
 package com.ypcxpt.fish.main.contract;
 
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.presenter.IPresenter;
 import com.ypcxpt.fish.library.view.IView;
 import com.ypcxpt.fish.main.model.CamsUseable;
@@ -19,7 +19,7 @@ public interface MyDeviceContract {
 
         void displayCamsCount(List<CamsUseable> usable_cams);
 
-        void showVLCVideo(List<CamsUseable> usable_cams);
+        void showVLCVideo(List<CamsUseable> usable_cams, String playKey, int camsIndex);
     }
 
     interface Presenter extends IPresenter {
@@ -42,6 +42,6 @@ public interface MyDeviceContract {
         //获取摄像头配置
         void getCamsConfig(String mac);
         //请求推流
-        void doCamsPlay(String mac, List<CamsUseable> usable_cams);
+        void doCamsPlay(String mac, List<CamsUseable> usable_cams, String playKey, int camsIndex);
     }
 }

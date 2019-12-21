@@ -1,4 +1,4 @@
-package com.ypcxpt.fish.device.model;
+package com.ypcxpt.fish.main.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -29,12 +29,12 @@ public class Scenes implements Parcelable {
 
     @Override
     public String toString() {
-        Logger.i("NetDevice-->", "{" +
+        Logger.i("Scenes-->", "{" +
                 "macAddress='" + macAddress + '\'' +
                 ", scene_name='" + scene_name + '\'' +
                 '}');
 
-        return "NetDevice{" +
+        return "Scenes{" +
                 "macAddress='" + macAddress + '\'' +
                 ", scene_name='" + scene_name + '\'' +
                 '}';

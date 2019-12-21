@@ -1,7 +1,6 @@
 package com.ypcxpt.fish.app.repository;
 
-import com.ypcxpt.fish.device.model.DataHistory;
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.Cams;
@@ -231,10 +230,5 @@ public class DataRepository implements DataSource {
     @Override
     public Flowable<Object> getControlDevice(String mac) {
         return mNetDS.getControlDevice(mac);
-    }
-
-    @Override
-    public Flowable<Object> deviceActionLog(List<DataHistory> historyList) {
-        return mNetDS.deviceActionLog(historyList);
     }
 }

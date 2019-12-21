@@ -1,6 +1,6 @@
 package com.ypcxpt.fish.main.event;
 
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 
 import java.util.List;
 

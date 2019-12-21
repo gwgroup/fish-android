@@ -16,16 +16,6 @@ public class Path {
     }
 
     /**
-     * 设备模块.
-     */
-    public static class Device {
-        public static final String DETAIL = "/device/detail";//home8
-        public static final String SHELL_CHAIR = "/device/shellchair";//贝壳椅设备
-        public static final String T100 = "/device/t100";//T100
-        public static final String HOME6 = "/device/home6";//HOME6
-    }
-
-    /**
      * 主页模块.
      */
     public static class Main {
@@ -36,7 +26,6 @@ public class Path {
 
         public static final String EDIT_PROFILE = "/main/edit_user_profile";
         public static final String DEVICE_MANAGER = "/main/device_manager";
-        public static final String DEVICE_MANAGER_DETAIL = "/main/device_manager_detail";
         public static final String EDIT_FEEDBACK = "/main/edit_feedback";
 
         public static final String COLLECTION = "/main/collection";

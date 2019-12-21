@@ -1,7 +1,6 @@
 package com.ypcxpt.fish.app.repository;
 
-import com.ypcxpt.fish.device.model.DataHistory;
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
 import com.ypcxpt.fish.main.model.Cams;
@@ -142,7 +141,4 @@ public interface DataSource {
 
     /* 使用设备记录一下 */
     Flowable<Object> getControlDevice(String mac);
-
-    /* 记录数据日志 */
-    Flowable<Object> deviceActionLog(List<DataHistory> historyList);
 }

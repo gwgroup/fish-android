@@ -25,12 +25,12 @@ public class WebSocketInfo implements Parcelable {
 
     @Override
     public String toString() {
-        Logger.i("NetDevice-->", "{" +
+        Logger.i("WebSocketInfo-->", "{" +
                 ", type='" + type + '\'' +
                 ", device_mac='" + device_mac + '\'' +
                 '}');
 
-        return "NetDevice{" +
+        return "WebSocketInfo{" +
                 ", type='" + type + '\'' +
                 ", device_mac='" + device_mac + '\'' +
                 '}';

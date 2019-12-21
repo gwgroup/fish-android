@@ -1,8 +1,7 @@
 package com.ypcxpt.fish.app.repository;
 
 import com.ypcxpt.fish.core.app.AppData;
-import com.ypcxpt.fish.device.model.DataHistory;
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.net.NetManager;
 import com.ypcxpt.fish.library.net.request.ParamBuilder;
 import com.ypcxpt.fish.login.model.LoginResult;
@@ -388,13 +387,5 @@ public class NetDataSource implements DataSource {
                 .put("mac", mac)
                 .build();
         return mApiService.getControlDevice(AppData.token(), param);
-    }
-
-    @Override
-    public Flowable<Object> deviceActionLog(List<DataHistory> historyList) {
-        HashMap<String, Object> param = ParamBuilder.newBuilder()
-                .put("logs", historyList)
-                .build();
-        return mApiService.deviceActionLog(AppData.token(), param);
     }
 }

@@ -3,9 +3,8 @@ package com.ypcxpt.fish.login.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.ypcxpt.fish.device.model.NetDevice;
-import com.ypcxpt.fish.device.model.Scenes;
 import com.ypcxpt.fish.library.util.Logger;
+import com.ypcxpt.fish.main.model.Scenes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class UserProfile implements Parcelable {
         // 读取对象需要提供一个类加载器去读取,因为写入的时候写入了类的相关信息
         this.user = in.readParcelable(User.class.getClassLoader());
         this.scenes = new ArrayList<>();//有集合定义的时候一定要初始化
-        in.readList(this.scenes, NetDevice.class.getClassLoader());//这里获取类加载器
+        in.readList(this.scenes, Scenes.class.getClassLoader());//这里获取类加载器
     }
 
     /**

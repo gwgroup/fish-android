@@ -101,7 +101,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_videobg"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp200"
+                    android:layout_height="220dp"
                     android:background="@color/common_EAEAEA"
                     android:orientation="vertical">
 

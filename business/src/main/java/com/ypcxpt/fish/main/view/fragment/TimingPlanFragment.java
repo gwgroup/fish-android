@@ -11,11 +11,10 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
 import com.ypcxpt.fish.core.app.Path;
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.view.fragment.BaseFragment;
 import com.ypcxpt.fish.main.adapter.PlanAdapter;

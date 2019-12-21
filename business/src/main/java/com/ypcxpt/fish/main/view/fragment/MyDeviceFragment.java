@@ -12,8 +12,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +32,7 @@ import com.yanzhenjie.permission.Permission;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
 import com.ypcxpt.fish.core.app.Path;
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
@@ -152,11 +154,22 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             rl_hide01.setVisibility(View.GONE);
             ll_hide02.setVisibility(View.GONE);
             rv_io.setVisibility(View.GONE);
+
+            //取控件当前的布局参数
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) rl_videobg.getLayoutParams();
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            rl_videobg.setLayoutParams(params);
         } else {
 //            getSupportActionBar().show();
             rl_hide01.setVisibility(View.VISIBLE);
             ll_hide02.setVisibility(View.VISIBLE);
             rv_io.setVisibility(View.VISIBLE);
+
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) rl_videobg.getLayoutParams();
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.height = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 220, getResources().getDisplayMetrics()));;
+            rl_videobg.setLayoutParams(params);
         }
     }
 
@@ -166,9 +179,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         if(hidden){
             //隐藏的操作
 //            vlcMediaView.saveState();
+            vlcMediaView.stopVideo(false);
         } else {
+            vlcMediaView.stopVideo(false);
             //显示的操作
-//            vlcMediaView.stopVideo(false);
+            vlcMediaView.onAttached(getActivity());
             /* 获取摄像头配置 */
             mPresenter.getCamsConfig(macAddress);
         }
@@ -365,17 +380,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
                     camsKey = usableCams.get(0).key;
                     profiles = usableCams.get(0).profiles;
-                    String rtsp_url = "";
-                    for (int i = 0; i < profiles.size(); i++) {
-                        if (profiles.get(i).selected) {
-                            rtsp_url = profiles.get(i).rtsp_url;
-                            tv_videoLabel.setText(profiles.get(i).label);
-                        }
-                    }
-                    //播放rtsp_url
-                    Logger.e("播放地址","rtspUrl:" + rtsp_url);
-                    vlcMediaView.setVisibility(View.VISIBLE);
-                    vlcMediaView.playVideo(rtsp_url);
+
+                    /* 请求推流播放rtsp_url */
+                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 0);
                 }
                 break;
             case R.id.tv_cams02:
@@ -390,17 +397,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
                     camsKey = usableCams.get(1).key;
                     profiles = usableCams.get(1).profiles;
-                    String rtsp_url = "";
-                    for (int i = 0; i < profiles.size(); i++) {
-                        if (profiles.get(i).selected) {
-                            rtsp_url = profiles.get(i).rtsp_url;
-                            tv_videoLabel.setText(profiles.get(i).label);
-                        }
-                    }
-                    //播放rtsp_url
-                    Logger.e("播放地址","rtspUrl:" + rtsp_url);
-                    vlcMediaView.setVisibility(View.VISIBLE);
-                    vlcMediaView.playVideo(rtsp_url);
+
+                    /* 请求推流播放rtsp_url */
+                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 1);
                 }
                 break;
             case R.id.tv_cams03:
@@ -415,17 +414,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
                     camsKey = usableCams.get(2).key;
                     profiles = usableCams.get(2).profiles;
-                    String rtsp_url = "";
-                    for (int i = 0; i < profiles.size(); i++) {
-                        if (profiles.get(i).selected) {
-                            rtsp_url = profiles.get(i).rtsp_url;
-                            tv_videoLabel.setText(profiles.get(i).label);
-                        }
-                    }
-                    //播放rtsp_url
-                    Logger.e("播放地址","rtspUrl:" + rtsp_url);
-                    vlcMediaView.setVisibility(View.VISIBLE);
-                    vlcMediaView.playVideo(rtsp_url);
+
+                    /* 请求推流播放rtsp_url */
+                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 2);
                 }
                 break;
         }
@@ -437,6 +428,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         usableCams = usable_cams;
         /* 展示摄像头个数 */
         if (usable_cams.size() > 0) {
+            camsKey = usable_cams.get(0).key;
             rl_videobg.setVisibility(View.VISIBLE);
             rl_weather.setVisibility(View.GONE);
             if (usable_cams.size() == 1) {
@@ -452,24 +444,25 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                 tv_cams02.setVisibility(View.VISIBLE);
                 tv_cams03.setVisibility(View.VISIBLE);
             }
+
+            /* 请求推流 */
+            mPresenter.doCamsPlay(macAddress, usable_cams, usable_cams.get(0).key, 0);
         } else {
             /* 展示天气预报 */
             rl_videobg.setVisibility(View.GONE);
             rl_weather.setVisibility(View.VISIBLE);
         }
-        /* 请求推流 */
-        mPresenter.doCamsPlay(macAddress, usable_cams);
     }
 
     @Override
-    public void showVLCVideo(List<CamsUseable> usable_cams) {
-        camsKey = usable_cams.get(0).key;
+    public void showVLCVideo(List<CamsUseable> usable_cams, String playKey, int camsIndex) {
+        camsKey = playKey;
         //设置背景图片
         Glide.with(getActivity())
-                .load(usable_cams.get(0).preview_image)
+                .load(usable_cams.get(camsIndex).preview_image)
                 .into(iv_videobg);
 
-        profiles = usable_cams.get(0).profiles;
+        profiles = usable_cams.get(camsIndex).profiles;
         String rtsp_url = "";
         for (int i = 0; i < profiles.size(); i++) {
             if (profiles.get(i).selected) {

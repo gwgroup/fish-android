@@ -4,15 +4,12 @@ import com.ypcxpt.fish.app.repository.DataRepository;
 import com.ypcxpt.fish.app.repository.DataSource;
 import com.ypcxpt.fish.core.app.BasePresenter;
 import com.ypcxpt.fish.core.net.Fetcher;
-import com.ypcxpt.fish.device.model.Scenes;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.main.contract.TimingPlanContract;
-import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.model.IoPlan;
 import com.ypcxpt.fish.main.model.IoTrigger;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 

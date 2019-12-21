@@ -25,12 +25,12 @@ public class IoStatus implements Parcelable {
 
     @Override
     public String toString() {
-        Logger.i("NetDevice-->", "{" +
+        Logger.i("IoStatus-->", "{" +
                 "code='" + code + '\'' +
                 ", opened='" + opened + '\'' +
                 '}');
 
-        return "NetDevice{" +
+        return "IoStatus{" +
                 "code='" + code + '\'' +
                 ", opened='" + opened + '\'' +
                 '}';
