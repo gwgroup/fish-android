@@ -66,6 +66,9 @@ public class SceneAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
              * 获取mac下的摄像头配置
              */
             mPresenter.getCamsConfig(item.macAddress);
+
+            /* 获取天气 */
+            mPresenter.getWeather(item.macAddress);
         });
     }
 }

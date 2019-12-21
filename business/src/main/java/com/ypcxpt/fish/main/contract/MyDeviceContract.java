@@ -43,5 +43,8 @@ public interface MyDeviceContract {
         void getCamsConfig(String mac);
         //请求推流
         void doCamsPlay(String mac, List<CamsUseable> usable_cams, String playKey, int camsIndex);
+
+        //获取天气
+        void getWeather(String mac);
     }
 }

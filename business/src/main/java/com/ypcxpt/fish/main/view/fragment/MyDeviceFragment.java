@@ -379,6 +379,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
             /* 获取摄像头配置 */
             mPresenter.getCamsConfig(scenes.get(0).macAddress);
+
+            /* 获取天气 */
+            mPresenter.getWeather(scenes.get(0).macAddress);
         }
     }
 

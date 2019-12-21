@@ -216,6 +216,38 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
     }
 
     @Override
+    public void getWeather(String mac) {
+        RequestParams params = new RequestParams(BASE_URL + "api/device/get_weather");
+        params.addParameter("device_mac", mac);
+
+        params.addHeader("authorization", AppData.token()); //为当前请求添加一个头
+        params.setAsJsonContent(true);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+//                CommonInfo commonInfo = gson.fromJson(result, CommonInfo.class);
+//                if (commonInfo.getCode() == 1000) {
+//                    Logger.e("CCC", "推流成功,key:" + playKey);
+//                    mView.showVLCVideo(usable_cams, playKey, camsIndex);
+//                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+        });
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }
