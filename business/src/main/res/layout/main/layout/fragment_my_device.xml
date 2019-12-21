@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_F1F3F4"
@@ -101,7 +102,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_videobg"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="@dimen/dp200"
                     android:background="@color/common_EAEAEA"
                     android:orientation="vertical">
 
@@ -110,12 +111,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
-                    <com.yyl.videolist.video.VlcMediaView
-                        android:id="@+id/vlcMediaView"
+                    <TextureView
+                        android:id="@+id/texture_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/common_EAEAEA"
+                        android:text="Hello World!"
                         android:visibility="gone" />
+
+<!--                    <com.yyl.videolist.video.VlcMediaView-->
+<!--                        android:id="@+id/vlcMediaView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@color/common_EAEAEA"-->
+<!--                        android:visibility="gone" />-->
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -187,7 +195,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/dp10"
                             android:src="@mipmap/icon_main_vlcbig"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
                     </RelativeLayout>
                 </RelativeLayout>
 

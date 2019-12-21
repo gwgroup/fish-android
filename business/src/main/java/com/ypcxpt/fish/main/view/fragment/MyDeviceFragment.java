@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -32,6 +33,7 @@ import com.yanzhenjie.permission.Permission;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
 import com.ypcxpt.fish.core.app.Path;
+import com.ypcxpt.fish.main.event.OnScreenEvent;
 import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.Logger;
@@ -58,8 +60,8 @@ import com.ypcxpt.fish.main.util.JWebSocketClient;
 import com.ypcxpt.fish.main.util.MainOperationDialog;
 import com.ypcxpt.fish.main.util.ScenesRenameDialog;
 import com.ypcxpt.fish.main.view.activity.CaptureScanActivity;
-import com.yyl.videolist.video.VlcMediaView;
 
+import org.easydarwin.video.EasyPlayerClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.java_websocket.handshake.ServerHandshake;
@@ -99,8 +101,10 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @BindView(R.id.ll_hide02)
     LinearLayout ll_hide02;
 
-    @BindView(R.id.vlcMediaView)
-    VlcMediaView vlcMediaView;
+    @BindView(R.id.texture_view)
+    TextureView texture_view;
+//    @BindView(R.id.vlcMediaView)
+//    VlcMediaView vlcMediaView;
     @BindView(R.id.iv_videobg)
     ImageView iv_videobg;
     @BindView(R.id.tv_cams01)
@@ -146,6 +150,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     /* 每个摄像头中的播放信息(清晰度) */
     private List<CamsUseableProfiles> profiles;
 
+    private EasyPlayerClient easyPlayerClient;
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -160,6 +166,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             params.height = ViewGroup.LayoutParams.MATCH_PARENT;
             rl_videobg.setLayoutParams(params);
+
+            EventBus.getDefault().post(new OnScreenEvent(true));
         } else {
 //            getSupportActionBar().show();
             rl_hide01.setVisibility(View.VISIBLE);
@@ -168,8 +176,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) rl_videobg.getLayoutParams();
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            params.height = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 220, getResources().getDisplayMetrics()));;
+            params.height = getResources().getDimensionPixelSize(R.dimen.dp200);
+//            params.height = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 220, getResources().getDisplayMetrics()));;
             rl_videobg.setLayoutParams(params);
+
+            EventBus.getDefault().post(new OnScreenEvent(false));
         }
     }
 
@@ -178,12 +189,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         super.onHiddenChanged(hidden);
         if(hidden){
             //隐藏的操作
-//            vlcMediaView.saveState();
-            vlcMediaView.stopVideo(false);
+//            vlcMediaView.stopVideo(false);
+
         } else {
-            vlcMediaView.stopVideo(false);
-            //显示的操作
-            vlcMediaView.onAttached(getActivity());
+//            vlcMediaView.stopVideo(false);
+//            //显示的操作
+//            vlcMediaView.onAttached(getActivity());
             /* 获取摄像头配置 */
             mPresenter.getCamsConfig(macAddress);
         }
@@ -204,7 +215,15 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @Override
     protected void initViews() {
-        vlcMediaView.onAttached(getActivity());
+//        vlcMediaView.onAttached(getActivity());
+        /**
+         * 参数说明
+         * 第一个参数为Context,第二个参数为KEY
+         * 第三个参数为的textureView,用来显示视频画面
+         * 第四个参数为一个ResultReceiver,用来接收SDK层发上来的事件通知;
+         * 第五个参数为I420DataCallback,如果不为空,那底层会把YUV数据回调上来.
+         */
+        easyPlayerClient = new EasyPlayerClient(getActivity(), "6D75724D7A4A36526D343241646274646F6B534B512B5A76636D63755A57467A65575268636E64706269356C59584E356347786865575679567778576F502F44346B566863336C4559584A33615735555A57467453584E55614756435A584E30497A49774D546B355A57467A65513D3D", texture_view, null, null);
 
         mAdapter = new SceneAdapter(R.layout.item_scenes, mPresenter, getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -424,6 +443,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @Override
     public void displayCamsCount(List<CamsUseable> usable_cams) {
+        easyPlayerClient.stop();
         Logger.e("展示cams个数","size:" + usable_cams.size());
         usableCams = usable_cams;
         /* 展示摄像头个数 */
@@ -472,8 +492,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         }
         //播放rtsp_url
         Logger.e("播放地址","rtspUrl:" + rtsp_url);
-        vlcMediaView.setVisibility(View.VISIBLE);
-        vlcMediaView.playVideo(rtsp_url);
+//        vlcMediaView.setVisibility(View.VISIBLE);
+//        vlcMediaView.playVideo(rtsp_url);
+
+        texture_view.setVisibility(View.VISIBLE);
+        easyPlayerClient.play(rtsp_url);
     }
 
     @Subscribe

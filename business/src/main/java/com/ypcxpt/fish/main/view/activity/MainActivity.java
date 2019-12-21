@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +35,14 @@ import com.ypcxpt.fish.main.event.OnBluetoothPreparedEvent;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
+import com.ypcxpt.fish.main.event.OnScreenEvent;
 import com.ypcxpt.fish.main.view.fragment.EarlyWarningFragment;
 import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 import com.ypcxpt.fish.main.view.fragment.TimingPlanFragment;
 import com.ypcxpt.fish.main.view.fragment.UserProfileFragment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +58,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.header_line2)
     View line2;
 
+    @BindView(R.id.ll_bottom)
+    LinearLayout ll_bottom;
     @BindView(R.id.iv_bottom_fish)
     ImageView iv_bottom_fish;
     @BindView(R.id.tv_bottom_fish)
@@ -89,6 +94,15 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int layoutResID() {
         return R.layout.activity_main;
+    }
+
+    @Subscribe
+    public void onEventReceived(OnScreenEvent event) {
+        if (event.isFull) {
+            ll_bottom.setVisibility(View.GONE);
+        } else {
+            ll_bottom.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

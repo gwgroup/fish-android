@@ -126,7 +126,6 @@ public abstract class VlcMediaControllerBase implements FullScreenControl, Video
         return smallLayout.isDragging() || fullLayout.isDragging();
     }
 
-
     private boolean isFullState;
 
     @Override
