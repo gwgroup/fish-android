@@ -18,6 +18,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -121,6 +122,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @BindView(R.id.tv_videoLabel)
     TextView tv_videoLabel;
+    @BindView(R.id.iv_big)
+    ImageView iv_big;
 
     @BindView(R.id.ll_temperature)
     LinearLayout ll_temperature;
@@ -151,6 +154,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     private List<CamsUseableProfiles> profiles;
 
     private EasyPlayerClient easyPlayerClient;
+    private boolean isFullScreen = false;
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -177,7 +181,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) rl_videobg.getLayoutParams();
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             params.height = getResources().getDimensionPixelSize(R.dimen.dp200);
-//            params.height = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 220, getResources().getDisplayMetrics()));;
             rl_videobg.setLayoutParams(params);
 
             EventBus.getDefault().post(new OnScreenEvent(false));
@@ -203,6 +206,21 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @Override
     protected int layoutResID() {
         return R.layout.fragment_my_device;
+    }
+
+    @OnClick(R.id.iv_big)
+    public void onScreen() {
+        if (isFullScreen) {
+            isFullScreen = false;
+            //缩小
+            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else {
+            isFullScreen = true;
+            //放大
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }
     }
 
     @Override

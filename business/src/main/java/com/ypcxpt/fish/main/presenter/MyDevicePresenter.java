@@ -205,6 +205,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
 
             @Override
             public void onCancelled(CancelledException cex) {
+                Logger.e("CCC", "推流取消");
             }
 
             @Override
