@@ -354,7 +354,7 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
             @Override
             public List<String> provideThirdData(int firstIndex, int secondIndex) {
                 ArrayList<String> thirdList = new ArrayList<>();
-                for (int i = 1; i < 60; i++) {
+                for (int i = 0; i < 60; i++) {
                     String str = DateUtils.fillZero(i);
                     thirdList.add(str);
                 }
@@ -366,7 +366,7 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
         picker.setCycleDisable(true);
         picker.setUseWeight(true);
         picker.setLabel("小时", "分钟", "秒");
-        picker.setSelectedIndex(0, 0, 0);
+        picker.setSelectedIndex(0, 1, 0);
         //picker.setSelectedItem("12", "9");
         picker.setContentPadding(10, 0);
         picker.setOnStringPickListener(new LinkagePicker.OnStringPickListener() {
