@@ -138,7 +138,7 @@ public class EditUserProfileActivity extends BaseActivity implements EditUserPro
         String avatar = userProfile.user.avatar;
         /* 如果没有设置头像，则不处理，上面已经处理过 */
         if (StringUtils.isTrimEmpty(avatar)) {
-            iv_avatarDisplay.setImageResource(R.mipmap.ic_default_avatar_male);
+            iv_avatarDisplay.setImageResource(R.mipmap.ic_default_avatar);
             return;
         }
         B64PhotoHelper.load(this, avatar, iv_avatarDisplay);

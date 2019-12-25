@@ -147,6 +147,13 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     private int REQUEST_CODE_SCAN = 111;
 
+    /* 场景数组 */
+    private List<Scenes> mScenes;
+    /* 当前场景mac */
+    public static String macAddress;
+    /* 当前场景名称 */
+    public static String sceneName;
+
     /* 可用的摄像头 */
     private List<CamsUseable> usableCams;
     private String camsKey;
@@ -160,6 +167,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_USER) {
+            /* 全屏 */
 //            getSupportActionBar().hide();
             rl_hide01.setVisibility(View.GONE);
             ll_hide02.setVisibility(View.GONE);
@@ -173,6 +181,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
             EventBus.getDefault().post(new OnScreenEvent(true));
         } else {
+            /* 竖屏 */
 //            getSupportActionBar().show();
             rl_hide01.setVisibility(View.VISIBLE);
             ll_hide02.setVisibility(View.VISIBLE);
@@ -212,12 +221,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     public void onScreen() {
         if (isFullScreen) {
             isFullScreen = false;
-            //缩小
+            //缩小竖屏
             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else {
             isFullScreen = true;
-            //放大
+            //放大全屏
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
@@ -358,9 +367,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         }
     }
 
-    private List<Scenes> mScenes;
-    public static String macAddress;//场景mac
-    public static String sceneName;//场景名称
+    /**
+     * @description 展示场景
+     * @param scenes 场景数组
+     * @author xulailing
+     * @date 2019/12/25 0025 11:56
+     **/
     @Override
     public void showScenes(List<Scenes> scenes) {
         Logger.e("CCC", "showScenes" + scenes);
@@ -422,7 +434,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     profiles = usableCams.get(0).profiles;
 
                     /* 请求推流播放rtsp_url */
-                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 0);
+//                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 0);
                 }
                 break;
             case R.id.tv_cams02:
@@ -439,7 +451,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     profiles = usableCams.get(1).profiles;
 
                     /* 请求推流播放rtsp_url */
-                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 1);
+//                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 1);
                 }
                 break;
             case R.id.tv_cams03:
@@ -456,7 +468,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     profiles = usableCams.get(2).profiles;
 
                     /* 请求推流播放rtsp_url */
-                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 2);
+//                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 2);
                 }
                 break;
         }
@@ -486,8 +498,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                 tv_cams03.setVisibility(View.VISIBLE);
             }
 
+            Glide.with(getActivity())
+                    .load(usable_cams.get(0).preview_image)
+                    .into(iv_videobg);
+
             /* 请求推流 */
-            mPresenter.doCamsPlay(macAddress, usable_cams, usable_cams.get(0).key, 0);
+//            mPresenter.doCamsPlay(macAddress, usable_cams, usable_cams.get(0).key, 0);
         } else {
             /* 展示天气预报 */
             rl_videobg.setVisibility(View.GONE);

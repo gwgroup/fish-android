@@ -18,7 +18,7 @@
         android:layout_height="@dimen/dp43"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp11"
-        android:src="@mipmap/ic_detected_device_new" />
+        android:src="@mipmap/ic_default_avatar" />
 
     <TextView
         android:id="@+id/tv_type"

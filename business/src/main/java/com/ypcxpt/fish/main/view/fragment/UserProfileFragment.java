@@ -238,7 +238,7 @@ public class UserProfileFragment extends BaseFragment implements UserProfileCont
                 .setContentTitle(title)
                 .setContentText(content)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_detected_device_new)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setAutoCancel(true)
                 .setContentIntent(getContentIntent(id, title, content))

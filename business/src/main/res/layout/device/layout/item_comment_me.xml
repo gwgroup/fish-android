@@ -20,7 +20,7 @@
             android:layout_width="@dimen/dp20"
             android:layout_height="@dimen/dp20"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_default_avatar_male"
+            android:src="@mipmap/ic_default_avatar"
             app:civ_border_color="#9b5C768D"
             app:civ_border_width="@dimen/dp1" />
 

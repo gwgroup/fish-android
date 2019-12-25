@@ -72,7 +72,7 @@
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_toLeftOf="@+id/iv_arrowAvatar"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_default_avatar_male"
+                    android:src="@mipmap/ic_default_avatar"
                     app:civ_border_color="#9bffffff"
                     app:civ_border_width="@dimen/dp1" />
 
