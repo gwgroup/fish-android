@@ -1,17 +1,22 @@
 package com.ypcxpt.fish.main.view.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.ResultReceiver;
 import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.TextureView;
@@ -21,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,7 +125,13 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     RelativeLayout rl_videobg;
     @BindView(R.id.rl_weather)
     RelativeLayout rl_weather;
+    @BindView(R.id.progress)
+    ProgressBar progress;
+    @BindView(R.id.iv_play)
+    ImageView iv_play;
 
+    @BindView(R.id.iv_enableAudio)
+    ImageView iv_enableAudio;
     @BindView(R.id.tv_videoLabel)
     TextView tv_videoLabel;
     @BindView(R.id.iv_big)
@@ -156,11 +168,15 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     /* 可用的摄像头 */
     private List<CamsUseable> usableCams;
+    /* 摄像头唯一标识 */
     private String camsKey;
+    /* 摄像头唯一标识下标 */
+    private int camsIndex;
     /* 每个摄像头中的播放信息(清晰度) */
     private List<CamsUseableProfiles> profiles;
 
     private EasyPlayerClient easyPlayerClient;
+    private ResultReceiver mResultReceiver;
     private boolean isFullScreen = false;
 
     @Override
@@ -212,11 +228,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         }
     }
 
-    @Override
-    protected int layoutResID() {
-        return R.layout.fragment_my_device;
-    }
-
     @OnClick(R.id.iv_big)
     public void onScreen() {
         if (isFullScreen) {
@@ -232,6 +243,39 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         }
     }
 
+    @OnClick({R.id.iv_play, R.id.iv_videobg})
+    public void videoStart(View view) {
+        switch (view.getId()) {
+            case R.id.iv_play:
+                /* 请求推流 */
+                mPresenter.doCamsPlay(macAddress, usableCams, camsKey, camsIndex);
+                iv_play.setVisibility(View.GONE);
+                progress.setVisibility(View.VISIBLE);
+                break;
+            case R.id.iv_videobg:
+                if (easyPlayerClient != null) {
+                    texture_view.setVisibility(View.GONE);
+                    easyPlayerClient.stop();
+                }
+                iv_play.setVisibility(View.VISIBLE);
+                progress.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    @OnClick(R.id.iv_enableAudio)
+    public void onEnableAudio() {
+        if (easyPlayerClient != null) {
+            easyPlayerClient.setAudioEnable(!easyPlayerClient.isAudioEnable());
+            iv_enableAudio.setEnabled(!easyPlayerClient.isAudioEnable());
+        }
+    }
+
+    @Override
+    protected int layoutResID() {
+        return R.layout.fragment_my_device;
+    }
+
     @Override
     protected void initData() {
         mPresenter = new MyDevicePresenter();
@@ -243,14 +287,55 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @Override
     protected void initViews() {
 //        vlcMediaView.onAttached(getActivity());
-        /**
-         * 参数说明
-         * 第一个参数为Context,第二个参数为KEY
-         * 第三个参数为的textureView,用来显示视频画面
-         * 第四个参数为一个ResultReceiver,用来接收SDK层发上来的事件通知;
-         * 第五个参数为I420DataCallback,如果不为空,那底层会把YUV数据回调上来.
-         */
-        easyPlayerClient = new EasyPlayerClient(getActivity(), "6D75724D7A4A36526D343241646274646F6B534B512B5A76636D63755A57467A65575268636E64706269356C59584E356347786865575679567778576F502F44346B566863336C4559584A33615735555A57467453584E55614756435A584E30497A49774D546B355A57467A65513D3D", texture_view, null, null);
+
+        mResultReceiver = new ResultReceiver(new Handler()) {
+            @Override
+            protected void onReceiveResult(int resultCode, Bundle resultData) {
+                super.onReceiveResult(resultCode, resultData);
+
+                Activity activity = getActivity();
+
+                if (activity == null)
+                    return;
+
+                if (resultCode == EasyPlayerClient.RESULT_VIDEO_DISPLAYED) {
+                    if (resultData != null) {
+                        int videoDecodeType = resultData.getInt(EasyPlayerClient.KEY_VIDEO_DECODE_TYPE, 0);
+                        Logger.i("ResultReceiver", "视频解码方式:" + (videoDecodeType == 0 ? "软解码" : "硬解码"));
+                    }
+
+                    progress.setVisibility(View.GONE);
+                } else if (resultCode == EasyPlayerClient.RESULT_VIDEO_SIZE) {
+//                    mWidth = resultData.getInt(EasyPlayerClient.EXTRA_VIDEO_WIDTH);
+//                    mHeight = resultData.getInt(EasyPlayerClient.EXTRA_VIDEO_HEIGHT);
+
+                    progress.setVisibility(View.GONE);
+                } else if (resultCode == EasyPlayerClient.RESULT_TIMEOUT) {
+                    new AlertDialog.Builder(getActivity()).setMessage("试播时间到").setTitle("SORRY").setPositiveButton(android.R.string.ok, null).show();
+                } else if (resultCode == EasyPlayerClient.RESULT_UNSUPPORTED_AUDIO) {
+                    new AlertDialog.Builder(getActivity()).setMessage("音频格式不支持").setTitle("SORRY").setPositiveButton(android.R.string.ok, null).show();
+                } else if (resultCode == EasyPlayerClient.RESULT_UNSUPPORTED_VIDEO) {
+                    new AlertDialog.Builder(getActivity()).setMessage("视频格式不支持").setTitle("SORRY").setPositiveButton(android.R.string.ok, null).show();
+                } else if (resultCode == EasyPlayerClient.RESULT_EVENT) {
+                    int errorCode = resultData.getInt("errorcode");
+//                    if (errorCode != 0) {
+//                        stopRending();
+//                    }
+
+//                    if (activity instanceof PlayActivity) {
+//                        int state = resultData.getInt("state");
+//                        String msg = resultData.getString("event-msg");
+//                        ((PlayActivity) activity).onEvent(PlayFragment.this, state, errorCode, msg);
+//                    }
+                } else if (resultCode == EasyPlayerClient.RESULT_RECORD_BEGIN) {
+//                    if (activity instanceof PlayActivity)
+//                        ((PlayActivity)activity).onRecordState(1);
+                } else if (resultCode == EasyPlayerClient.RESULT_RECORD_END) {
+//                    if (activity instanceof PlayActivity)
+//                        ((PlayActivity)activity).onRecordState(-1);
+                }
+            }
+        };
 
         mAdapter = new SceneAdapter(R.layout.item_scenes, mPresenter, getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -430,11 +515,16 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                             .load(usableCams.get(0).preview_image)
                             .into(iv_videobg);
 
+                    camsIndex = 0;
                     camsKey = usableCams.get(0).key;
                     profiles = usableCams.get(0).profiles;
 
-                    /* 请求推流播放rtsp_url */
-//                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 0);
+                    if (easyPlayerClient != null) {
+                        texture_view.setVisibility(View.GONE);
+                        easyPlayerClient.stop();
+                    }
+                    iv_play.setVisibility(View.VISIBLE);
+                    progress.setVisibility(View.GONE);
                 }
                 break;
             case R.id.tv_cams02:
@@ -447,11 +537,16 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                             .load(usableCams.get(1).preview_image)
                             .into(iv_videobg);
 
+                    camsIndex = 1;
                     camsKey = usableCams.get(1).key;
                     profiles = usableCams.get(1).profiles;
 
-                    /* 请求推流播放rtsp_url */
-//                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 1);
+                    if (easyPlayerClient != null) {
+                        texture_view.setVisibility(View.GONE);
+                        easyPlayerClient.stop();
+                    }
+                    iv_play.setVisibility(View.VISIBLE);
+                    progress.setVisibility(View.GONE);
                 }
                 break;
             case R.id.tv_cams03:
@@ -464,11 +559,16 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                             .load(usableCams.get(2).preview_image)
                             .into(iv_videobg);
 
+                    camsIndex = 2;
                     camsKey = usableCams.get(2).key;
                     profiles = usableCams.get(2).profiles;
 
-                    /* 请求推流播放rtsp_url */
-//                    mPresenter.doCamsPlay(macAddress, usableCams, camsKey, 2);
+                    if (easyPlayerClient != null) {
+                        texture_view.setVisibility(View.GONE);
+                        easyPlayerClient.stop();
+                    }
+                    iv_play.setVisibility(View.VISIBLE);
+                    progress.setVisibility(View.GONE);
                 }
                 break;
         }
@@ -476,11 +576,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @Override
     public void displayCamsCount(List<CamsUseable> usable_cams) {
-        easyPlayerClient.stop();
         Logger.e("展示cams个数","size:" + usable_cams.size());
         usableCams = usable_cams;
         /* 展示摄像头个数 */
         if (usable_cams.size() > 0) {
+            camsIndex = 0;
             camsKey = usable_cams.get(0).key;
             rl_videobg.setVisibility(View.VISIBLE);
             rl_weather.setVisibility(View.GONE);
@@ -533,7 +633,18 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 //        vlcMediaView.playVideo(rtsp_url);
 
         texture_view.setVisibility(View.VISIBLE);
+        /**
+         * 参数说明
+         * 第一个参数为Context,第二个参数为KEY
+         * 第三个参数为的textureView,用来显示视频画面
+         * 第四个参数为一个ResultReceiver,用来接收SDK层发上来的事件通知;
+         * 第五个参数为I420DataCallback,如果不为空,那底层会把YUV数据回调上来.
+         */
+        easyPlayerClient = new EasyPlayerClient(getActivity(), "6D75724D7A4A36526D343241646274646F6B534B512B5A76636D63755A57467A65575268636E64706269356C59584E356347786865575679567778576F502F44346B566863336C4559584A33615735555A57467453584E55614756435A584E30497A49774D546B355A57467A65513D3D", texture_view, mResultReceiver, null);
+        progress.setVisibility(View.VISIBLE);
         easyPlayerClient.play(rtsp_url);
+        easyPlayerClient.setAudioEnable(false);
+        iv_enableAudio.setEnabled(false);
     }
 
     @Subscribe

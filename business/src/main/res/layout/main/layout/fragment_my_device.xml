@@ -60,11 +60,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
+                    <ImageView
+                        android:id="@+id/iv_play"
+                        android:layout_width="@dimen/dp50"
+                        android:layout_height="@dimen/dp50"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/icon_main_start" />
+
                     <TextureView
                         android:id="@+id/texture_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Hello World!"
+                        android:text=""
+                        android:visibility="gone" />
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:visibility="gone" />
 
 <!--                    <com.yyl.videolist.video.VlcMediaView-->
@@ -76,9 +90,9 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="@dimen/dp40"
                         android:layout_alignParentBottom="true"
-                        android:background="#4D000000">
+                        android:background="#1E000000">
 
                         <TextView
                             android:id="@+id/tv_cams01"
@@ -145,6 +159,17 @@
                             android:layout_marginRight="@dimen/dp10"
                             android:src="@mipmap/icon_main_vlcbig"
                             android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/iv_enableAudio"
+                            android:layout_width="@dimen/dp35"
+                            android:layout_height="@dimen/dp35"
+                            android:padding="@dimen/dp8"
+                            android:layout_toLeftOf="@+id/tv_videoLabel"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/dp15"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/live_video_bar_btn_audio" />
                     </RelativeLayout>
                 </RelativeLayout>
 
