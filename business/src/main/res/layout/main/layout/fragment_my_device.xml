@@ -58,7 +58,8 @@
                     <ImageView
                         android:id="@+id/iv_videobg"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
 
                     <ImageView
                         android:id="@+id/iv_play"
@@ -139,14 +140,14 @@
 
                         <TextView
                             android:id="@+id/tv_videoLabel"
-                            android:layout_width="50dp"
-                            android:layout_height="35dp"
+                            android:layout_width="@dimen/dp50"
+                            android:layout_height="@dimen/dp30"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/dp56"
                             android:background="@drawable/bg_line_blue"
                             android:gravity="center"
-                            android:text="标清"
+                            android:text="流畅"
                             android:textColor="@color/main_color_blue"
                             android:textSize="@dimen/sp13" />
 
@@ -169,7 +170,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/dp15"
                             android:background="@android:color/transparent"
-                            android:src="@drawable/live_video_bar_btn_audio" />
+                            android:src="@mipmap/icon_main_voice_u" />
                     </RelativeLayout>
                 </RelativeLayout>
 

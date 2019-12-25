@@ -1,1 +1,1 @@
-include ':business', ':common', ':resource', ':core', ':vlcplayer', ':library'
+include ':business', ':common', ':resource', ':core', ':library'

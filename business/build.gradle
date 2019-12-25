@@ -176,6 +176,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
-//    implementation project(':vlcplayer')
+    //RTSP EASYPLAYER 库
     implementation project(':library')
 }

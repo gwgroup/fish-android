@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +29,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -267,7 +271,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     public void onEnableAudio() {
         if (easyPlayerClient != null) {
             easyPlayerClient.setAudioEnable(!easyPlayerClient.isAudioEnable());
-            iv_enableAudio.setEnabled(!easyPlayerClient.isAudioEnable());
+            if (easyPlayerClient.isAudioEnable()) {
+                iv_enableAudio.setImageResource(R.mipmap.icon_main_voice_ed);
+            } else {
+                iv_enableAudio.setImageResource(R.mipmap.icon_main_voice_u);
+            }
         }
     }
 
@@ -305,11 +313,25 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                     }
 
                     progress.setVisibility(View.GONE);
+                    if (easyPlayerClient != null) {
+                        if (easyPlayerClient.isAudioEnable()) {
+                            iv_enableAudio.setImageResource(R.mipmap.icon_main_voice_ed);
+                        } else {
+                            iv_enableAudio.setImageResource(R.mipmap.icon_main_voice_u);
+                        }
+                    }
                 } else if (resultCode == EasyPlayerClient.RESULT_VIDEO_SIZE) {
 //                    mWidth = resultData.getInt(EasyPlayerClient.EXTRA_VIDEO_WIDTH);
 //                    mHeight = resultData.getInt(EasyPlayerClient.EXTRA_VIDEO_HEIGHT);
 
                     progress.setVisibility(View.GONE);
+                    if (easyPlayerClient != null) {
+                        if (easyPlayerClient.isAudioEnable()) {
+                            iv_enableAudio.setImageResource(R.mipmap.icon_main_voice_ed);
+                        } else {
+                            iv_enableAudio.setImageResource(R.mipmap.icon_main_voice_u);
+                        }
+                    }
                 } else if (resultCode == EasyPlayerClient.RESULT_TIMEOUT) {
                     new AlertDialog.Builder(getActivity()).setMessage("试播时间到").setTitle("SORRY").setPositiveButton(android.R.string.ok, null).show();
                 } else if (resultCode == EasyPlayerClient.RESULT_UNSUPPORTED_AUDIO) {
@@ -496,6 +518,46 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);
     }
 
+    @OnClick(R.id.tv_videoLabel)
+    public void onSelectLabel() {
+        PopupWindow popupWindow = new PopupWindow();
+
+        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setContentView(View.inflate(getActivity(), R.layout.layout_popup, null));
+
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(false);
+
+//        popupWindow.setAnimationStyle(R.style.anim_menu_bottombar);
+
+//        popupWindow.showAtLocation(rl_videobg, Gravity.BOTTOM, 0, getResources().getDimensionPixelSize(R.dimen.dp40));
+//        popupWindow.showAsDropDown(tv_videoLabel, 0, 0);
+
+        int[] location = new int[2];
+        tv_videoLabel.getLocationOnScreen(location);
+        popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp70));
+//        showPopUp(tv_videoLabel);
+    }
+
+    private void showPopUp(View v) {
+        LinearLayout layout = new LinearLayout(getActivity());
+        layout.setBackgroundColor(Color.GRAY);
+        TextView tv = new TextView(getActivity());
+        tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        tv.setText("I'm a pop -----------------------------!");
+        tv.setTextColor(Color.WHITE);
+        layout.addView(tv);
+        PopupWindow popupWindow = new PopupWindow(layout, 120, 120);
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] - popupWindow.getHeight());
+    }
+
     private void setCamsBgDefault() {
         tv_cams01.setBackgroundResource(R.mipmap.icon_cams_off);
         tv_cams02.setBackgroundResource(R.mipmap.icon_cams_off);
@@ -576,6 +638,13 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @Override
     public void displayCamsCount(List<CamsUseable> usable_cams) {
+        if (easyPlayerClient != null) {
+            texture_view.setVisibility(View.GONE);
+            easyPlayerClient.stop();
+        }
+        iv_play.setVisibility(View.VISIBLE);
+        progress.setVisibility(View.GONE);
+        iv_enableAudio.setImageResource(R.mipmap.icon_main_voice_u);
         Logger.e("展示cams个数","size:" + usable_cams.size());
         usableCams = usable_cams;
         /* 展示摄像头个数 */
@@ -644,7 +713,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         progress.setVisibility(View.VISIBLE);
         easyPlayerClient.play(rtsp_url);
         easyPlayerClient.setAudioEnable(false);
-        iv_enableAudio.setEnabled(false);
     }
 
     @Subscribe
