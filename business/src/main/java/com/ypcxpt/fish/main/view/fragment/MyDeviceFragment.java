@@ -546,7 +546,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             ll_label03.setVisibility(View.GONE);
             tv_label01.setText(profiles.get(0).label);
             tv_label02.setText(profiles.get(1).label);
-            popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp70));
+            popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp75));
 
             ll_label01.setOnClickListener(v -> {
 
@@ -561,7 +561,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             tv_label01.setText(profiles.get(0).label);
             tv_label02.setText(profiles.get(1).label);
             tv_label03.setText(profiles.get(2).label);
-            popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp105));
+            popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp110));
 
             ll_label01.setOnClickListener(v -> {
 

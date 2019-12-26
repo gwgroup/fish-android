@@ -16,7 +16,7 @@
             android:id="@+id/tv_label01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sp13"
+            android:textSize="@dimen/sp12"
             android:textColor="@color/main_color_new"
             android:text="流畅"/>
     </LinearLayout>
@@ -33,7 +33,7 @@
             android:id="@+id/tv_label02"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="@dimen/sp13"
+            android:textSize="@dimen/sp12"
             android:gravity="center"
             android:textColor="@color/main_color_new"
             android:text="标清"/>
