@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -19,8 +17,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.TextureView;
 import android.view.View;
@@ -44,8 +40,6 @@ import com.yanzhenjie.permission.Permission;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
 import com.ypcxpt.fish.core.app.Path;
-import com.ypcxpt.fish.main.event.OnScreenEvent;
-import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
@@ -57,12 +51,14 @@ import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnSceneInfoEvent;
+import com.ypcxpt.fish.main.event.OnScreenEvent;
 import com.ypcxpt.fish.main.model.CamsUseable;
 import com.ypcxpt.fish.main.model.CamsUseableProfiles;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoInfoCurrent;
 import com.ypcxpt.fish.main.model.IoStatus;
 import com.ypcxpt.fish.main.model.IoStatusAll;
+import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.model.WebSocketInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
@@ -520,42 +516,63 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @OnClick(R.id.tv_videoLabel)
     public void onSelectLabel() {
+        if (profiles == null || profiles.size() < 2) {
+            return;
+        }
+
         PopupWindow popupWindow = new PopupWindow();
 
-        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setWidth(getResources().getDimensionPixelSize(R.dimen.dp50));
         popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setContentView(View.inflate(getActivity(), R.layout.layout_popup, null));
+        View view = View.inflate(getActivity(), R.layout.layout_popup, null);
+        LinearLayout ll_label01 = view.findViewById(R.id.ll_label01);
+        LinearLayout ll_label02 = view.findViewById(R.id.ll_label02);
+        LinearLayout ll_label03 = view.findViewById(R.id.ll_label03);
+        TextView tv_label01 = view.findViewById(R.id.tv_label01);
+        TextView tv_label02 = view.findViewById(R.id.tv_label02);
+        TextView tv_label03 = view.findViewById(R.id.tv_label03);
+        popupWindow.setContentView(view);
 
         popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(false);
-
-//        popupWindow.setAnimationStyle(R.style.anim_menu_bottombar);
-
-//        popupWindow.showAtLocation(rl_videobg, Gravity.BOTTOM, 0, getResources().getDimensionPixelSize(R.dimen.dp40));
-//        popupWindow.showAsDropDown(tv_videoLabel, 0, 0);
+        popupWindow.setAnimationStyle(R.style.popwin_anim_style);
 
         int[] location = new int[2];
         tv_videoLabel.getLocationOnScreen(location);
-        popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp70));
-//        showPopUp(tv_videoLabel);
-    }
+        if (profiles.size() == 2) {
+            ll_label01.setVisibility(View.VISIBLE);
+            ll_label02.setVisibility(View.VISIBLE);
+            ll_label03.setVisibility(View.GONE);
+            tv_label01.setText(profiles.get(0).label);
+            tv_label02.setText(profiles.get(1).label);
+            popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp70));
 
-    private void showPopUp(View v) {
-        LinearLayout layout = new LinearLayout(getActivity());
-        layout.setBackgroundColor(Color.GRAY);
-        TextView tv = new TextView(getActivity());
-        tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        tv.setText("I'm a pop -----------------------------!");
-        tv.setTextColor(Color.WHITE);
-        layout.addView(tv);
-        PopupWindow popupWindow = new PopupWindow(layout, 120, 120);
-        popupWindow.setFocusable(true);
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-        int[] location = new int[2];
-        v.getLocationOnScreen(location);
-        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] - popupWindow.getHeight());
+            ll_label01.setOnClickListener(v -> {
+
+            });
+            ll_label02.setOnClickListener(v -> {
+
+            });
+        } else if (profiles.size() == 3) {
+            ll_label01.setVisibility(View.VISIBLE);
+            ll_label02.setVisibility(View.VISIBLE);
+            ll_label03.setVisibility(View.VISIBLE);
+            tv_label01.setText(profiles.get(0).label);
+            tv_label02.setText(profiles.get(1).label);
+            tv_label03.setText(profiles.get(2).label);
+            popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp105));
+
+            ll_label01.setOnClickListener(v -> {
+
+            });
+            ll_label02.setOnClickListener(v -> {
+
+            });
+            ll_label03.setOnClickListener(v -> {
+
+            });
+        }
     }
 
     private void setCamsBgDefault() {
@@ -651,6 +668,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         if (usable_cams.size() > 0) {
             camsIndex = 0;
             camsKey = usable_cams.get(0).key;
+            profiles = usable_cams.get(0).profiles;
             rl_videobg.setVisibility(View.VISIBLE);
             rl_weather.setVisibility(View.GONE);
             if (usable_cams.size() == 1) {

@@ -2,16 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dp60"
     android:layout_height="wrap_content"
-    android:background="@color/common_E3E5E6"
+    android:background="#1E000000"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_label01"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp35"
         android:orientation="vertical"
         android:gravity="center">
 
         <TextView
+            android:id="@+id/tv_label01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp13"
@@ -19,19 +21,39 @@
             android:text="流畅"/>
     </LinearLayout>
 
-    <View style="@style/divider_05" />
-
     <LinearLayout
+        android:id="@+id/ll_label02"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp35"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
+
+        <View style="@style/divider_05" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_label02"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textSize="@dimen/sp13"
+            android:gravity="center"
             android:textColor="@color/main_color_new"
             android:text="标清"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_label03"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp35"
+        android:orientation="vertical">
+
+        <View style="@style/divider_05" />
+
+        <TextView
+            android:id="@+id/tv_label03"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/sp13"
+            android:gravity="center"
+            android:textColor="@color/main_color_new"
+            android:text="高清"/>
     </LinearLayout>
 </LinearLayout>
