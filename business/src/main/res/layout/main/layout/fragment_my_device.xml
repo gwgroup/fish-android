@@ -178,14 +178,60 @@
                     android:id="@+id/rl_weather"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp200"
-                    android:background="@color/main_color_new"
+                    android:background="#97D4FF"
                     android:visibility="gone">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_top01"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp30"
+                        android:background="#76AEFF"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp10"
+                        android:paddingRight="@dimen/dp10">
+
+                        <ImageView
+                            android:id="@+id/iv_location"
+                            android:layout_width="@dimen/dp13"
+                            android:layout_height="@dimen/dp13"
+                            android:src="@mipmap/icon_main_location" />
+
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_toRightOf="@+id/iv_location"
+                            android:text="中国"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp12" />
+
+                        <TextView
+                            android:id="@+id/tv_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp25"
+                            android:layout_toRightOf="@+id/tv_location"
+                            android:text="2019-12-26 星期五"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp12" />
+
+                        <TextView
+                            android:id="@+id/tv_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="暂无摄像头"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp12" />
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_main_temp"
                         style="@style/Layout_Wrap_Wrap"
-                        android:layout_marginLeft="@dimen/dp16"
-                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_below="@+id/rl_top01"
+                        android:layout_marginTop="@dimen/dp16"
+                        android:layout_marginLeft="@dimen/dp30"
                         android:orientation="horizontal">
 
                         <TextView
@@ -202,6 +248,7 @@
                             android:layout_width="@dimen/dp30"
                             android:layout_height="@dimen/dp30"
                             android:layout_gravity="bottom"
+                            android:layout_marginLeft="@dimen/dp5"
                             android:layout_marginRight="@dimen/dp5"
                             android:scaleType="fitXY"
                             tools:src="@mipmap/forecast_icon_sunnny" />
@@ -212,20 +259,68 @@
                             android:layout_gravity="bottom"
                             android:layout_marginBottom="@dimen/dp3"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/sp13"
+                            android:textSize="@dimen/sp14"
                             tools:text="多云" />
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_secondary_weather_collection"
                         style="@style/Layout_Wrap_Wrap"
-                        android:layout_marginLeft="@dimen/dp16"
                         android:layout_below="@+id/ll_main_temp"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/dp30"
                         android:layout_marginTop="@dimen/dp5"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/sp14"
                         tools:text="23°~29°  西南风 三级" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp35"
+                        android:background="#3575CD"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp10"
+                        android:paddingRight="@dimen/dp10">
+
+                        <TextView
+                            android:id="@+id/tv_tomorrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:text="明日天气："
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp12" />
+
+                        <ImageView
+                            android:id="@+id/iv_weather2"
+                            android:layout_width="@dimen/dp15"
+                            android:layout_height="@dimen/dp15"
+                            android:layout_toRightOf="@+id/tv_tomorrow"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:scaleType="fitXY"
+                            tools:src="@mipmap/forecast_icon_sunnny" />
+
+                        <TextView
+                            android:id="@+id/tv_weather_info2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:layout_toRightOf="@+id/iv_weather2"
+                            android:text="晴"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp12" />
+
+                        <TextView
+                            android:id="@+id/tv_secondary_weather_collection2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp20"
+                            android:layout_toRightOf="@+id/tv_weather_info2"
+                            android:text="23°~29°  西南风 三级"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp12" />
+                    </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
 

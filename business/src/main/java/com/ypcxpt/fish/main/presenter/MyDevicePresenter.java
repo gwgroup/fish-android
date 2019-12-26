@@ -15,6 +15,7 @@ import com.ypcxpt.fish.main.model.Cams;
 import com.ypcxpt.fish.main.model.CamsUseable;
 import com.ypcxpt.fish.main.model.CommonInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -255,11 +256,11 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-//                CommonInfo commonInfo = gson.fromJson(result, CommonInfo.class);
-//                if (commonInfo.getCode() == 1000) {
-//                    Logger.e("CCC", "推流成功,key:" + playKey);
-//                    mView.showVLCVideo(usable_cams, playKey, camsIndex);
-//                }
+                WeatherInfo weatherInfo = gson.fromJson(result, WeatherInfo.class);
+                if (weatherInfo.getCode() == 1000) {
+                    Logger.e("CCC", "获取到天气" + result);
+                    mView.onGetWhetherResult(weatherInfo);
+                }
             }
 
             @Override

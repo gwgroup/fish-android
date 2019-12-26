@@ -62,7 +62,6 @@ import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.model.WebSocketInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
-import com.ypcxpt.fish.main.presenter.WeatherPresenter;
 import com.ypcxpt.fish.main.util.CamsAuthDialog;
 import com.ypcxpt.fish.main.util.JWebSocketClient;
 import com.ypcxpt.fish.main.util.MainOperationDialog;
@@ -89,14 +88,26 @@ import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherIcon;
 public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.View {
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.iv_weather)
-    ImageView ivWeather;
+
+    @BindView(R.id.tv_location)
+    TextView tv_location;
+    @BindView(R.id.tv_date)
+    TextView tv_date;
     @BindView(R.id.tv_curr_temp)
-    TextView tvTemp;
+    TextView tv_curr_temp;
+    @BindView(R.id.iv_weather)
+    ImageView iv_weather;
     @BindView(R.id.tv_weather_info)
-    TextView tvWeather;
+    TextView tv_weather_info;
     @BindView(R.id.tv_secondary_weather_collection)
-    TextView tvLeftWeatherInfo;
+    TextView tv_secondary_weather_collection;
+
+    @BindView(R.id.iv_weather2)
+    ImageView iv_weather2;
+    @BindView(R.id.tv_weather_info2)
+    TextView tv_weather_info2;
+    @BindView(R.id.tv_secondary_weather_collection2)
+    TextView tv_secondary_weather_collection2;
 
     @BindView(R.id.rv_io)
     RecyclerView rv_io;
@@ -153,8 +164,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     private MyDeviceContract.Presenter mPresenter;
 
-    private WeatherPresenter mWeatherPresenter;
-
     private SceneAdapter mAdapter;
     private IOAdapter ioAdapter;
 
@@ -187,7 +196,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_USER) {
             /* 全屏 */
-//            getSupportActionBar().hide();
             rl_hide01.setVisibility(View.GONE);
             ll_hide02.setVisibility(View.GONE);
             rv_io.setVisibility(View.GONE);
@@ -201,7 +209,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             EventBus.getDefault().post(new OnScreenEvent(true));
         } else {
             /* 竖屏 */
-//            getSupportActionBar().show();
             rl_hide01.setVisibility(View.VISIBLE);
             ll_hide02.setVisibility(View.VISIBLE);
             rv_io.setVisibility(View.VISIBLE);
@@ -220,12 +227,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         super.onHiddenChanged(hidden);
         if(hidden){
             //隐藏的操作
-//            vlcMediaView.stopVideo(false);
-
         } else {
-//            vlcMediaView.stopVideo(false);
-//            //显示的操作
-//            vlcMediaView.onAttached(getActivity());
+            //显示的操作
             /* 获取摄像头配置 */
             mPresenter.getCamsConfig(macAddress);
         }
@@ -317,15 +320,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @Override
     protected void initData() {
         mPresenter = new MyDevicePresenter();
-//        mWeatherPresenter = new WeatherPresenter();
         addPresenter(mPresenter);
-//        addPresenter(mWeatherPresenter);
     }
 
     @Override
     protected void initViews() {
-//        vlcMediaView.onAttached(getActivity());
-
         mResultReceiver = new ResultReceiver(new Handler()) {
             @Override
             protected void onReceiveResult(int resultCode, Bundle resultData) {
@@ -351,9 +350,6 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                         }
                     }
                 } else if (resultCode == EasyPlayerClient.RESULT_VIDEO_SIZE) {
-//                    mWidth = resultData.getInt(EasyPlayerClient.EXTRA_VIDEO_WIDTH);
-//                    mHeight = resultData.getInt(EasyPlayerClient.EXTRA_VIDEO_HEIGHT);
-
                     progress.setVisibility(View.GONE);
                     if (easyPlayerClient != null) {
                         if (easyPlayerClient.isAudioEnable()) {
@@ -406,17 +402,13 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         ((DefaultItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
         rv_io.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
 
-        swipe_refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {//设置刷新监听器
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {//模拟耗时操作
-                    @Override
-                    public void run() {
-                        swipe_refresh_layout.setRefreshing(false);//取消刷新
-                        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnMainPagePermissionResultEvent()), 750);
-                    }
-                }, 2000);
-            }
+        //设置刷新监听器
+        swipe_refresh_layout.setOnRefreshListener(() -> {
+            //模拟耗时操作
+            new Handler().postDelayed(() -> {
+                swipe_refresh_layout.setRefreshing(false);//取消刷新
+                ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnMainPagePermissionResultEvent()), 750);
+            }, 2000);
         });
         //设置刷新时旋转图标的颜色，这是一个可变参数，当设置多个颜色时，旋转一周改变一次颜色。
         swipe_refresh_layout.setColorSchemeResources(R.color.main_color_new, R.color.bg_device_detail_yellow, R.color.bg_device_detail_top);
@@ -493,14 +485,22 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @Override
     public void onGetWhetherResult(WeatherInfo weatherInfo) {
-        if (weatherInfo == null) {
-//            tvLocation.setText("未定位");
-        } else {
-//            tvLocation.setText(weatherInfo.city);
-            ivWeather.setImageResource(getWeatherIcon(weatherInfo));
-            tvTemp.setText(weatherInfo.currTemp + "℃");
-            tvWeather.setText(weatherInfo.getTodayWeather().weather);
-            tvLeftWeatherInfo.setText(getWeatherCollections(weatherInfo));
+        if (weatherInfo != null && weatherInfo.getData() != null) {
+            tv_location.setText(weatherInfo.getData().getCity());
+            if (weatherInfo.getData().getData() != null) {
+                if (weatherInfo.getData().getData().size() > 0) {
+                    tv_date.setText(weatherInfo.getData().getData().get(0).getDate() + " " + weatherInfo.getData().getData().get(0).getWeek());
+                    iv_weather.setImageResource(getWeatherIcon(weatherInfo.getData().getData().get(0)));
+                    tv_curr_temp.setText(weatherInfo.getData().getData().get(0).getTem() + "");
+                    tv_weather_info.setText(weatherInfo.getData().getData().get(0).getWea());
+                    tv_secondary_weather_collection.setText(getWeatherCollections(weatherInfo.getData().getData().get(0)));
+                }
+                if (weatherInfo.getData().getData().size() > 1) {
+                    iv_weather2.setImageResource(getWeatherIcon(weatherInfo.getData().getData().get(1)));
+                    tv_weather_info2.setText(weatherInfo.getData().getData().get(1).getWea());
+                    tv_secondary_weather_collection2.setText(getWeatherCollections(weatherInfo.getData().getData().get(1)));
+                }
+            }
         }
     }
 

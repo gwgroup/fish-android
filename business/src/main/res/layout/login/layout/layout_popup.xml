@@ -9,16 +9,16 @@
         android:id="@+id/ll_label01"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp35"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_label01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sp12"
+            android:text="流畅"
             android:textColor="@color/main_color_new"
-            android:text="流畅"/>
+            android:textSize="@dimen/sp12" />
     </LinearLayout>
 
     <LinearLayout
@@ -27,16 +27,21 @@
         android:layout_height="@dimen/dp35"
         android:orientation="vertical">
 
-        <View style="@style/divider_05" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp05"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:background="#4D000000" />
 
         <TextView
             android:id="@+id/tv_label02"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="@dimen/sp12"
             android:gravity="center"
+            android:text="标清"
             android:textColor="@color/main_color_new"
-            android:text="标清"/>
+            android:textSize="@dimen/sp12" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,15 +50,20 @@
         android:layout_height="@dimen/dp35"
         android:orientation="vertical">
 
-        <View style="@style/divider_05" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp05"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:background="#4D000000" />
 
         <TextView
             android:id="@+id/tv_label03"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="@dimen/sp13"
             android:gravity="center"
+            android:text="高清"
             android:textColor="@color/main_color_new"
-            android:text="高清"/>
+            android:textSize="@dimen/sp13" />
     </LinearLayout>
 </LinearLayout>

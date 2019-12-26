@@ -95,14 +95,14 @@ public class DisplayUtils {
         ViewHelper.setText(tv, text);
     }
 
-    public static int getWeatherIcon(WeatherInfo weatherInfo) {
+    public static int getWeatherIcon(WeatherInfo.DataBeanX.DataBean weatherInfo) {
         String weather = null;
         try {
-            weather = weatherInfo.getTodayWeather().weather;
+            weather = weatherInfo.getWea();
         } catch (Exception e) {
         }
 
-        if (weatherInfo == null || weatherInfo.getTodayWeather() == null || StringUtils.isTrimEmpty(weather)) {
+        if (weatherInfo == null || weatherInfo.getWea() == null || StringUtils.isTrimEmpty(weather)) {
             return R.mipmap.forecast_icon_sunnny;
         }
 
@@ -155,25 +155,21 @@ public class DisplayUtils {
         }
     }
 
-    public static String getWeatherCollections(WeatherInfo weatherInfo) {
-        DailyWeatherInfo todayWeather = weatherInfo.getTodayWeather();
+    public static String getWeatherCollections(WeatherInfo.DataBeanX.DataBean weatherInfo) {
         String lowerTemp = null, higherTemp = null, windDirection = null, windStrength = null;
-        if (todayWeather != null) {
-            lowerTemp = todayWeather.getLowerTemp();
-            higherTemp = todayWeather.getHigherTemp();
-            windDirection = todayWeather.windDirection;
-            windStrength = todayWeather.windStrength;
+        if (weatherInfo != null) {
+            lowerTemp = weatherInfo.getTem2();
+            higherTemp = weatherInfo.getTem1();
+            windDirection = weatherInfo.getWin().get(0);
+            windStrength = weatherInfo.getWin_speed();
         }
 
         StringBuilder sBuilder = new StringBuilder();
         sBuilder.append(lowerTemp)
-//                .append("℃")
                 .append(" ~ ")
                 .append(higherTemp)
-                .append("℃")
                 .append("  ")
                 .append(windDirection)
-                .append("  ")
                 .append(windStrength);
 
         return sBuilder.toString();
