@@ -15,6 +15,7 @@ import com.ypcxpt.fish.main.model.Cams;
 import com.ypcxpt.fish.main.model.CamsUseable;
 import com.ypcxpt.fish.main.model.CommonInfo;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.Callback;
@@ -146,17 +147,32 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
     }
 
     @Override
+    public void getNotAvailableCams(String mac, String key, String pass) {
+        Flowable<Cams> source = mDS.getCamsConfigAuth(mac, key, pass);
+        silenceFetch(source)
+                .onSuccess(cams -> {
+                    Logger.i("CCC", "获取摄像头配置-->" + cams.toString());
+                    /* 可直接访问的摄像头数组 */
+                    mView.displayCamsCount(cams.usable_cams, "", "");
+                })
+                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                .start();
+    }
+
+    @Override
     public void getCamsConfig(String mac) {
+        MyDeviceFragment.mPass = "";
         Flowable<Cams> source = mDS.getCamsConfig(mac);
         silenceFetch(source)
                 .onSuccess(cams -> {
                     Logger.i("CCC", "获取摄像头配置-->" + cams.toString());
-                    if (cams.not_available_cams != null && cams.not_available_cams.size() > 0) {
+                    if (cams.not_available_cams != null && cams.not_available_cams.size() > 0 && cams.usable_cams.size() == 0) {
                         /* 有口令的摄像头数组 */
-                        mView.displayCamsCount(cams.usable_cams);
+                        mView.displayCamsCount(cams.usable_cams, cams.not_available_cams.get(0).key, cams.not_available_cams.get(0).hostname);
                     } else {
                         /* 可直接访问的摄像头数组 */
-                        mView.displayCamsCount(cams.usable_cams);
+                        mView.displayCamsCount(cams.usable_cams, "", "");
                     }
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
@@ -213,6 +229,19 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
             public void onFinished() {
             }
         });
+    }
+
+    @Override
+    public void changeProfile(String mac, String playKey, String profileToken, String label) {
+        Flowable<Object> source = mDS.switchProfile(mac, playKey, profileToken);
+        silenceFetch(source)
+                .onSuccess(o -> {
+                    Logger.e("CCC", "切换清晰度成功");
+                    mView.showVLCVideoLabel(label);
+                })
+                .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                .start();
     }
 
     @Override

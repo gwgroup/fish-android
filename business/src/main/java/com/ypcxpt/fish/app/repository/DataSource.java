@@ -108,8 +108,14 @@ public interface DataSource {
     /* 获取摄像头配置 */
     Flowable<Cams> getCamsConfig(String mac);
 
+    /* 获取加密摄像头配置 */
+    Flowable<Cams> getCamsConfigAuth(String mac, String key, String pass);
+
     /* 请求推流 */
     Flowable<Object> doPlay(String mac, String key);
+
+    /* 切换清晰度 */
+    Flowable<Object> switchProfile(String mac, String key, String profileToken);
 
 
     /* 绑定手机号 */

@@ -173,8 +173,18 @@ public class DataRepository implements DataSource {
     }
 
     @Override
+    public Flowable<Cams> getCamsConfigAuth(String mac, String key, String pass) {
+        return mNetDS.getCamsConfigAuth(mac, key, pass);
+    }
+
+    @Override
     public Flowable<Object> doPlay(String mac, String key) {
         return mNetDS.doPlay(mac, key);
+    }
+
+    @Override
+    public Flowable<Object> switchProfile(String mac, String key, String profileToken) {
+        return mNetDS.switchProfile(mac, key, profileToken);
     }
 
 

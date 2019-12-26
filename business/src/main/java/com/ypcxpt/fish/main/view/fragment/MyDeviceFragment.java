@@ -63,6 +63,7 @@ import com.ypcxpt.fish.main.model.WeatherInfo;
 import com.ypcxpt.fish.main.model.WebSocketInfo;
 import com.ypcxpt.fish.main.presenter.MyDevicePresenter;
 import com.ypcxpt.fish.main.presenter.WeatherPresenter;
+import com.ypcxpt.fish.main.util.CamsAuthDialog;
 import com.ypcxpt.fish.main.util.JWebSocketClient;
 import com.ypcxpt.fish.main.util.MainOperationDialog;
 import com.ypcxpt.fish.main.util.ScenesRenameDialog;
@@ -166,6 +167,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     /* 当前场景名称 */
     public static String sceneName;
 
+    private String mPassKey = "";
+    public static String mPass;
     /* 可用的摄像头 */
     private List<CamsUseable> usableCams;
     /* 摄像头唯一标识 */
@@ -247,6 +250,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     public void videoStart(View view) {
         switch (view.getId()) {
             case R.id.iv_play:
+                if (!StringUtils.isEmpty(mPass)) {
+                    //输入摄像头密码
+                    showCamsAuth();
+                    return;
+                }
                 /* 请求推流 */
                 mPresenter.doCamsPlay(macAddress, usableCams, camsKey, camsIndex);
                 iv_play.setVisibility(View.GONE);
@@ -261,6 +269,32 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                 progress.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    private void showCamsAuth() {
+        CamsAuthDialog camsAuthDialog = new CamsAuthDialog(getActivity(), R.style.MyDialog);
+        camsAuthDialog.setCancelable(false);
+        camsAuthDialog.setOnResultListener(new CamsAuthDialog.OnResultListener() {
+            @Override
+            public void Ok(String pass) {
+                if (StringUtils.isTrimEmpty(pass)) {
+                    Toaster.showShort("请输入摄像头口令");
+                } else {
+                    if (mPass.equals(pass)) {
+                        mPresenter.getNotAvailableCams(macAddress, mPassKey, pass);
+                        camsAuthDialog.dismiss();
+                    } else {
+                        Toaster.showShort("口令不正确");
+                    }
+                }
+            }
+
+            @Override
+            public void Cancel() {
+                camsAuthDialog.dismiss();
+            }
+        });
+        camsAuthDialog.show();
     }
 
     @OnClick(R.id.iv_enableAudio)
@@ -549,10 +583,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp75));
 
             ll_label01.setOnClickListener(v -> {
-
+                popupWindow.dismiss();
+                mPresenter.changeProfile(macAddress, camsKey, profiles.get(0).token, profiles.get(0).label);
             });
             ll_label02.setOnClickListener(v -> {
-
+                popupWindow.dismiss();
+                mPresenter.changeProfile(macAddress, camsKey, profiles.get(1).token, profiles.get(1).label);
             });
         } else if (profiles.size() == 3) {
             ll_label01.setVisibility(View.VISIBLE);
@@ -564,13 +600,16 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             popupWindow.showAtLocation(tv_videoLabel, Gravity.NO_GRAVITY, location[0], location[1] - getResources().getDimensionPixelSize(R.dimen.dp110));
 
             ll_label01.setOnClickListener(v -> {
-
+                popupWindow.dismiss();
+                mPresenter.changeProfile(macAddress, camsKey, profiles.get(0).token, profiles.get(0).label);
             });
             ll_label02.setOnClickListener(v -> {
-
+                popupWindow.dismiss();
+                mPresenter.changeProfile(macAddress, camsKey, profiles.get(1).token, profiles.get(1).label);
             });
             ll_label03.setOnClickListener(v -> {
-
+                popupWindow.dismiss();
+                mPresenter.changeProfile(macAddress, camsKey, profiles.get(2).token, profiles.get(2).label);
             });
         }
     }
@@ -654,7 +693,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     }
 
     @Override
-    public void displayCamsCount(List<CamsUseable> usable_cams) {
+    public void displayCamsCount(List<CamsUseable> usable_cams, String passKey, String pass) {
+        mPassKey = passKey;
+        mPass = pass;
         if (easyPlayerClient != null) {
             texture_view.setVisibility(View.GONE);
             easyPlayerClient.stop();
@@ -731,6 +772,11 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         progress.setVisibility(View.VISIBLE);
         easyPlayerClient.play(rtsp_url);
         easyPlayerClient.setAudioEnable(false);
+    }
+
+    @Override
+    public void showVLCVideoLabel(String label) {
+        tv_videoLabel.setText(label);
     }
 
     @Subscribe

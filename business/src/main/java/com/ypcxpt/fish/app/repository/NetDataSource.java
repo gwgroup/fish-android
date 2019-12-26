@@ -282,12 +282,32 @@ public class NetDataSource implements DataSource {
     }
 
     @Override
+    public Flowable<Cams> getCamsConfigAuth(String mac, String key, String pass) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("cam_key", key)
+                .put("password", pass)
+                .build();
+        return mApiService.getCamsConfigAuth(AppData.token(), param);
+    }
+
+    @Override
     public Flowable<Object> doPlay(String mac, String key) {
         HashMap<String, Object> param = ParamBuilder.newBuilder()
                 .put("device_mac", mac)
                 .put("cam_key", key)
                 .build();
         return mApiService.doPlay(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> switchProfile(String mac, String key, String profileToken) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("cam_key", key)
+                .put("profile_token", profileToken)
+                .build();
+        return mApiService.switchProfile(AppData.token(), param);
     }
 
 

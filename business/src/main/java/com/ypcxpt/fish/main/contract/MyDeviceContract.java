@@ -17,9 +17,11 @@ public interface MyDeviceContract {
 
         void showIoStatus(List<IoInfo> ioInfos);
 
-        void displayCamsCount(List<CamsUseable> usable_cams);
+        void displayCamsCount(List<CamsUseable> usable_cams, String passKey, String pass);
 
         void showVLCVideo(List<CamsUseable> usable_cams, String playKey, int camsIndex);
+
+        void showVLCVideoLabel(String label);
     }
 
     interface Presenter extends IPresenter {
@@ -39,10 +41,14 @@ public interface MyDeviceContract {
         void closeIO(String mac, String code);
         void calibrationFeeder(String mac, String code, double feeder);
 
+        //获取加密摄像头配置
+        void getNotAvailableCams(String mac, String key, String pass);
         //获取摄像头配置
         void getCamsConfig(String mac);
         //请求推流
         void doCamsPlay(String mac, List<CamsUseable> usable_cams, String playKey, int camsIndex);
+        //切换清晰度
+        void changeProfile(String mac, String playKey, String profileToken, String label);
 
         //获取天气
         void getWeather(String mac);

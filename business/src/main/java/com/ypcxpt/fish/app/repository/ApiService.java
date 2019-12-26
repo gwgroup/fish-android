@@ -139,9 +139,17 @@ public interface ApiService {
     @POST("api/cams/get_config")
     Flowable<Cams> getCamsConfig(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
+    /* 获取加密摄像头配置 */
+    @POST("api/cams/auth")
+    Flowable<Cams> getCamsConfigAuth(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
     /* 请求推流 */
     @POST("api/cams/play")
     Flowable<Object> doPlay(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
+    /* 切换清晰度 */
+    @POST("api/cams/switch_profile")
+    Flowable<Object> switchProfile(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
 
     /* 绑定手机号 */
