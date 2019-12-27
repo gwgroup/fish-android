@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity {
 
         //检测新版本
 //        VersionCheckUtil.getInstance(this).StartCheckVersion(this, false, false);
-        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
+        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent(0)), 500);
     }
 
     private void initFragments() {
@@ -283,7 +283,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
+//        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
     }
 
     @Override

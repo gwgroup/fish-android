@@ -169,6 +169,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     private int REQUEST_CODE_SCAN = 111;
 
+    public static int sceneSelected = 0;
     /* 场景数组 */
     private List<Scenes> mScenes;
     /* 当前场景mac */
@@ -442,7 +443,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             @Override
             public void Config() {
                 operationDialog.dismiss();
-                Router.build(Path.Main.IO_CONFIG).withString("DEVICE_MAC", macAddress).navigation(getActivity());
+                Router.build(Path.Main.IO_CONFIG).withString("DEVICE_MAC", macAddress).withInt("SCENE_SELECTED", sceneSelected).navigation(getActivity());
             }
 
             @Override
@@ -511,26 +512,27 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
      * @date 2019/12/25 0025 11:56
      **/
     @Override
-    public void showScenes(List<Scenes> scenes) {
+    public void showScenes(List<Scenes> scenes, int selected) {
         Logger.e("CCC", "showScenes" + scenes);
         mScenes = scenes;
         mAdapter.setNewData(scenes);
 
         if (scenes.size() > 0) {
             /* 设置选中状态为默认的第一个 */
-            mAdapter.setIndex(0);
+            mAdapter.setIndex(selected);
             mAdapter.notifyDataSetChanged();
 
             /* 获取设备IO配置状态，默认第一个 */
-            mPresenter.getIoStatus(scenes.get(0).macAddress);
-            macAddress = scenes.get(0).macAddress;
-            sceneName = scenes.get(0).scene_name;
+            mPresenter.getIoStatus(scenes.get(selected).macAddress);
+            sceneSelected = selected;
+            macAddress = scenes.get(selected).macAddress;
+            sceneName = scenes.get(selected).scene_name;
 
             /* 获取摄像头配置 */
-            mPresenter.getCamsConfig(scenes.get(0).macAddress);
+            mPresenter.getCamsConfig(scenes.get(selected).macAddress);
 
             /* 获取天气 */
-            mPresenter.getWeather(scenes.get(0).macAddress);
+            mPresenter.getWeather(scenes.get(selected).macAddress);
         }
     }
 
@@ -781,7 +783,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     @Subscribe
     public void onEventReceived(OnGetScenesEvent event) {
-        mPresenter.getScenes();
+        mPresenter.getScenes(event.selected);
     }
 
     @Override

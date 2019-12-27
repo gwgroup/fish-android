@@ -127,10 +127,11 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
         selectScenesDialog.setOnResultListener(new SelectScenesDialog.OnResultListener() {
 
             @Override
-            public void SelectScenes(String macAddress, String scene_name) {
+            public void SelectScenes(String macAddress, String scene_name, int selected) {
                 iv_arrow.setImageResource(R.mipmap.icon_plan_arrow_folding);
                 selectScenesDialog.dismiss();
 
+                MyDeviceFragment.sceneSelected = selected;
                 mMacAddress = macAddress;
                 tv_scene.setText(scene_name);
                 if (tab == 1) {
@@ -187,11 +188,13 @@ public class TimingPlanFragment extends BaseFragment implements TimingPlanContra
     public void onAddPlanClick() {
         if (tab == 1) {
             Router.build(Path.Main.ADD_PLAN)
+                    .withInt("SCENE_SELECTED", MyDeviceFragment.sceneSelected)
                     .withInt("PLAN_TYPE", 1)
                     .withString("DEVICE_MAC", mMacAddress)
                     .navigation(getActivity());
         } else {
             Router.build(Path.Main.ADD_TRIGGER)
+                    .withInt("SCENE_SELECTED", MyDeviceFragment.sceneSelected)
                     .withInt("TRIGGER_TYPE", 1)
                     .withString("DEVICE_MAC", mMacAddress)
                     .navigation(getActivity());

@@ -79,7 +79,7 @@ public class SelectScenesDialog extends Dialog implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Logger.i("选择场景", "mac:" + mScenes.get(position).macAddress
                         + ",name:" + mScenes.get(position).scene_name);
-                mListener.SelectScenes(mScenes.get(position).macAddress, mScenes.get(position).scene_name);
+                mListener.SelectScenes(mScenes.get(position).macAddress, mScenes.get(position).scene_name, position);
             }
         });
 
@@ -90,7 +90,7 @@ public class SelectScenesDialog extends Dialog implements View.OnClickListener {
      * 监听回调
      */
     public interface OnResultListener {
-        void SelectScenes(String macAddress, String scene_name);
+        void SelectScenes(String macAddress, String scene_name, int selected);
 
         void Cancel();
     }

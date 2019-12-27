@@ -13,6 +13,7 @@ import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.StringHelper;
 import com.ypcxpt.fish.main.contract.TimingPlanContract;
 import com.ypcxpt.fish.main.model.IoTrigger;
+import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 import com.ypcxpt.fish.main.view.fragment.TimingPlanFragment;
 
 public class TriggerAdapter extends BaseQuickAdapter<IoTrigger, BaseViewHolder> {
@@ -105,6 +106,7 @@ public class TriggerAdapter extends BaseQuickAdapter<IoTrigger, BaseViewHolder> 
 
         helper.getView(R.id.tv_triggerEdit).setOnClickListener(v -> {
             Router.build(Path.Main.ADD_TRIGGER)
+                    .withInt("SCENE_SELECTED", MyDeviceFragment.sceneSelected)
                     .withInt("TRIGGER_TYPE", 2)
                     .withParcelable("IO_TRIGGER", item)
                     .withString("DEVICE_MAC", TimingPlanFragment.mMacAddress)

@@ -42,7 +42,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
         silenceFetch(source)
                 .onSuccess(o -> {
                     Logger.d("CCC", "添加场景成功");
-                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
+                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent(0)), 500);
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
@@ -55,7 +55,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
         silenceFetch(source)
                 .onSuccess(o -> {
                     Logger.d("CCC", "移除场景成功");
-                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
+                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent(0)), 500);
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
@@ -68,7 +68,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
         silenceFetch(source)
                 .onSuccess(o -> {
                     Logger.d("CCC", "重命名场景成功");
-                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
+                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent(0)), 500);
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
@@ -76,7 +76,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
     }
 
     @Override
-    public void getScenes() {
+    public void getScenes(int selected) {
         Flowable<List<Scenes>> source = mDS.getScenes();
         new Fetcher<>(source)
                 .withView(mView)
@@ -84,7 +84,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
                 .showNoNetWarning(false)
         .onSuccess(scenes -> {
             Logger.d("CCC", "scenes-->" + scenes.toString());
-            mView.showScenes(scenes);
+            mView.showScenes(scenes, selected);
         }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();

@@ -75,7 +75,7 @@ public class UserProfilePresenter extends BasePresenter<UserProfileContract.View
                 .onSuccess(userProfile -> {
                     Logger.d("CCC", userProfile == null ? "空用户信息" : userProfile.toString());
                     EventBus.getDefault().post(new OnProfileUpdatedEvent(userProfile));
-                    EventBus.getDefault().post(new OnGetScenesEvent());
+                    EventBus.getDefault().post(new OnGetScenesEvent(0));
 //                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnProfileUpdatedEvent(userProfile)), 500);
 //                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
                 })

@@ -16,11 +16,14 @@ import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.library.util.ViewHelper;
 import com.ypcxpt.fish.library.view.activity.BaseActivity;
 import com.ypcxpt.fish.main.contract.AddPlanContract;
+import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoPlan;
 import com.ypcxpt.fish.main.model.PlanParam;
 import com.ypcxpt.fish.main.presenter.AddPlanPresenter;
 import com.ypcxpt.fish.main.util.PlanDeleteDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,6 +64,8 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
 
     private AddPlanContract.Presenter mPresenter;
 
+    @Autowired(name = "SCENE_SELECTED")
+    public int SCENE_SELECTED;
     @Autowired(name = "PLAN_TYPE")
     public int PLAN_TYPE;
     @Autowired(name = "DEVICE_MAC")
@@ -459,6 +464,12 @@ public class AddPlanActivity extends BaseActivity implements AddPlanContract.Vie
     @Override
     public void onCommitSuccess() {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        EventBus.getDefault().post(new OnGetScenesEvent(SCENE_SELECTED));
+        finish();
     }
 
     @OnClick(R.id.rl_add)

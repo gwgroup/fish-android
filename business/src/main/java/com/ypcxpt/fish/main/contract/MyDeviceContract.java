@@ -13,7 +13,7 @@ public interface MyDeviceContract {
     interface View extends IView {
         void onGetWhetherResult(WeatherInfo weatherInfo);
 
-        void showScenes(List<Scenes> scenes);
+        void showScenes(List<Scenes> scenes, int selected);
 
         void showIoStatus(List<IoInfo> ioInfos);
 
@@ -32,7 +32,7 @@ public interface MyDeviceContract {
         //重命名场景
         void renameScenes(String mac, String name);
         //获取场景
-        void getScenes();
+        void getScenes(int selected);
         //获取设备IO配置信息
         void getIoStatus(String mac);
         //打开IO

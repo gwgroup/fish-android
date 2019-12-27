@@ -13,6 +13,7 @@ import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.StringHelper;
 import com.ypcxpt.fish.main.contract.TimingPlanContract;
 import com.ypcxpt.fish.main.model.IoPlan;
+import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 import com.ypcxpt.fish.main.view.fragment.TimingPlanFragment;
 
 public class PlanAdapter extends BaseQuickAdapter<IoPlan, BaseViewHolder> {
@@ -126,6 +127,7 @@ public class PlanAdapter extends BaseQuickAdapter<IoPlan, BaseViewHolder> {
 
         helper.getView(R.id.tv_planEdit).setOnClickListener(v -> {
             Router.build(Path.Main.ADD_PLAN)
+                    .withInt("SCENE_SELECTED", MyDeviceFragment.sceneSelected)
                     .withInt("PLAN_TYPE", 2)
                     .withParcelable("IO_PLAN", item)
                     .withString("DEVICE_MAC", TimingPlanFragment.mMacAddress)

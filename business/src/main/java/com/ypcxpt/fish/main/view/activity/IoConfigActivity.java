@@ -8,13 +8,12 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.library.view.activity.BaseActivity;
 import com.ypcxpt.fish.main.adapter.IoConfigAdapter;
 import com.ypcxpt.fish.main.contract.IoConfigContract;
-import com.ypcxpt.fish.main.event.OnRefreshUserEvent;
+import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.presenter.IoConfigPresenter;
 
@@ -36,6 +35,8 @@ public class IoConfigActivity extends BaseActivity implements IoConfigContract.V
 
     @Autowired(name = "DEVICE_MAC")
     public String DEVICE_MAC;
+    @Autowired(name = "SCENE_SELECTED")
+    public int SCENE_SELECTED;
 
     @Override
     protected int layoutResID() {
@@ -83,7 +84,7 @@ public class IoConfigActivity extends BaseActivity implements IoConfigContract.V
 
     @Override
     public void onBackPressed() {
-        EventBus.getDefault().post(new OnRefreshUserEvent());
+        EventBus.getDefault().post(new OnGetScenesEvent(SCENE_SELECTED));
         finish();
     }
 

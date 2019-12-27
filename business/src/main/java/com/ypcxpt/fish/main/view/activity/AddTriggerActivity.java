@@ -10,11 +10,14 @@ import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.library.view.activity.BaseActivity;
 import com.ypcxpt.fish.main.contract.AddTriggerContract;
+import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.model.IoInfo;
 import com.ypcxpt.fish.main.model.IoTrigger;
 import com.ypcxpt.fish.main.model.TriggerParam;
 import com.ypcxpt.fish.main.presenter.AddTriggerPresenter;
 import com.ypcxpt.fish.main.util.PlanDeleteDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -44,6 +47,8 @@ public class AddTriggerActivity extends BaseActivity implements AddTriggerContra
 
     private AddTriggerContract.Presenter mPresenter;
 
+    @Autowired(name = "SCENE_SELECTED")
+    public int SCENE_SELECTED;
     @Autowired(name = "TRIGGER_TYPE")
     public int TRIGGER_TYPE;
     @Autowired(name = "DEVICE_MAC")
@@ -336,6 +341,12 @@ public class AddTriggerActivity extends BaseActivity implements AddTriggerContra
     @Override
     public void onCommitSuccess() {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        EventBus.getDefault().post(new OnGetScenesEvent(SCENE_SELECTED));
+        finish();
     }
 
     @OnClick(R.id.rl_add)
