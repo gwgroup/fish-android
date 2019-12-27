@@ -14,9 +14,12 @@ import com.ypcxpt.fish.library.util.StringHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.main.contract.IoConfigContract;
 import com.ypcxpt.fish.main.model.IoInfo;
+import com.ypcxpt.fish.main.model.IoInfoCurrent;
 import com.ypcxpt.fish.main.util.CalibrationFeederDialog;
+import com.ypcxpt.fish.main.util.FeederCheckDialog;
 import com.ypcxpt.fish.main.util.PowerSetDialog;
 import com.ypcxpt.fish.main.util.ScenesRenameDialog;
+import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 
 import java.math.BigDecimal;
 
@@ -92,8 +95,24 @@ public class IoConfigAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
         });
 
         helper.getView(R.id.ll_checkFeeder).setOnClickListener(v -> {
-            showCalibrationFeederDialog(mMac, item.code);
+//            showCalibrationFeederDialog(mMac, item.code);
+            showFeederCheck(mMac, item.code);
         });
+    }
+
+    private void showFeederCheck(String mMac, String code) {
+        FeederCheckDialog feederCheckDialog = new FeederCheckDialog(mContext, R.style.MyDialog);
+        feederCheckDialog.setCancelable(false);
+        feederCheckDialog.setOnResultListener(new FeederCheckDialog.OnResultListener() {
+            @Override
+            public void Cancel() {
+                feederCheckDialog.dismiss();
+
+                showCalibrationFeederDialog(mMac, code);
+            }
+        });
+
+        feederCheckDialog.show();
     }
 
     private void showCalibrationFeederDialog(String mMac, String code) {

@@ -6,6 +6,7 @@ import com.ypcxpt.fish.app.repository.DataSource;
 import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.core.app.BasePresenter;
 import com.ypcxpt.fish.core.net.Fetcher;
+import com.ypcxpt.fish.library.util.SPHelper;
 import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
@@ -141,6 +142,7 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
         silenceFetch(source)
                 .onSuccess(o -> {
                     Logger.d("CCC", "校准投喂机成功");
+                    SPHelper.putBoolean("FEEDER_CHECKED", true);
                 })
                 .onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))

@@ -10,12 +10,14 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ypcxpt.fish.R;
+import com.ypcxpt.fish.library.util.SPHelper;
 import com.ypcxpt.fish.library.util.StringHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.model.IoInfoCurrent;
 import com.ypcxpt.fish.main.util.CalibrationFeederDialog;
 import com.ypcxpt.fish.main.util.DurationSelectDialog;
+import com.ypcxpt.fish.main.util.FeederCheckDialog;
 import com.ypcxpt.fish.main.util.FeederDialog;
 import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 
@@ -80,7 +82,12 @@ public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
         helper.getView(R.id.rl_item).setOnClickListener(v -> {
             if (item.opened == 0) {
                 if (code.contains("feeder")) {
-                    showFeederSelect(item);
+                    if (SPHelper.getBoolean("FEEDER_CHECKED", false)) {
+                        showFeederSelect(item);
+                    } else {
+                        //校准投喂机
+                        showFeederCheck(item);
+                    }
                 } else {
                     showDurationSelect(item);
                 }
@@ -171,6 +178,21 @@ public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
 //        selectDialog.show();
     }
 
+    private void showFeederCheck(IoInfoCurrent item) {
+        FeederCheckDialog feederCheckDialog = new FeederCheckDialog(activity, R.style.MyDialog);
+        feederCheckDialog.setCancelable(false);
+        feederCheckDialog.setOnResultListener(new FeederCheckDialog.OnResultListener() {
+            @Override
+            public void Cancel() {
+                feederCheckDialog.dismiss();
+
+                showCalibrationFeederDialog(MyDeviceFragment.macAddress, item.code);
+            }
+        });
+
+        feederCheckDialog.show();
+    }
+
     private void showFeederSelect(IoInfoCurrent item) {
         FeederDialog selectDialog = new FeederDialog(activity, R.style.MyDialog);
         selectDialog.setTitle(item.code);
@@ -196,9 +218,11 @@ public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
 
             @Override
             public void CalibrationFeeder() {
+                //重新校准投喂机
                 selectDialog.dismiss();
 
-                showCalibrationFeederDialog(MyDeviceFragment.macAddress, item.code);
+//                showCalibrationFeederDialog(MyDeviceFragment.macAddress, item.code);
+                showFeederCheck(item);
             }
         });
         selectDialog.show();

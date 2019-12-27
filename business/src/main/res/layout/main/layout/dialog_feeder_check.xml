@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_F1F3F4"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp150"
+        android:background="#3F97E8">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp90"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/icon_login_bottom" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="校准投喂机"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp20" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_top2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp150"
+        android:layout_below="@+id/rl_top"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击下面 “开始校准”按钮"
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击后倒计时10秒"
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp260"
+        android:layout_below="@+id/ll_top2"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="@dimen/dp150"
+            android:layout_height="wrap_content"
+            android:text="操作步骤："
+            android:textColor="@color/common_a1a1a1"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:layout_width="@dimen/dp150"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:text="1、连接好投喂设备"
+            android:textColor="@color/common_a1a1a1"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:layout_width="@dimen/dp150"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:text="2、用容器收集饲料"
+            android:textColor="@color/common_a1a1a1"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:layout_width="@dimen/dp150"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:text="3、点击开始校准"
+            android:textColor="@color/common_a1a1a1"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:layout_width="@dimen/dp150"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:text="4、称重饲料"
+            android:textColor="@color/common_a1a1a1"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:layout_width="@dimen/dp150"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:text="5、输入系统完成"
+            android:textColor="@color/common_a1a1a1"
+            android:textSize="@dimen/sp14" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_feederCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginRight="@dimen/dp20"
+        android:layout_marginBottom="@dimen/dp40"
+        android:background="@drawable/sl_bg_login_btn"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp12"
+        android:paddingBottom="@dimen/dp12"
+        android:text="开始校准"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp15" />
+</RelativeLayout>
