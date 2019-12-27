@@ -46,7 +46,7 @@ public class DeviceManagerActivity extends BaseActivity implements DeviceManager
     @Override
     protected void onRestart() {
         super.onRestart();
-        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent()), 500);
+        ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent(0)), 500);
         mAdapter.notifyDataSetChanged();
     }
 

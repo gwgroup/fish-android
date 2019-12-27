@@ -25,22 +25,9 @@ import butterknife.BindView;
 public class EarlyWarningFragment extends BaseFragment implements EarlyWarningContract.View {
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.iv_weather)
-    ImageView ivWeather;
-    @BindView(R.id.tv_curr_temp)
-    TextView tvTemp;
-    @BindView(R.id.tv_weather_info)
-    TextView tvWeather;
-    @BindView(R.id.tv_secondary_weather_collection)
-    TextView tvLeftWeatherInfo;
-    @BindView(R.id.tv_location)
-    TextView tvLocation;
 
     @BindView(R.id.swipe_refresh_layout)
     VpSwipeRefreshLayout swipe_refresh_layout;
-
-    @BindView(R.id.tv_timeStatus) TextView tv_timeStatus;
-    @BindView(R.id.tv_desc) TextView tv_desc;
 
     private EarlyWarningContract.Presenter mPresenter;
 
