@@ -37,6 +37,7 @@ import com.google.gson.Gson;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
+import com.ypcxpt.fish.BuildConfig;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
 import com.ypcxpt.fish.core.app.Path;
@@ -770,7 +771,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
          * 第四个参数为一个ResultReceiver,用来接收SDK层发上来的事件通知;
          * 第五个参数为I420DataCallback,如果不为空,那底层会把YUV数据回调上来.
          */
-        easyPlayerClient = new EasyPlayerClient(getActivity(), "6D75724D7A4A36526D343241646274646F6B534B512B5A76636D63755A57467A65575268636E64706269356C59584E356347786865575679567778576F502F44346B566863336C4559584A33615735555A57467453584E55614756435A584E30497A49774D546B355A57467A65513D3D", texture_view, mResultReceiver, null);
+        easyPlayerClient = new EasyPlayerClient(getActivity(), BuildConfig.RTSP_KEY, texture_view, mResultReceiver, null);
         progress.setVisibility(View.VISIBLE);
         easyPlayerClient.play(rtsp_url);
         easyPlayerClient.setAudioEnable(false);
