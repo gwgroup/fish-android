@@ -19,5 +19,8 @@ public interface IoConfigContract {
         void renameIO(String mac, String code, String name);
         void setIOPower(String mac, String code, int power);
         void calibrationFeeder(String mac, String code, double feeder);
+
+        //打开IO
+        void openIO(String mac, String code, int duration);
     }
 }

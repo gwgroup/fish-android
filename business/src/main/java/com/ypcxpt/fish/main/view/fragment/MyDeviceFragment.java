@@ -191,7 +191,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
     private EasyPlayerClient easyPlayerClient;
     private ResultReceiver mResultReceiver;
-    private boolean isFullScreen = false;
+    public static boolean isFullScreen = false;
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

@@ -111,4 +111,19 @@ public class IoConfigPresenter extends BasePresenter<IoConfigContract.View> impl
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
     }
+
+    @Override
+    public void openIO(String mac, String code, int duration) {
+        Flowable<Object> source = mDS.openIO(mac, code, duration);
+        new Fetcher<>(source)
+                .withView(mView)
+                .showLoading(false)
+                .showNoNetWarning(false)
+                .onSuccess(o -> {
+                    Logger.d("CCC", "打开成功");
+//                    getIoStatus(mac);
+                }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                .start();
+    }
 }

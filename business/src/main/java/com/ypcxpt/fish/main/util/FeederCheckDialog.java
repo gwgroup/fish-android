@@ -99,6 +99,7 @@ public class FeederCheckDialog extends Dialog implements View.OnClickListener {
      */
     public interface OnResultListener {
         void Cancel();
+        void Feeder();
     }
 
     @Override
@@ -106,6 +107,8 @@ public class FeederCheckDialog extends Dialog implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.tv_feederCheck:
                 mTimer.start();
+
+                mListener.Feeder();
                 break;
         }
     }

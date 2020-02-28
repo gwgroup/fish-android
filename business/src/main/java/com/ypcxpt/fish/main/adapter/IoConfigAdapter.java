@@ -96,11 +96,11 @@ public class IoConfigAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
 
         helper.getView(R.id.ll_checkFeeder).setOnClickListener(v -> {
 //            showCalibrationFeederDialog(mMac, item.code);
-            showFeederCheck(mMac, item.code);
+            showFeederCheck(mMac, item.code, item.weight_per_second);
         });
     }
 
-    private void showFeederCheck(String mMac, String code) {
+    private void showFeederCheck(String mMac, String code, double weight_per_second) {
         FeederCheckDialog feederCheckDialog = new FeederCheckDialog(mContext, R.style.MyDialog);
         feederCheckDialog.setCancelable(false);
         feederCheckDialog.setOnResultListener(new FeederCheckDialog.OnResultListener() {
@@ -109,6 +109,13 @@ public class IoConfigAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
                 feederCheckDialog.dismiss();
 
                 showCalibrationFeederDialog(mMac, code);
+            }
+
+            @Override
+            public void Feeder() {
+                if (weight_per_second > 0) {
+                    mPresenter.openIO(MyDeviceFragment.macAddress, code, 10000);
+                }
             }
         });
 

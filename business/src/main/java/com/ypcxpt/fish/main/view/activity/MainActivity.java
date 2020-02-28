@@ -5,11 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -272,8 +274,15 @@ public class MainActivity extends BaseActivity {
                 App.getInstance().exit();
 //                System.exit(0);
             } else {
-                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                firstTime = System.currentTimeMillis();
+                if (MyDeviceFragment.isFullScreen) {
+                    MyDeviceFragment.isFullScreen = false;
+                    //缩小竖屏
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                } else {
+                    Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    firstTime = System.currentTimeMillis();
+                }
             }
             return true;
         }

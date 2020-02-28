@@ -188,6 +188,13 @@ public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
 
                 showCalibrationFeederDialog(MyDeviceFragment.macAddress, item.code);
             }
+
+            @Override
+            public void Feeder() {
+                if (item.weight_per_second > 0) {
+                    mPresenter.openIO(MyDeviceFragment.macAddress, item.code, 10000);
+                }
+            }
         });
 
         feederCheckDialog.show();
@@ -203,7 +210,7 @@ public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
             public void Ok(int feeder) {
 
                 if (item.weight_per_second > 0) {
-                    int duration = (int) (feeder/25.4 * 1000);
+                    int duration = (int) (feeder/item.weight_per_second * 1000);
                     mPresenter.openIO(MyDeviceFragment.macAddress, item.code, duration);
                     selectDialog.dismiss();
                 } else {
