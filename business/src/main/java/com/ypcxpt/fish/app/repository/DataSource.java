@@ -1,5 +1,6 @@
 package com.ypcxpt.fish.app.repository;
 
+import com.ypcxpt.fish.main.model.CamsMove;
 import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
@@ -116,6 +117,9 @@ public interface DataSource {
 
     /* 切换清晰度 */
     Flowable<Object> switchProfile(String mac, String key, String profileToken);
+
+    /* 移动镜头 */
+    Flowable<Object> doCamsMove(String mac, String key, CamsMove camsMove);
 
 
     /* 绑定手机号 */

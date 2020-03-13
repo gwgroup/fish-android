@@ -1,5 +1,6 @@
 package com.ypcxpt.fish.app.repository;
 
+import com.ypcxpt.fish.main.model.CamsMove;
 import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.login.model.LoginResult;
 import com.ypcxpt.fish.login.model.UserProfile;
@@ -185,6 +186,11 @@ public class DataRepository implements DataSource {
     @Override
     public Flowable<Object> switchProfile(String mac, String key, String profileToken) {
         return mNetDS.switchProfile(mac, key, profileToken);
+    }
+
+    @Override
+    public Flowable<Object> doCamsMove(String mac, String key, CamsMove camsMove) {
+        return mNetDS.doCamsMove(mac, key, camsMove);
     }
 
 

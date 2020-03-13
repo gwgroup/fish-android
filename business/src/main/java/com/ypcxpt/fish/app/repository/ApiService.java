@@ -151,6 +151,10 @@ public interface ApiService {
     @POST("api/cams/switch_profile")
     Flowable<Object> switchProfile(@Header("authorization") String token, @Body HashMap<String, Object> param);
 
+    /* 移动镜头 */
+    @POST("api/cams/move")
+    Flowable<Object> doCamsMove(@Header("authorization") String token, @Body HashMap<String, Object> param);
+
 
     /* 绑定手机号 */
     @POST("weixin_bind")

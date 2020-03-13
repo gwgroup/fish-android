@@ -18,6 +18,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnSceneInfoEvent;
 import com.ypcxpt.fish.main.event.OnScreenEvent;
+import com.ypcxpt.fish.main.model.CamsMove;
 import com.ypcxpt.fish.main.model.CamsUseable;
 import com.ypcxpt.fish.main.model.CamsUseableProfiles;
 import com.ypcxpt.fish.main.model.IoInfo;
@@ -69,6 +71,7 @@ import com.ypcxpt.fish.main.util.MainOperationDialog;
 import com.ypcxpt.fish.main.util.ScenesRenameDialog;
 import com.ypcxpt.fish.main.view.activity.CaptureScanActivity;
 
+import org.easydarwin.util.C;
 import org.easydarwin.video.EasyPlayerClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -142,6 +145,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     ProgressBar progress;
     @BindView(R.id.iv_play)
     ImageView iv_play;
+    @BindView(R.id.iv_pause)
+    ImageView iv_pause;
 
     @BindView(R.id.iv_enableAudio)
     ImageView iv_enableAudio;
@@ -243,15 +248,19 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             //缩小竖屏
             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+            swipe_refresh_layout.setEnabled(true);
         } else {
             isFullScreen = true;
             //放大全屏
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+
+            swipe_refresh_layout.setEnabled(false);
         }
     }
 
-    @OnClick({R.id.iv_play, R.id.iv_videobg})
+    @OnClick({R.id.iv_play, R.id.iv_pause})
     public void videoStart(View view) {
         switch (view.getId()) {
             case R.id.iv_play:
@@ -262,14 +271,16 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                 }
                 /* 请求推流 */
                 mPresenter.doCamsPlay(macAddress, usableCams, camsKey, camsIndex);
+//                iv_pause.setVisibility(View.VISIBLE);
                 iv_play.setVisibility(View.GONE);
                 progress.setVisibility(View.VISIBLE);
                 break;
-            case R.id.iv_videobg:
+            case R.id.iv_pause:
                 if (easyPlayerClient != null) {
                     texture_view.setVisibility(View.GONE);
                     easyPlayerClient.stop();
                 }
+//                iv_pause.setVisibility(View.GONE);
                 iv_play.setVisibility(View.VISIBLE);
                 progress.setVisibility(View.GONE);
                 break;
@@ -414,6 +425,51 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         });
         //设置刷新时旋转图标的颜色，这是一个可变参数，当设置多个颜色时，旋转一周改变一次颜色。
         swipe_refresh_layout.setColorSchemeResources(R.color.main_color_new, R.color.bg_device_detail_yellow, R.color.bg_device_detail_top);
+
+        iv_videobg.setOnTouchListener(new View.OnTouchListener() {
+            float posX;
+            float posY;
+            float curPosX;
+            float curPosY;
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        posX = event.getX();
+                        posY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        curPosX = event.getX();
+                        curPosY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if ((curPosX - posX > 0) && (Math.abs(curPosX - posX) > 25)) {
+                            Logger.e("----", "向右滑动" + (curPosX - posX));
+                        } else if ((curPosX - posX < 0) && (Math.abs(curPosX - posX) > 25)) {
+                            Logger.e("----", "向左滑动" + (curPosX - posX));
+                        }
+                        if ((curPosY - posY > 0) && (Math.abs(curPosY - posY) > 25)) {
+                            Logger.e("----", "向下滑动" + (curPosY - posY));
+                        } else if ((curPosY - posY < 0) && (Math.abs(curPosY - posY) > 25)) {
+                            Logger.e("----", "向上滑动" + (curPosY - posY));
+                        }
+                        float x = (curPosX - posX)/2000;
+                        float y = (curPosY - posY)/1000;
+                        if (isFullScreen && easyPlayerClient != null) {
+                            doCamsMove(x, y);
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    private void doCamsMove(float x, float y) {
+        CamsMove camsMove = new CamsMove();
+        camsMove.setX(x);
+        camsMove.setY(y);
+        mPresenter.doCamsMove(macAddress, camsKey, camsMove);
     }
 
     /**

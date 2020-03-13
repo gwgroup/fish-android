@@ -1,5 +1,6 @@
 package com.ypcxpt.fish.main.contract;
 
+import com.ypcxpt.fish.main.model.CamsMove;
 import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.presenter.IPresenter;
 import com.ypcxpt.fish.library.view.IView;
@@ -49,6 +50,8 @@ public interface MyDeviceContract {
         void doCamsPlay(String mac, List<CamsUseable> usable_cams, String playKey, int camsIndex);
         //切换清晰度
         void changeProfile(String mac, String playKey, String profileToken, String label);
+        //移动镜头
+        void doCamsMove(String mac, String playKey, CamsMove camsMove);
 
         //获取天气
         void getWeather(String mac);

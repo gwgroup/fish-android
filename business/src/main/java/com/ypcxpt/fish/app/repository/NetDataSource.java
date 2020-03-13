@@ -1,6 +1,7 @@
 package com.ypcxpt.fish.app.repository;
 
 import com.ypcxpt.fish.core.app.AppData;
+import com.ypcxpt.fish.main.model.CamsMove;
 import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.net.NetManager;
 import com.ypcxpt.fish.library.net.request.ParamBuilder;
@@ -308,6 +309,16 @@ public class NetDataSource implements DataSource {
                 .put("profile_token", profileToken)
                 .build();
         return mApiService.switchProfile(AppData.token(), param);
+    }
+
+    @Override
+    public Flowable<Object> doCamsMove(String mac, String key, CamsMove camsMove) {
+        HashMap<String, Object> param = ParamBuilder.newBuilder()
+                .put("device_mac", mac)
+                .put("cam_key", key)
+                .put("pan", camsMove)
+                .build();
+        return mApiService.doCamsMove(AppData.token(), param);
     }
 
 
