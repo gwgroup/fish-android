@@ -102,8 +102,12 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
                 .onSuccess(ioInfos -> {
                     Logger.d("CCC", "ioInfos-->" + ioInfos.toString());
                     mView.showIoStatus(ioInfos);
-                }).onBizError(bizMsg -> Logger.d("CCC", bizMsg.toString()))
-                .onError(throwable -> Logger.d("CCC", throwable.toString()))
+                    mView.isDeviceOnline(true);
+                }).onBizError(bizMsg -> {
+            Logger.e("CCC", bizMsg.toString());
+            mView.isDeviceOnline(false);
+        })
+                .onError(throwable -> Logger.e("CCC", throwable.toString()))
                 .start();
     }
 
@@ -251,7 +255,10 @@ public class MyDevicePresenter extends BasePresenter<MyDeviceContract.View> impl
     @Override
     public void doCamsMove(String mac, String playKey, CamsMove camsMove) {
         Flowable<Object> source = mDS.doCamsMove(mac, playKey, camsMove);
-        fetch(source).onSuccess(o -> {
+        new Fetcher<>(source)
+                .withView(mView)
+                .showLoading(false)
+                .showNoNetWarning(true).onSuccess(o -> {
             Logger.e("CCC", "移动镜头成功");
         }).start();
     }

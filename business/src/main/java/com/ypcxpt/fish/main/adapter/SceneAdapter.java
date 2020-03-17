@@ -7,11 +7,14 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ypcxpt.fish.R;
+import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.main.model.Scenes;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.StringHelper;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class SceneAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
     private MyDeviceContract.Presenter mPresenter;
@@ -66,10 +69,10 @@ public class SceneAdapter extends BaseQuickAdapter<Scenes, BaseViewHolder> {
             /**
              * 获取mac下的摄像头配置
              */
-            mPresenter.getCamsConfig(item.macAddress);
+            ThreadHelper.postDelayed(() -> mPresenter.getCamsConfig(item.macAddress), 500);
 
             /* 获取天气 */
-            mPresenter.getWeather(item.macAddress);
+            ThreadHelper.postDelayed(() -> mPresenter.getWeather(item.macAddress), 1000);
         });
     }
 }

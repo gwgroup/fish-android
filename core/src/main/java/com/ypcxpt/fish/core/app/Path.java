@@ -23,6 +23,7 @@ public class Path {
         public static final String IO_CONFIG= "/main/ioConfig";
         public static final String ADD_PLAN= "/main/addPlan";
         public static final String ADD_TRIGGER= "/main/addTrigger";
+        public static final String NET_SETTING = "/main/netSetting";
 
         public static final String EDIT_PROFILE = "/main/edit_user_profile";
         public static final String DEVICE_MANAGER = "/main/device_manager";

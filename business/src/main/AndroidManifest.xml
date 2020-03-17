@@ -125,6 +125,8 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.ypcxpt.fish.main.view.activity.AddTriggerActivity"
             android:screenOrientation="portrait" />
+        <activity android:name="com.ypcxpt.fish.main.view.activity.NetSettingActivity"
+            android:screenOrientation="portrait" />
 
         <activity android:name="com.ypcxpt.fish.login.view.activity.BindActivity"
             android:screenOrientation="portrait" />

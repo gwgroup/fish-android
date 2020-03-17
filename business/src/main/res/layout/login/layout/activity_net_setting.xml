@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Layout_Match_Match">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp46"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="@dimen/dp46"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp10">
+
+            <ImageView
+                android:layout_width="@dimen/dp36"
+                android:layout_height="@dimen/dp36"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Layout_Wrap_Wrap"
+            android:layout_centerInParent="true"
+            android:text="帮助设备连接到网络"
+            android:textColor="@color/user_profile_item_content"
+            android:textSize="@dimen/sp16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/common_FAFAFA" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/Layout_Match_Match"
+        android:layout_below="@+id/rl_title"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dp20"
+        android:visibility="gone"
+        android:paddingRight="@dimen/dp20">
+
+        <TextView
+            android:id="@+id/tv_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp80"
+            android:text="第一步"
+            android:textStyle="bold"
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp18" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_01"
+            android:layout_marginTop="@dimen/dp50"
+            android:lineSpacingExtra="@dimen/dp5"
+            android:text="长按设备上的配网按钮8秒钟，进入配网模式;\n你会看到状态指示灯红蓝闪烁."
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp15" />
+
+        <TextView
+            android:id="@+id/tv_set01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp80"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/sl_bg_login_btn"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp8"
+            android:paddingBottom="@dimen/dp8"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/Layout_Match_Match"
+        android:layout_below="@+id/rl_title"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20">
+
+        <TextView
+            android:id="@+id/tv_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp80"
+            android:text="第二步"
+            android:textStyle="bold"
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp18" />
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_02"
+            android:layout_marginTop="@dimen/dp50"
+            android:lineSpacingExtra="@dimen/dp5"
+            android:text="输入您要使用的WIFI标识和密码."
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp15" />
+
+        <LinearLayout
+            android:id="@+id/ll_wifiName"
+            style="@style/Layout_Match_Wrap"
+            android:layout_marginTop="@dimen/dp25"
+            android:layout_below="@+id/tv_text"
+            android:background="@drawable/bg_line_blue"
+            android:orientation="horizontal">
+
+            <com.xw.repo.XEditText
+                android:id="@+id/et_wifiName"
+                style="@style/Layout_Match_Wrap"
+                android:background="@android:color/transparent"
+                android:hint="请输入WIFI名称"
+                android:maxLength="11"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingTop="@dimen/dp12"
+                android:paddingBottom="@dimen/dp12"
+                android:textColor="@color/common_222222"
+                android:textSize="@dimen/sp16"
+                app:x_clearDrawable="@mipmap/ic_clear_text"
+                tools:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Layout_Match_Wrap"
+            android:layout_marginTop="@dimen/dp15"
+            android:layout_below="@+id/ll_wifiName"
+            android:background="@drawable/bg_line_blue"
+            android:orientation="horizontal">
+
+            <com.xw.repo.XEditText
+                android:id="@+id/et_wifiPwd"
+                style="@style/Layout_Match_Wrap"
+                android:background="@android:color/transparent"
+                android:hint="请输入WIFI密码"
+                android:maxLength="11"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingTop="@dimen/dp12"
+                android:paddingBottom="@dimen/dp12"
+                android:textColor="@color/common_222222"
+                android:textSize="@dimen/sp16"
+                app:x_clearDrawable="@mipmap/ic_clear_text"
+                tools:text="" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_set02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp80"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/sl_bg_login_btn"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp8"
+            android:paddingBottom="@dimen/dp8"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/Layout_Match_Match"
+        android:layout_below="@+id/rl_title"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dp20"
+        android:visibility="visible"
+        android:paddingRight="@dimen/dp20">
+
+        <TextView
+            android:id="@+id/tv_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp80"
+            android:text="第三步"
+            android:textStyle="bold"
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp18" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_03"
+            android:layout_marginTop="@dimen/dp50"
+            android:lineSpacingExtra="@dimen/dp5"
+            android:text="连接到设备热点smart"
+            android:textColor="@color/common_161717"
+            android:textSize="@dimen/sp15" />
+
+        <TextView
+            android:id="@+id/tv_set03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp80"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/sl_bg_login_btn"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp8"
+            android:paddingBottom="@dimen/dp8"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+    </RelativeLayout>
+</RelativeLayout>

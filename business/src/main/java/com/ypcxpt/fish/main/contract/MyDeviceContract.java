@@ -23,6 +23,8 @@ public interface MyDeviceContract {
         void showVLCVideo(List<CamsUseable> usable_cams, String playKey, int camsIndex);
 
         void showVLCVideoLabel(String label);
+
+        void isDeviceOnline(boolean online);
     }
 
     interface Presenter extends IPresenter {

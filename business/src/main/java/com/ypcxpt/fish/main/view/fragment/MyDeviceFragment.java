@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.provider.Settings;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -71,7 +70,6 @@ import com.ypcxpt.fish.main.util.MainOperationDialog;
 import com.ypcxpt.fish.main.util.ScenesRenameDialog;
 import com.ypcxpt.fish.main.view.activity.CaptureScanActivity;
 
-import org.easydarwin.util.C;
 import org.easydarwin.video.EasyPlayerClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -90,6 +88,12 @@ import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherCollections;
 import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherIcon;
 
 public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.View {
+
+    @BindView(R.id.ll_online)
+    LinearLayout ll_online;
+    @BindView(R.id.ll_offline)
+    LinearLayout ll_offline;
+
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -575,6 +579,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         mAdapter.setNewData(scenes);
 
         if (scenes.size() > 0) {
+            ll_online.setVisibility(View.VISIBLE);
+            ll_offline.setVisibility(View.GONE);
             /* 设置选中状态为默认的第一个 */
             mAdapter.setIndex(selected);
             mAdapter.notifyDataSetChanged();
@@ -590,6 +596,9 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
 
             /* 获取天气 */
             mPresenter.getWeather(scenes.get(selected).macAddress);
+        } else {
+            ll_online.setVisibility(View.GONE);
+            ll_offline.setVisibility(View.VISIBLE);
         }
     }
 
@@ -836,6 +845,25 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     @Override
     public void showVLCVideoLabel(String label) {
         tv_videoLabel.setText(label);
+    }
+
+    @Override
+    public void isDeviceOnline(boolean online) {
+        if (online) {
+            ll_online.setVisibility(View.VISIBLE);
+            ll_offline.setVisibility(View.GONE);
+        } else {
+            ll_online.setVisibility(View.GONE);
+            ll_offline.setVisibility(View.VISIBLE);
+
+            mHandler.removeCallbacks(heartBeatRunnable);
+            closeConnect();
+        }
+    }
+
+    @OnClick(R.id.tv_dms)
+    public void onDmsClick() {
+        Router.build(Path.Main.NET_SETTING).navigation(getActivity());
     }
 
     @Subscribe
