@@ -57,7 +57,7 @@ public class NetSettingActivity extends BaseActivity {
 
     WifiManager wifiManager;
     WifiConnector wac;
-    private String SSID = "smart";
+    private String SSID = "小鱼物联";
 
     @Override
     protected int layoutResID() {

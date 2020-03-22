@@ -457,7 +457,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
                         } else if ((curPosY - posY < 0) && (Math.abs(curPosY - posY) > 25)) {
                             Logger.e("----", "向上滑动" + (curPosY - posY));
                         }
-                        float x = (curPosX - posX)/2000;
+                        float x = -(curPosX - posX)/2000;
                         float y = (curPosY - posY)/1000;
                         if (isFullScreen && easyPlayerClient != null) {
                             doCamsMove(x, y);

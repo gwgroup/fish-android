@@ -14,8 +14,8 @@ ext {
     app = [
             minSdkVersion   : 21,
             targetSdkVersion: 27,
-            versionCode     : 106,
-            versionName     : '1.0.6'
+            versionCode     : 107,
+            versionName     : '1.0.7'
     ]
 
     java_version = JavaVersion.VERSION_1_8
