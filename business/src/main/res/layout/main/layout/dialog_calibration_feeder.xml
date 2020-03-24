@@ -40,7 +40,7 @@
                 android:layout_marginTop="@dimen/dp8"
                 android:background="@drawable/bg_common_input"
                 android:hint="单位（克）"
-                android:maxLength="6"
+                android:maxLength="4"
                 android:inputType="number|numberDecimal"
                 android:layout_marginLeft="@dimen/dp12"
                 android:layout_marginRight="@dimen/dp12"

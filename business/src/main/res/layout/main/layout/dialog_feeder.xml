@@ -63,7 +63,7 @@
                     android:layout_width="@dimen/dp80"
                     android:background="@drawable/bg_common_input"
                     android:hint=""
-                    android:maxLength="3"
+                    android:maxLength="4"
                     android:layout_marginLeft="@dimen/dp10"
                     android:layout_marginRight="@dimen/dp10"
                     android:paddingLeft="@dimen/dp15"
@@ -74,7 +74,7 @@
                     android:textColorHint="@color/common_969696"
                     android:textSize="@dimen/sp14"
                     app:x_clearDrawable="@mipmap/ic_clear_text"
-                    tools:text="500" />
+                    tools:text="" />
             </LinearLayout>
 
             <LinearLayout
