@@ -22,5 +22,8 @@ public interface IoConfigContract {
 
         //打开IO
         void openIO(String mac, String code, int duration);
+
+        //获取设备IO配置信息
+        void getIoStatus(String mac);
     }
 }

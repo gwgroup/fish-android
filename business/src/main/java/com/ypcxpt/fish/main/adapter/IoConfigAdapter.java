@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.app.util.TimeUtil;
 import com.ypcxpt.fish.library.util.StringHelper;
+import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.main.contract.IoConfigContract;
 import com.ypcxpt.fish.main.model.IoInfo;
@@ -134,6 +135,8 @@ public class IoConfigAdapter extends BaseQuickAdapter<IoInfo, BaseViewHolder> {
                     BigDecimal b = new BigDecimal(Double.valueOf(bark).doubleValue());
                     mPresenter.calibrationFeeder(mMac, code, b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue());
                     calibrationFeederDialog.dismiss();
+
+                    ThreadHelper.postDelayed(() -> mPresenter.getIoStatus(mMac), 500);
                 }
             }
 

@@ -126,4 +126,18 @@ public class IoConfigPresenter extends BasePresenter<IoConfigContract.View> impl
                 .onError(throwable -> Logger.d("CCC", throwable.toString()))
                 .start();
     }
+
+    @Override
+    public void getIoStatus(String mac) {
+        Flowable<List<IoInfo>> source = mDS.getIoInfo(mac);
+        new Fetcher<>(source)
+                .withView(mView)
+                .showLoading(false)
+                .showNoNetWarning(false)
+                .onSuccess(ioInfos -> {
+                    Logger.d("CCC", "ioInfos-->" + ioInfos.toString());
+                }).onBizError(bizMsg -> Logger.e("CCC", bizMsg.toString()))
+                .onError(throwable -> Logger.e("CCC", throwable.toString()))
+                .start();
+    }
 }

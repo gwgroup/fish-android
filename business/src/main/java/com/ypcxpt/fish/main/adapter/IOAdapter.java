@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.ypcxpt.fish.R;
 import com.ypcxpt.fish.library.util.SPHelper;
 import com.ypcxpt.fish.library.util.StringHelper;
+import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
 import com.ypcxpt.fish.main.model.IoInfoCurrent;
@@ -247,6 +248,8 @@ public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
                     BigDecimal b = new BigDecimal(Double.valueOf(bark).doubleValue()/10);
                     mPresenter.calibrationFeeder(mMac, code, b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue());
                     calibrationFeederDialog.dismiss();
+
+                    ThreadHelper.postDelayed(() -> mPresenter.getIoStatus(mMac), 500);
                 }
             }
 
