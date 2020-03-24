@@ -244,7 +244,7 @@ public class IOAdapter extends BaseQuickAdapter<IoInfoCurrent, BaseViewHolder> {
                 if (StringUtils.isTrimEmpty(bark)) {
                     Toaster.showShort("请输入饲料重量");
                 } else {
-                    BigDecimal b = new BigDecimal(Double.valueOf(bark).doubleValue());
+                    BigDecimal b = new BigDecimal(Double.valueOf(bark).doubleValue()/10);
                     mPresenter.calibrationFeeder(mMac, code, b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue());
                     calibrationFeederDialog.dismiss();
                 }

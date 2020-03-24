@@ -5,6 +5,7 @@ import com.ypcxpt.fish.app.repository.DataSource;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -30,16 +31,9 @@ public class ExampleUnitTest {
 
     @Test
     public void test1() {
-        int code = 0x02;
-        System.out.println(Integer.toHexString(code & 0x1));
-        System.out.println(Integer.toHexString(code & 0x2));
-        System.out.println(Integer.toHexString(code & 0x4));
-        System.out.println(Integer.toHexString(code & 0x8));
-        System.out.println(Integer.toHexString(code & 0x10));
-        System.out.println(Integer.toHexString(code & 0x20));
-        System.out.println(Integer.toHexString(code & 0x40));
-        System.out.println(Integer.toHexString(code & 0x80));
-//        0x01, 02, 04, 08, 10, 20, 40, 80
+        BigDecimal b = new BigDecimal(Double.valueOf("145").doubleValue()/10);
+        double c = b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
+        System.out.println(c + "");
     }
 
     @Test

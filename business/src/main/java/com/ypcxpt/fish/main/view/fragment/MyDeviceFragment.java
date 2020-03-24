@@ -93,6 +93,10 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
     LinearLayout ll_online;
     @BindView(R.id.ll_offline)
     LinearLayout ll_offline;
+    @BindView(R.id.tv_offline)
+    TextView tv_offline;
+    @BindView(R.id.tv_dms)
+    TextView tv_dms;
 
     @BindView(R.id.rv)
     RecyclerView rv;
@@ -599,6 +603,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         } else {
             ll_online.setVisibility(View.GONE);
             ll_offline.setVisibility(View.VISIBLE);
+            tv_offline.setText("暂无设备");
+            tv_dms.setVisibility(View.GONE);
         }
     }
 
@@ -855,6 +861,8 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         } else {
             ll_online.setVisibility(View.GONE);
             ll_offline.setVisibility(View.VISIBLE);
+            tv_offline.setText("设备不在线");
+            tv_dms.setVisibility(View.VISIBLE);
 
             mHandler.removeCallbacks(heartBeatRunnable);
             closeConnect();
