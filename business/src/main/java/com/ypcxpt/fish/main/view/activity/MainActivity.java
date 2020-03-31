@@ -38,6 +38,7 @@ import com.ypcxpt.fish.main.event.OnGetScenesEvent;
 import com.ypcxpt.fish.main.event.OnMainPagePermissionResultEvent;
 import com.ypcxpt.fish.main.event.OnProfileUpdatedEvent;
 import com.ypcxpt.fish.main.event.OnScreenEvent;
+import com.ypcxpt.fish.main.util.VersionCheckUtil;
 import com.ypcxpt.fish.main.view.fragment.EarlyWarningFragment;
 import com.ypcxpt.fish.main.view.fragment.MyDeviceFragment;
 import com.ypcxpt.fish.main.view.fragment.TimingPlanFragment;
@@ -131,7 +132,7 @@ public class MainActivity extends BaseActivity {
         ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnProfileUpdatedEvent(userProfile)), 500);
 
         //检测新版本
-//        VersionCheckUtil.getInstance(this).StartCheckVersion(this, false, false);
+        VersionCheckUtil.getInstance(this).StartCheckVersion(this, false, false);
         ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnGetScenesEvent(0)), 500);
     }
 

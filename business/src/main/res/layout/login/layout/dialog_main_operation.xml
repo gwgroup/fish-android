@@ -80,6 +80,21 @@
                 android:textSize="@dimen/sp14"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"/>
+
+            <View style="@style/divider_05"
+                android:background="@color/white"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp10" />
+
+            <TextView
+                android:id="@+id/tv_scan"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp42"
+                android:gravity="center"
+                android:text="重新扫描配置"
+                android:textSize="@dimen/sp14"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"/>
         </LinearLayout>
     </LinearLayout>
 

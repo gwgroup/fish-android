@@ -1,6 +1,8 @@
 package com.ypcxpt.fish.main.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -16,7 +18,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.TextureView;
 import android.view.View;
@@ -39,13 +43,16 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 import com.ypcxpt.fish.BuildConfig;
 import com.ypcxpt.fish.R;
+import com.ypcxpt.fish.app.util.RippleLayout;
 import com.ypcxpt.fish.app.util.VpSwipeRefreshLayout;
+import com.ypcxpt.fish.core.app.AppData;
 import com.ypcxpt.fish.core.app.Path;
 import com.ypcxpt.fish.library.router.Router;
 import com.ypcxpt.fish.library.util.Logger;
 import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.library.view.fragment.BaseFragment;
+import com.ypcxpt.fish.login.model.LoginInfo;
 import com.ypcxpt.fish.main.adapter.IOAdapter;
 import com.ypcxpt.fish.main.adapter.SceneAdapter;
 import com.ypcxpt.fish.main.contract.MyDeviceContract;
@@ -74,6 +81,9 @@ import org.easydarwin.video.EasyPlayerClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.java_websocket.handshake.ServerHandshake;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -83,6 +93,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
+import static com.ypcxpt.fish.BaseUrlConstant.BASE_URL;
 import static com.ypcxpt.fish.BaseUrlConstant.WEBSOCKET_URI;
 import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherCollections;
 import static com.ypcxpt.fish.app.util.DisplayUtils.getWeatherIcon;
@@ -249,6 +260,7 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         }
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @OnClick(R.id.iv_big)
     public void onScreen() {
         if (isFullScreen) {
@@ -512,6 +524,12 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
             }
 
             @Override
+            public void Refresh() {
+                operationDialog.dismiss();
+                refreshCams();
+            }
+
+            @Override
             public void Cancel() {
                 operationDialog.dismiss();
             }
@@ -519,6 +537,62 @@ public class MyDeviceFragment extends BaseFragment implements MyDeviceContract.V
         Window dialogWindow = operationDialog.getWindow();
         dialogWindow.setGravity(Gravity.TOP);
         operationDialog.show();
+    }
+
+    Dialog dialog;
+
+    private void showDialog() {
+        dialog = new Dialog(getActivity(), R.style.MyDialog);
+        dialog.setCancelable(false);
+        dialog.show();
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View viewDialog = inflater.inflate(R.layout.dialog_layout_search, null);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();
+        int height = display.getHeight();
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.setContentView(viewDialog, layoutParams);
+        RippleLayout ripple_layout = viewDialog.findViewById(R.id.ripple_layout);
+        ripple_layout.startRippleAnimation();
+    }
+
+    private void refreshCams() {
+        showDialog();
+        RequestParams params = new RequestParams(BASE_URL + "api/cams/scan");
+        params.addParameter("device_mac", macAddress);
+        params.setConnectTimeout(25000);
+        params.setReadTimeout(25000);
+        params.setAsJsonContent(true);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Logger.e("刷新摄像头配置", result);
+                Gson gson = new Gson();
+                LoginInfo loginInfo = gson.fromJson(result, LoginInfo.class);
+                if (loginInfo.getCode() == 1000) {
+                    //获取摄像头配置
+                    mPresenter.getCamsConfig(macAddress);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        });
     }
 
     private void addByScanCode() {

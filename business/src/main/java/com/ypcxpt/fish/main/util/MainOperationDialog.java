@@ -20,6 +20,7 @@ public class MainOperationDialog extends Dialog implements View.OnClickListener 
     private TextView tv_remove_scene;
     private TextView tv_rename_scene;
     private TextView tv_config_scene;
+    private TextView tv_scan;
 
     private OnResultListener mListener;// 回调
 
@@ -58,10 +59,12 @@ public class MainOperationDialog extends Dialog implements View.OnClickListener 
         tv_remove_scene = findViewById(R.id.tv_remove_scene);
         tv_rename_scene = findViewById(R.id.tv_rename_scene);
         tv_config_scene = findViewById(R.id.tv_config_scene);
+        tv_scan = findViewById(R.id.tv_scan);
         tv_add_scene.setOnClickListener(this);
         tv_remove_scene.setOnClickListener(this);
         tv_rename_scene.setOnClickListener(this);
         tv_config_scene.setOnClickListener(this);
+        tv_scan.setOnClickListener(this);
         rl_bg.setOnClickListener(this);
 
         setOnDismissListener(dialogInterface -> mListener.Cancel());
@@ -78,6 +81,8 @@ public class MainOperationDialog extends Dialog implements View.OnClickListener 
         void Rename();
 
         void Config();
+
+        void Refresh();
 
         void Cancel();
     }
@@ -96,6 +101,9 @@ public class MainOperationDialog extends Dialog implements View.OnClickListener 
                 break;
             case R.id.tv_config_scene:
                 mListener.Config();
+                break;
+            case R.id.tv_scan:
+                mListener.Refresh();
                 break;
             case R.id.rl_bg:
                 mListener.Cancel();

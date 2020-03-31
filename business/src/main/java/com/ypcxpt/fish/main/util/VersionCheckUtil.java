@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.ypcxpt.fish.R;
@@ -16,9 +15,7 @@ import com.ypcxpt.fish.library.util.ThreadHelper;
 import com.ypcxpt.fish.library.util.Toaster;
 import com.ypcxpt.fish.login.contract.LoginContract;
 import com.ypcxpt.fish.main.event.OnRefreshUserEvent;
-import com.ypcxpt.fish.main.model.VersionDetailInfo;
-import com.ypcxpt.fish.main.util.okhttp.HttpUtils;
-import com.ypcxpt.fish.main.util.okhttp.callback.filecallback.MyFileRequestCallback;
+import com.ypcxpt.fish.main.model.VersionInfo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.Callback;
@@ -26,8 +23,6 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.File;
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -40,8 +35,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.ypcxpt.fish.BaseUrlConstant.BASE_URL;
 
 /**
  * @Description: 版本更新
@@ -85,7 +78,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
         this.isShowToaster = isShowToaster;
 
         getVersion(activity)
-                .flatMap((Function<VersionDetailInfo, ObservableSource<String>>) versionDetailInfo -> ShowWindow(activity, versionDetailInfo))
+                .flatMap((Function<VersionInfo, ObservableSource<String>>) versionDetailInfo -> ShowWindow(activity, versionDetailInfo))
                 .flatMap((Function<String, ObservableSource<Integer>>) s -> DownLoadApk(s, activity))//这里不该写成完成式
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -102,7 +95,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
                         mDialog.setPercent(value);
                         if (value == 100) {
                             mDialog.setButtonOk("下载完成");
-                            DownLoadNotification.getInstance(activity, fileurl + "/ReeadHome.apk", false).installApk();
+                            DownLoadNotification.getInstance(activity, fileurl + "/Fish.apk", false).installApk();
                             mDialog.setButtonOk("重新下载");
                         }
                     }
@@ -119,22 +112,21 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
                 });
     }
 
-    public Observable<VersionDetailInfo> getVersion(Activity activity) {
-        return Observable.create(new ObservableOnSubscribe<VersionDetailInfo>() {
+    public Observable<VersionInfo> getVersion(Activity activity) {
+        return Observable.create(new ObservableOnSubscribe<VersionInfo>() {
             @Override
-            public void subscribe(final ObservableEmitter<VersionDetailInfo> e) throws Exception {
+            public void subscribe(final ObservableEmitter<VersionInfo> e) throws Exception {
 
-                RequestParams params = new RequestParams(BASE_URL + "/update/check");
-                params.setHeader("User-Agent", SPHelper.getString("User-Agent"));
-                x.http().post(params, new Callback.CommonCallback<String>() {
+                RequestParams params = new RequestParams("https://www.smartbreed.cn/apks/version.json");
+                x.http().get(params, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
                         Logger.e("VersionCheck", result);
                         Gson gson = new Gson();
-                        VersionDetailInfo versionDetailInfo = gson.fromJson(result, VersionDetailInfo.class);
-                        if (versionDetailInfo.getCode() == 0) {
-                            e.onNext(versionDetailInfo);
-                        }
+                        VersionInfo versionInfo = gson.fromJson(result, VersionInfo.class);
+//                        if (versionInfo.getCode() == 0) {
+                            e.onNext(versionInfo);
+//                        }
                     }
 
                     @Override
@@ -154,47 +146,47 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
         }).throttleFirst(1, TimeUnit.SECONDS).subscribeOn(Schedulers.io());
     }
 
-    private Observable<String> ShowWindow(final Activity activity, final VersionDetailInfo data) {
+    private Observable<String> ShowWindow(final Activity activity, final VersionInfo data) {
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(final ObservableEmitter<String> e) throws Exception {
-//                String version = getAPKVersion(mcontext);
-//                String versionClient = version.replace(".", "");
-//                String versionServer = data.getData().getVersion().replace(".", "");
-//                int vC = Integer.parseInt(versionClient);
-//                int vS = Integer.parseInt(versionServer);
-//
-//                Logger.i("Version", "vc-->" + vC + ",vs-->" + vS);
-//                //如果本地版本>=服务器版本，则不升级
-//                if (vC >= vS) {
-//                    e.onComplete();
-//                    if (isShowToaster) {
-//                        Toaster.showLong("当前已是最新版本");
-//                    }
-//                    return;
-//                }
-                /**
-                 * 不需要更新
-                 */
-                if (!data.getData().isUpdate()) {
-                    SPHelper.putBoolean("FQZ_UPDATE", false);
-                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnRefreshUserEvent()), 200);
+                String version = getAPKVersion(mcontext);
+                String versionClient = version.replace(".", "");
+                String versionServer = data.getVersion().replace(".", "");
+                int vC = Integer.parseInt(versionClient);
+                int vS = Integer.parseInt(versionServer);
+
+                Logger.i("Version", "vc-->" + vC + ",vs-->" + vS);
+                //如果本地版本>=服务器版本，则不升级
+                if (vC >= vS) {
                     e.onComplete();
                     if (isShowToaster) {
                         Toaster.showLong("当前已是最新版本");
                     }
                     return;
                 }
+//                /**
+//                 * 不需要更新
+//                 */
+//                if (!data.getData().isUpdate()) {
+//                    SPHelper.putBoolean("FQZ_UPDATE", false);
+//                    ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnRefreshUserEvent()), 200);
+//                    e.onComplete();
+//                    if (isShowToaster) {
+//                        Toaster.showLong("当前已是最新版本");
+//                    }
+//                    return;
+//                }
 
                 mDialog = new VersionUpdateDialog(activity, R.style.MyDialog);
                 mDialog.setTextTitle("发现新版本");
-                mDialog.setVersionCode(data.getData().getVersion());
+                mDialog.setVersionCode(data.getVersion());
 //                mDialog.setDesccontent(data.getDescribe());
-                Logger.e("VersionCheckUtil", "版本更新描述：" + data.getData().getContent());
-                if (getNotNullStr(data.getData().getContent()).length() != 0)
-                    mDialog.addTextContent(data.getData().getContent());
+                Logger.e("VersionCheckUtil", "版本更新描述：" + data.getDescribe());
+                if (getNotNullStr(data.getDescribe()).length() != 0)
+                    mDialog.addTextContent(data.getDescribe());
                 mDialog.setCancelable(false);
-                if (data.getData().getType() == 1) {
+//                if (data.getData().getType() == 1) {
                     /**
                      * 非强制更新
                      */
@@ -204,28 +196,28 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
                     ThreadHelper.postDelayed(() -> EventBus.getDefault().post(new OnRefreshUserEvent()), 200);
 
                     mDialog.setProgressBarShow(false);
-                } else {
-                    /**
-                     * 强制更新
-                     */
-                    mDialog.setOnlyOk(true);
-                    isshow = true;
-
-                    mDialog.setProgressBarShow(false);
-                }
+//                } else {
+//                    /**
+//                     * 强制更新
+//                     */
+//                    mDialog.setOnlyOk(true);
+//                    isshow = true;
+//
+//                    mDialog.setProgressBarShow(false);
+//                }
                 mDialog.setOnResultListener(new VersionUpdateDialog.OnResultListener() {
 
                     @Override
                     public void Ok() {
                         if (!isDowning) {
                             //DownLoadApk(activity,msg.obj.toString());考虑到必须要分开 我觉得这里弄个handler来解决自定义操作而不是简单直接下载
-                            if (data.getData().getType() == 1) {
+//                            if (data.getData().getType() == 1) {
                                 mDialog.dismiss();
                                 Toaster.showLong("正在后台下载...请保持网络良好");
-                            } else {
-                                mDialog.setButtonOk("下载中..");
-                            }
-                            e.onNext(data.getData().getFile_url());
+//                            } else {
+//                                mDialog.setButtonOk("下载中..");
+//                            }
+                            e.onNext("https://www.smartbreed.cn/apks/fish.apk");
                             isDowning = true;
                         }
                     }
@@ -233,13 +225,13 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
                     @Override
                     public void Cancel(boolean is) {
                         if (is)
-                            SPHelper.putString("version", data.getData().getVersion());
+                            SPHelper.putString("version", data.getVersion());
                         mDialog.dismiss();
                         e.onComplete();
                     }
                 });
 //                Log.e("有无忽略版本存在", SharedPreferenceUtil.getInfoFromShared("version", ""));
-                if (isshow || !SPHelper.getString("version", "").equals(data.getData().getVersion()) || isShowToaster)
+                if (isshow || !SPHelper.getString("version", "").equals(data.getVersion()) || isShowToaster)
                     mDialog.show();
             }
         }).subscribeOn(AndroidSchedulers.mainThread()).doOnSubscribe(new Consumer<Disposable>() {
@@ -257,7 +249,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
 
                 final String downurl = url;
                 Logger.e("CCC", "fileurl-->" + fileurl);
-//                HttpUtils.getInstance().downLoadFile(downurl, fileurl, "ReeadHome.apk", new MyFileRequestCallback<File>() {
+//                HttpUtils.getInstance().downLoadFile(downurl, fileurl, "Fish.apk", new MyFileRequestCallback<File>() {
 //
 //                    @Override
 //                    public void OnSuccess(File file) {
@@ -266,7 +258,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
 //                        percent = 1;
 //                        if (activity != null && !activity.isFinishing()) {
 //                            e.onNext(100);
-//                            DownLoadNotification.getInstance(activity, fileurl + "/ReeadHome.apk", false).Show(100);//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
+//                            DownLoadNotification.getInstance(activity, fileurl + "/Fish.apk", false).Show(100);//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
 //                        }
 //                        e.onComplete();
 //                    }
@@ -282,7 +274,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
 //                        if (percent < 100) {
 //                            e.onNext(percent);
 //
-//                            DownLoadNotification.getInstance(activity, fileurl + "/ReeadHome.apk", false).Show((int) (100 * d.floatValue()));//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
+//                            DownLoadNotification.getInstance(activity, fileurl + "/Fish.apk", false).Show((int) (100 * d.floatValue()));//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
 //                        }
 ////                        }
 //                    }
@@ -293,14 +285,14 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
 //                    }
 //                });
 
-                new AppFileDownUtils(downurl, "ReeadHome.apk", new DownLoadListener() {
+                new AppFileDownUtils(downurl, "Fish.apk", new DownLoadListener() {
                     @Override
                     public void onDownLoadSuccess(File file) {
                         isDowning = false;
                         percent = 1;
                         if (activity != null && !activity.isFinishing()) {
                             e.onNext(100);
-                            DownLoadNotification.getInstance(activity, fileurl + "/ReeadHome.apk", false).Show(100);//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
+                            DownLoadNotification.getInstance(activity, fileurl + "/Fish.apk", false).Show(100);//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
                         }
                         e.onComplete();
                     }
@@ -309,7 +301,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
                     public void onDownLoadFailed(String msg) {
                         Logger.e("downloadfailed", msg);
                         isDowning = false;
-                        DownLoadNotification.getInstance(activity, fileurl + "/ReeadHome.apk", false).hideNotification();
+                        DownLoadNotification.getInstance(activity, fileurl + "/Fish.apk", false).hideNotification();
                     }
 
                     @Override
@@ -319,7 +311,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
 //                        if (progress < 100) {
                         e.onNext(progress);
 
-                        DownLoadNotification.getInstance(activity, fileurl + "/ReeadHome.apk", false).Show(progress);
+                        DownLoadNotification.getInstance(activity, fileurl + "/Fish.apk", false).Show(progress);
 //                        }
 //                        }
                     }
@@ -330,7 +322,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
 //                //自动为文件命名
 //                params.setAutoRename(false);
 //                //自定义保存路径，Environment.getExternalStorageDirectory()：SD卡的根目录
-//                params.setSaveFilePath(fileurl + "/ReeadHome.apk");
+//                params.setSaveFilePath(fileurl + "/Fish.apk");
 //
 //                params.setExecutor(new PriorityExecutor(2, true));//自定义线程池,有效的值范围[1, 3], 设置为3时, 可能阻塞图片加载.
 ////                params.setCancelFast(true);//是否可以被立即停止.
@@ -342,7 +334,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
 //                        percent = 1;
 //                        if (activity != null && !activity.isFinishing()) {
 //                            e.onNext(100);
-//                            DownLoadNotification.getInstance(activity, fileurl + "/ReeadHome.apk", false).Show(100);//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
+//                            DownLoadNotification.getInstance(activity, fileurl + "/Fish.apk", false).Show(100);//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
 //                        }
 //                        e.onComplete();
 //                    }
@@ -385,7 +377,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
 //                            if (progress < 100) {
 //                                e.onNext(progress);
 //
-//                                DownLoadNotification.getInstance(activity, fileurl + "/ReeadHome.apk", false).Show(progress);
+//                                DownLoadNotification.getInstance(activity, fileurl + "/Fish.apk", false).Show(progress);
 //                            }
 //                        }
 //
@@ -396,7 +388,7 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
 //                        if (percent < 100) {
 //                            e.onNext(percent);
 //
-//                            DownLoadNotification.getInstance(activity, fileurl + "/ReeadHome.apk", false).Show((int) (100 * d.floatValue()));//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
+//                            DownLoadNotification.getInstance(activity, fileurl + "/Fish.apk", false).Show((int) (100 * d.floatValue()));//其实很郁闷这里的被观察操作按理说不在订阅里操作 应该是非ui操作异常的
 //                        }
 //                    }
 //                });
@@ -408,5 +400,19 @@ public class VersionCheckUtil extends BasePresenter<LoginContract.View> {
         if (str == null || str == "null" || str == "")
             return "";
         return str;
+    }
+
+    /**
+     * 取得应用的版本号
+     */
+    public static String getAPKVersion(Context ctx) {
+        PackageManager packageManager = ctx.getPackageManager();
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(ctx.getPackageName(), 0);
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

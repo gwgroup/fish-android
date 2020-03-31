@@ -29,7 +29,7 @@ public class VersionUpdateAdapter extends BaseAdapter {
         this.str = data;
         Log.e("VersionUpdateAdapter", "版本更新描述：" + data);
         if (str.length() != 0) {
-            String[] strs = str.split("\\#");
+            String[] strs = str.split("\\n");
             this.data = new ArrayList<>();
             for (int i = 0; i < strs.length; i++) {
                 this.data.add(strs[i]);
