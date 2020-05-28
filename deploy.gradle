@@ -14,8 +14,8 @@ ext {
     app = [
             minSdkVersion   : 21,
             targetSdkVersion: 27,
-            versionCode     : 109,
-            versionName     : '1.0.9'
+            versionCode     : 110,
+            versionName     : '1.1.0'
     ]
 
     java_version = JavaVersion.VERSION_1_8
@@ -24,10 +24,10 @@ ext {
     schemeName = "Reead"
 
     baseUrl = [
-            debug  : "\"https://fish.ypcxpt.com/\"",
+            debug  : "\"https://fish.smartbreed.cn/\"",
             testing: "\"https://fish.ypcxpt.com/\"",
             staging: "\"https://fish.ypcxpt.com/\"",
-            release: "\"https://fish.ypcxpt.com/\""
+            release: "\"https://fish.smartbreed.cn/\""
     ]
 
     hostName = [
