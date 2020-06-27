@@ -85,6 +85,7 @@ public class AddTriggerActivity extends BaseActivity implements AddTriggerContra
         if (TRIGGER_TYPE == 1) {
             tv_title.setText("添加触发任务");
             rl_add.setVisibility(View.GONE);
+            operaction = "open";
         } else {
             tv_title.setText("编辑触发任务");
             rl_add.setVisibility(View.VISIBLE);
